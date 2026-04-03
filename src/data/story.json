@@ -50,7 +50,7 @@
     "confrontar_espia": {
       "text": "Es un hombre embozado, con el rostro oculto. 'Tengo información sobre una traición que se gesta en la corte de Madrid, Almirante'.",
       "image": "escalera.png",
-      "character": { "name": "Informador Anónimo", "image": "/secretario.png" },
+      "character": { "name": "Informador Anónimo", "image": "secretario.png" },
       "options": [
         { "text": "Darle una Bolsa de Oro (Si la tienes)", "nextNode": "espia_revela", "requireItem": "Bolsa de Oro" },
         { "text": "Amenazarlo con la guardia del palacio", "nextNode": "espia_huida" }
@@ -85,7 +85,7 @@
     "secretario_intro": {
       "text": "'Almirante, han descubierto a un traidor entre los criados del palacio. Si no tenemos pruebas, no podremos actuar'.",
       "image": "despacho.png",
-      "character": { "name": "Secretario", "image": "/secretario.png" },
+      "character": { "name": "Secretario", "image": "secretario.png" },
       "options": [
         { "text": "Usar el Sello Real para registrar aposentos", "nextNode": "registro_exito", "requireItem": "Sello Real" },
         { "text": "Interrogar al secretario sobre sus sospechosos", "nextNode": "secretario_sospechas" },
