@@ -593,3 +593,53 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
   background: #c00 !important;
   box-shadow: 0 0 30px rgba(255,0,0,0.4);
 }
+/* ========================
+   MOBILE RESPONSIVENESS
+   ======================== */
+
+@media (max-width: 768px) {
+  body { overflow-y: auto; }
+  .pro-container { height: auto; min-height: 100vh; justify-content: flex-start; padding-top: 120px; }
+  
+  /* Title Screen Mobile */
+  .title-content { flex-direction: column; align-items: center; gap: 2rem; padding: 1rem; margin-top: 2rem; }
+  .hero-portrait { position: relative; height: 35vh; width: 100%; top: 0; left: 0; margin-bottom: -4rem; }
+  .hero-portrait img { height: 100%; width: auto; mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); }
+  
+  .title-text-block { padding: 2rem 1.5rem; background: rgba(0,0,0,0.7); text-align: center; width: 100%; }
+  .title-main { font-size: 2.8rem; letter-spacing: 2px; }
+  .title-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
+  .title-actions { justify-content: center; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; padding: 1rem; }
+  
+  .title-footer { position: relative; flex-direction: column; gap: 10px; padding: 2rem; background: #000; }
+
+  /* In-Game HUD Mobile */
+  .status-dashboard { 
+    position: fixed; top: 70px; right: 10px; left: 10px; width: auto; 
+    display: flex; flex-direction: row; gap: 15px; padding: 10px; height: auto;
+    background: rgba(0,0,0,0.85);
+  }
+  .status-item { flex: 1; margin: 0; }
+  .inventory-bar { display: none; } /* Hide inventory in main bar, maybe add a button */
+  
+  .nav-control { position: fixed; top: 10px; left: 10px; right: 10px; display: flex; justify-content: space-between; width: auto; }
+  .map-btn { padding: 8px 15px; font-size: 0.8rem; }
+  
+  .hud-box { position: relative; margin-top: 100px; margin-bottom: 20px; padding: 0 10px; bottom: auto; }
+  .parchment-sheet { padding: 1.5rem; border-left-width: 4px; }
+  .pro-text { font-size: 1.1rem; min-height: auto; margin-bottom: 1.5rem; }
+  .pro-option { padding: 0.8rem 1rem; font-size: 1rem; gap: 1rem; }
+  
+  .portrait-container { display: none; } /* Too much clutter on mobile */
+  
+  /* Overlays */
+  .nav-menu { width: 90%; padding: 1.5rem; }
+  .credits-body { width: 90%; padding: 2rem 1.5rem; font-size: 1rem; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-portrait { display: none; }
+  .title-content { padding-top: 0; }
+  .title-main { font-size: 2.5rem; }
+}
