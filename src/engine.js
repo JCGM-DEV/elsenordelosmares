@@ -12,7 +12,7 @@ export class GameEngine {
       musicEnabled: false
     };
     this.audio = new Audio();
-    this.audio.src = 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3';
+    this.audio.src = './audio_epic.mp3'; // Changed from absolute to relative for portability
     this.audio.crossOrigin = 'anonymous';
     this.audio.preload = 'auto';
     this.audio.loop = true;
@@ -31,7 +31,8 @@ export class GameEngine {
 
         <div class="title-content">
           <div class="hero-portrait animate-rise">
-            <img src="/alvaro_hero.png" alt="Don Álvaro de Bazán">
+            <img src="./gold_frame.png" class="shield-frame">
+            <img src="./alvaro_hero.png" alt="Don Álvaro de Bazán">
           </div>
           
           <div class="title-text-block">
