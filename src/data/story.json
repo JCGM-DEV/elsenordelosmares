@@ -1,0 +1,130 @@
+{
+  "startNode": "patio",
+  "nodes": {
+    "patio": {
+      "text": "Estás en el Patio de Honor. Un lugar de mármol y gloria. Las gentes del Viso saben que algo grande se gesta.",
+      "image": "/patio.png",
+      "options": [
+        { "text": "Subir a tu Despacho", "nextNode": "escalera" },
+        { "text": "Bajar a las bodegas de suministros", "nextNode": "bodegas" }
+      ]
+    },
+    "bodegas": {
+      "text": "Las bodegas huelen a salitre y madera vieja. Entre los barriles, encuentras un cofre pequeño abandonado.",
+      "image": "/patio.png",
+      "options": [
+        { "text": "Abrir el cofre", "nextNode": "bodega_cofre", "collectItem": "Mapa de Lisboa" },
+        { "text": "Volver al Patio", "nextNode": "patio" }
+      ]
+    },
+    "bodega_cofre": { 
+      "text": "Dentro del cofre hay un Mapa de Lisboa detallado. Esto será vital cuando llegues al puerto.", 
+      "image": "/patio.png", 
+      "options": [ { "text": "Regresar al sol", "nextNode": "patio" } ] 
+    },
+    "escalera": {
+      "text": "La escalera te lleva a la planta noble. Sientes que alguien te sigue con la mirada desde las sombras.",
+      "image": "/patio.png",
+      "options": [
+        { "text": "Entrar rápido al Despacho", "nextNode": "despacho" },
+        { "text": "Detenerse y confrontar la sombra", "nextNode": "confrontar_espia" }
+      ]
+    },
+    "confrontar_espia": {
+      "text": "Es un hombre embozado. 'Tengo información sobre una traición en la corte, Almirante, pero el silencio tiene un precio'.",
+      "image": "/patio.png",
+      "character": { "name": "Informador Anónimo", "image": "/secretario.png" },
+      "options": [
+        { "text": "Darle una Bolsa de Oro (Si la tienes)", "nextNode": "espia_revela", "requireItem": "Bolsa de Oro" },
+        { "text": "Amenazarlo con la guardia", "nextNode": "espia_huida" }
+      ]
+    },
+    "espia_huida": {
+      "text": "El hombre desaparece por la escalera de servicio. Has perdido una oportunidad valiosa.",
+      "image": "/patio.png",
+      "options": [ { "text": "Ir al Despacho", "nextNode": "despacho" } ]
+    },
+    "despacho": {
+      "text": "Tu despacho. En la mesa hay una carta sin sellar de tu secretario personal.",
+      "image": "/despacho.png",
+      "character": { "name": "Don Álvaro de Bazán", "image": "/don_alvaro.png" },
+      "options": [
+        { "text": "Llamar al Secretario", "nextNode": "secretario_intro" },
+        { "text": "Buscar en los cajones", "nextNode": "cajones_despacho", "collectItem": "Sello Real" }
+      ]
+    },
+    "cajones_despacho": {
+      "text": "Encuentras el Sello Real. Con él, podrás emitir órdenes oficiales que nadie osará discutir.",
+      "image": "/despacho.png",
+      "options": [ { "text": "Hablar con el Secretario", "nextNode": "secretario_intro" } ]
+    },
+    "secretario_intro": {
+      "text": "'Almirante, han descubierto a un traidor. Si no tenemos pruebas, no podremos actuar'.",
+      "image": "/despacho.png",
+      "character": { "name": "Secretario", "image": "/secretario.png" },
+      "options": [
+        { "text": "Usar el Sello Real para registrar sus aposentos", "nextNode": "registro_exito", "requireItem": "Sello Real" },
+        { "text": "Investigar por tu cuenta en las calles", "nextNode": "calles_intro" }
+      ]
+    },
+    "registro_exito": {
+      "text": "Bajo la alfombra de los aposentos, hallas una Bolsa de Oro inglés. ¡La prueba de la traición!",
+      "image": "/despacho.png",
+      "options": [ { "text": "Recoger el Oro y bajar al pueblo", "nextNode": "calles_intro", "collectItem": "Bolsa de Oro" } ]
+    },
+    "calles_intro": {
+      "text": "Las calles del Viso son un hervidero. Un jinete te informa de que el Rey está cerca.",
+      "image": "/calles.png",
+      "options": [
+        { "text": "Visitar la Iglesia", "nextNode": "iglesia_intro" },
+        { "text": "Ir al Convento", "nextNode": "convento_intro" },
+        { "text": "Partir hacia Lisboa (Sin mapas ni suministros)", "nextNode": "muerte_camino" }
+      ]
+    },
+    "muerte_camino": {
+      "type": "gameover",
+      "text": "Has partido sin preparación. A mitad de camino, una patrulla te confunde con un desertor y terminas en las mazmorras de Toledo. GAME OVER.",
+      "image": "/escorial.png",
+      "options": []
+    },
+    "iglesia_intro": {
+      "text": "La penumbra de la iglesia te acoge. El cocodrilo parece vigilarte.",
+      "image": "/iglesia.png",
+      "options": [
+        { "text": "Pedir la bendición al cura", "nextNode": "iglesia_cura" },
+        { "text": "Observar el cocodrilo", "nextNode": "iglesia_cocodrilo" }
+      ]
+    },
+    "iglesia_cocodrilo": {
+      "text": "Al tocar una placa bajo el animal, encuentras una llave oculta. 'La llave de mi destino', susurras.",
+      "image": "/iglesia.png",
+      "options": [ { "text": "Recoger Llave", "nextNode": "iglesia_intro", "collectItem": "Llave Antigua" } ]
+    },
+    "iglesia_cura": {
+      "text": "El cura te advierte: 'En Lisboa, busca la casa de la puerta azul. Allí sabrán qué hacer'.",
+      "image": "/iglesia.png",
+      "options": [ { "text": "Volver a la calle", "nextNode": "calles_intro" } ]
+    },
+    "final_decision": {
+      "text": "El momento ha llegado. El San Martín te espera en Lisboa. Si tienes el Mapa y el Sello, la gloria será tuya.",
+      "image": "/lisboa.png",
+      "options": [
+        { "text": "Zarpar con preparación total", "nextNode": "final_logic", "requireItem": "Mapa de Lisboa" },
+        { "text": "Zarpar a la desesperada", "nextNode": "muerte_naval" }
+      ]
+    },
+    "muerte_naval": {
+      "type": "gameover",
+      "text": "Sin mapas, la flota encalla en los bajíos de Belem. El Rey te retira el mando. Tu carrera ha terminado en vergüenza. GAME OVER.",
+      "image": "/barco.png",
+      "options": []
+    },
+    "final_logic": {
+      "text": "Has triunfado sobre la intriga y la naturaleza. La Armada Invencible, bajo tu mando experto, cambia el curso de la historia.",
+      "image": "/barco.png",
+      "options": [
+        { "text": "¡VICTORIA ETERNA!", "nextNode": "patio" }
+      ]
+    }
+  }
+}
