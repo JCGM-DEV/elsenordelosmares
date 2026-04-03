@@ -11,7 +11,7 @@
     },
     "bodegas": {
       "text": "Las bodegas huelen a salitre, madera vieja y aceite de oliva. Entre los pesados barriles de vino, encuentras un cofre pequeño de cuero, medio oculto.",
-      "image": "bodega.png",
+      "image": "bodegas.png",
       "options": [
         { "text": "Abrir el cofre", "nextNode": "bodega_cofre", "collectItem": "Mapa de Lisboa" },
         { "text": "Volver al Patio", "nextNode": "patio" }
@@ -19,7 +19,7 @@
     },
     "bodega_cofre": { 
       "text": "Dentro del cofre hay un Mapa de Lisboa detallado con las corrientes del Tajo marcadas en rojo. 'Esto será vital', piensas.", 
-      "image": "bodega.png", 
+      "image": "bodegas.png", 
       "options": [ { "text": "Regresar al sol del patio", "nextNode": "patio" } ] 
     },
     "escalera": {
