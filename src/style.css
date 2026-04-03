@@ -35,9 +35,9 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 
 .background-art {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 5%; left: 0; width: 100%; height: 60%;
   background-size: contain;
-  background-position: center;
+  background-position: center top;
   background-repeat: no-repeat;
   z-index: 1;
 }
@@ -170,18 +170,18 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 }
 
 /* Existing HUD styles ... */
-.hud-box { width: 100%; max-width: 900px; z-index: 20; margin-bottom: 30px; padding: 0 20px; }
-.parchment-sheet { background: var(--paper-bg) url('/clean_parchment.png') center/cover; padding: 2.5rem 3.5rem; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.7); border-left: 6px solid var(--gold); position: relative; }
-.pro-text { color: var(--ink); font-size: 1.5rem; line-height: 1.4; margin-bottom: 2rem; font-weight: 700; min-height: 4.5rem; }
+.hud-box { width: 100%; max-width: 1000px; z-index: 20; margin-bottom: 0; padding: 0 20px; position: absolute; bottom: 20px; }
+.parchment-sheet { background: rgba(249, 245, 232, 0.9) url('/clean_parchment.png') center/cover; background-blend-mode: overlay; padding: 1.5rem 2.5rem; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.7); border-left: 6px solid var(--gold); position: relative; }
+.pro-text { color: var(--ink); font-size: 1.3rem; line-height: 1.3; margin-bottom: 1.5rem; font-weight: 700; min-height: 3rem; }
 .pro-options { display: flex; flex-direction: column; gap: 0.8rem; }
 .pro-option { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.1); padding: 1rem 1.5rem; font-family: var(--font-story); font-size: 1.2rem; color: var(--ink); text-align: left; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 1.5rem; }
 .pro-option:hover { background: var(--gold); color: #000; transform: translateX(10px); }
 .opt-num { font-family: var(--font-title); font-weight: bold; color: var(--accent); }
 .header-overlay { position: absolute; top: 40px; width: 100%; text-align: center; z-index: 10; }
 .header-overlay h2 { font-family: var(--font-title); color: var(--gold); font-size: 1.2rem; letter-spacing: 5px; text-transform: uppercase; background: rgba(0,0,0,0.4); display: inline-block; padding: 8px 30px; border: 1px solid rgba(197, 160, 33, 0.3); border-radius: 5px; }
-.portrait-container { position: absolute; bottom: 300px; left: 5%; z-index: 5; width: 280px; }
+.portrait-container { position: absolute; bottom: 180px; left: 3%; z-index: 5; width: 200px; }
 .portrait-img { width: 100%; border-radius: 5px; border: 2px solid var(--gold); filter: drop-shadow(0 0 20px rgba(0,0,0,0.8)); }
-.portrait-name { background: var(--gold); color: #000; font-family: var(--font-title); font-size: 1rem; padding: 5px 15px; margin-top: -15px; position: relative; display: inline-block; font-weight: bold; }
+.portrait-name { background: var(--gold); color: #000; font-family: var(--font-title); font-size: 0.9rem; padding: 3px 12px; margin-top: -12px; position: relative; display: inline-block; font-weight: bold; }
 
 /* Animations */
 .hidden { display: none !important; }
