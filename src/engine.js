@@ -8,14 +8,19 @@ export class GameEngine {
       royalFavor: 50,
       armadaReadiness: 30,
       inventory: [],
-      visitedRooms: new Set(['patio'])
+      visitedRooms: new Set(['patio']),
+      musicEnabled: false
     };
+    this.audio = new Audio();
+    this.audio.src = 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3';
+    this.audio.crossOrigin = 'anonymous';
+    this.audio.preload = 'auto';
+    this.audio.loop = true;
   }
 
   init() {
     this.showTitleScreen();
   }
-
   showTitleScreen() {
     this.container.innerHTML = `
       <div class="title-screen">
@@ -25,13 +30,10 @@ export class GameEngine {
         <div class="particles" id="particles"></div>
 
         <div class="title-content">
-          <div class="marqués-portrait animate-rise">
-            <div class="viso-shield animate-fade-in delay-2">
-              <img src="/gold_frame.png" class="shield-frame">
-              <div class="shield-text">VISO</div>
-            </div>
+          <div class="hero-portrait animate-rise">
             <img src="/alvaro_hero.png" alt="Don Álvaro de Bazán">
           </div>
+          
           <div class="title-text-block">
             <div class="title-pretitle animate-fade-down">La Historia de</div>
             <h1 class="title-main animate-fade-down delay-1">El Señor<br>de los Mares</h1>
@@ -46,12 +48,14 @@ export class GameEngine {
             <div class="title-actions animate-fade-up delay-4" style="margin-top: 2rem;">
               <button id="btn-start" class="btn-primary">COMENZAR AVENTURA</button>
               <button id="btn-credits" class="btn-secondary">CRÉDITOS</button>
+              <button id="btn-music-toggle" class="btn-icon">🔇</button>
             </div>
           </div>
         </div>
 
         <div class="title-footer">
           <span>Palacio del Viso del Marqués · Siglo XVI</span>
+          <a href="https://jcgm.dev" target="_blank" class="copyright-link">© 2026 JCGM.DEV</a>
         </div>
 
         <div id="credits-panel" class="credits-panel hidden">
@@ -77,6 +81,20 @@ export class GameEngine {
     document.getElementById('close-credits').addEventListener('click', () => {
       document.getElementById('credits-panel').classList.add('hidden');
     });
+
+    document.getElementById('btn-music-toggle').addEventListener('click', () => this.toggleMusic());
+  }
+
+  toggleMusic() {
+    this.gameState.musicEnabled = !this.gameState.musicEnabled;
+    const btn = document.getElementById('btn-music-toggle') || document.getElementById('btn-hud-music');
+    if (this.gameState.musicEnabled) {
+      this.audio.play().catch(e => console.log("Interacción requerida"));
+      if (btn) btn.innerText = '🔊';
+    } else {
+      this.audio.pause();
+      if (btn) btn.innerText = '🔇';
+    }
   }
 
   _spawnParticles() {
@@ -172,6 +190,7 @@ export class GameEngine {
 
         <div class="nav-control">
           <button id="map-toggle" class="map-btn">Plan del Palacio</button>
+          <button id="btn-hud-music" class="map-btn" style="margin-left: 1rem; width: 50px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
         </div>
 
         <div class="header-overlay">
@@ -215,6 +234,9 @@ export class GameEngine {
         this.render();
       });
     });
+
+    const hudMusic = document.getElementById('btn-hud-music');
+    if (hudMusic) hudMusic.addEventListener('click', () => this.toggleMusic());
   }
 
   showOptions() {
@@ -287,3 +309,5 @@ export class GameEngine {
     });
   }
 }
+
+// Cinematic Engine v2.1 - RPG Expansion Ready
