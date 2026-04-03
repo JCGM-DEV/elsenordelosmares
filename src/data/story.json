@@ -310,10 +310,12 @@
       ]
     },
     "madrid_felipe_ii": {
-      "text": "Rey Felipe II. Austero y poderoso. 'Bazán, ponme el mundo a mis pies o no regreséis jamás'.",
+      "text": "Rey Felipe II. Austero y poderoso. Sus ojos se clavan en ti. 'Bazán, el tiempo se agota. El mundo aguarda el Rayo de la Guerra. ¿Qué pedís para garantizar el éxito?'",
       "image": "felipe.png",
       "options": [
         { "text": "Jurar lealtad y pedir la Orden de Partida", "nextNode": "madrid_orden_real", "condition": "royalFavor >= 50" },
+        { "text": "Pedir más hombres y barcos para la flota", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 20, "royalFavor": -10 } },
+        { "text": "Informar sobre la red de espionaje inglesa", "nextNode": "madrid_felipe_ii", "impact": { "royalFavor": 15 } },
         { "text": "Rechazar la misión por falta de medios", "nextNode": "madrid_rechazo" }
       ]
     },
@@ -329,12 +331,19 @@
       "options": []
     },
     "lisboa_llegada": {
-      "text": "La Torre de Belem custodia el Tajo. Lisboa es el corazón de la Armada. Sin embargo, el ambiente está cargado de tensión.",
+      "text": "La Torre de Belem custodia el Tajo. Lisboa es el corazón de la Armada. Sin embargo, el ambiente está cargado de tensión y rumores de sabotaje.",
       "image": "lisboa.png",
       "options": [
         { "text": "Ir a los Astilleros del Tajo", "nextNode": "lisboa_astilleros", "requireItem": "Orden Real" },
-        { "text": "Buscar la Casa de la Puerta Azul", "nextNode": "lisboa_puerta_azul" }
+        { "text": "Buscar la Casa de la Puerta Azul", "nextNode": "lisboa_puerta_azul" },
+        { "text": "Hablar con los mercaderes del puerto", "nextNode": "lisboa_mercaderes" },
+        { "text": "Revisar los fortines de defensa de la ría", "nextNode": "lisboa_llegada", "impact": { "armadaReadiness": 10 } }
       ]
+    },
+    "lisboa_mercaderes": {
+      "text": "Los mercaderes están preocupados. 'Si la flota no zarpa pronto, el comercio colapsará'. Te ofrecen suministros a cambio de protección futura.",
+      "image": "lisboa.png",
+      "options": [ { "text": "Volver al puerto principal", "nextNode": "lisboa_llegada" } ]
     },
     "lisboa_puerta_azul": {
       "text": "Llamas a la puerta azul. Una voz susurra desde el interior: 'El mar es mi...' Completa la contraseña para entrar.",
@@ -359,8 +368,15 @@
       "character": { "name": "Capataz de Ribera", "image": "mensajero.png" },
       "options": [
         { "text": "Detener al saboteador (Con la Lista)", "nextNode": "lisboa_victoria", "requireItem": "Lista de Traidores" },
-        { "text": "Vigilar las sombras", "nextNode": "lisboa_incendio" }
+        { "text": "Vigilar las sombras personalmente", "nextNode": "lisboa_incendio" },
+        { "text": "Doblar la guardia nocturna", "nextNode": "lisboa_victoria_parcial", "impact": { "royalFavor": -5 } },
+        { "text": "Arengar a los carpinteros y calafates", "nextNode": "lisboa_astilleros", "impact": { "armadaReadiness": 10 } }
       ]
+    },
+    "lisboa_victoria_parcial": {
+        "text": "La guardia extra disuade a los saboteadores, pero el coste en oro real te resta puntos en la corte. Al menos la flota está segura.",
+        "image": "astilleros.png",
+        "options": [ { "text": "Subir al San Martín", "nextNode": "san_martin_camarote" } ]
     },
     "lisboa_incendio": {
       "text": "¡Fuego! Varios suministros se pierden. El retraso será fatal para la campaña.",
@@ -398,15 +414,25 @@
       "image": "barco.png",
       "options": [
         { "text": "Descarga de artillería pesada", "nextNode": "final_logic", "requireItem": "Pólvora Superior" },
-        { "text": "Maniobrar para el abordaje", "nextNode": "final_logic", "condition": "armadaReadiness >= 60" }
+        { "text": "Maniobrar para el abordaje", "nextNode": "final_logic", "condition": "armadaReadiness >= 60" },
+        { "text": "Usar brulotes incendiarios", "nextNode": "final_logic", "impact": { "armadaReadiness": -10 } },
+        { "text": "Intentar una maniobra de flanqueo", "nextNode": "final_logic", "impact": { "royalFavor": 10 } }
       ]
     },
     "final_logic": {
       "text": "¡VICTORIA! Tus tácticas y preparación han sido perfectas. El Almirante enemigo huye y España asegura el océano. Eres el Señor de los Mares.",
       "image": "barco.png",
       "options": [
-        { "text": "VOLVER AL PALACIO COMO HÉROE", "nextNode": "patio" }
+        { "text": "VOLVER AL PALACIO COMO HÉROE", "nextNode": "patio" },
+        { "text": "REVISAR LAS BAJAS Y EL BOTÍN", "nextNode": "victoria_botin" },
+        { "text": "ENVIAR MENSAJERO AL REY", "nextNode": "patio", "impact": { "royalFavor": 20 } },
+        { "text": "CELEBRAR CON LA TRIPULACIÓN", "nextNode": "patio", "impact": { "armadaReadiness": 20 } }
       ]
+    },
+    "victoria_botin": {
+        "text": "Has capturado tres galeones ingleses repletos de especias y seda. Tu riqueza y poder son ahora legendarios.",
+        "image": "patio.png",
+        "options": [ { "text": "Regresar triunfante al Palacio", "nextNode": "patio" } ]
     }
   }
 }
