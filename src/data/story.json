@@ -130,18 +130,67 @@
         { "text": "Entrar de incógnito", "nextNode": "madrid_incognito" }
       ]
     },
-    "madrid_guardia": {
-      "text": "La guardia ve tu Sello Real y se cuadra. 'Pase, Almirante. El Consejo le espera'.",
-      "image": "escorial.png",
-      "options": [ { "text": "Entrar al Consejo de Guerra", "nextNode": "madrid_consejo" } ]
+    "madrid_consejo": {
+      "text": "Diez generales y nobles te observan. El presupuesto para la Armada es escaso. '¿Por qué debemos arriesgar el tesoro en Portugal, Almirante?'",
+      "image": "consejo.png",
+      "options": [
+        { "text": "Apelar al honor de España", "nextNode": "madrid_consejo_honor", "impact": { "royalFavor": 10 } },
+        { "text": "Mostrar los informes de espionaje", "nextNode": "madrid_consejo_pruebas", "requireItem": "Bolsa de Oro" },
+        { "text": "Consultar las cartas de navegación", "nextNode": "madrid_mapas" }
+      ]
     },
-    "muerte_camino": {
+    "madrid_consejo_honor": {
+      "text": "Tus palabras encienden su orgullo, pero no convencen a los contadores. 'Necesitamos algo más que honor, Bazán'.",
+      "image": "consejo.png",
+      "options": [ { "text": "Ir a la Sala de Mapas", "nextNode": "madrid_mapas" } ]
+    },
+    "madrid_consejo_pruebas": {
+      "text": "Al lanzar el oro inglés sobre la mesa, el silencio es absoluto. Han comprendido la gravedad. El apoyo es unánime.",
+      "image": "consejo.png",
+      "impact": { "royalFavor": 25 },
+      "options": [ { "text": "Solicitar audiencia con el Rey", "nextNode": "madrid_felipe_ii" } ]
+    },
+    "madrid_mapas": {
+      "text": "En la Sala de Mapas, estudias las corrientes del Tajo. Un joven oficial se acerca: 'Hay un plan para incendiar los astilleros'.",
+      "image": "mapas.png",
+      "options": [
+        { "text": "Investigar la conspiración en Madrid", "nextNode": "madrid_espia_corte" },
+        { "text": "Ignorar y seguir preparando la estrategia", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 10 } }
+      ]
+    },
+    "madrid_espia_corte": {
+      "text": "Ssigues al oficial hasta un callejón. Es una trampa. Dos sicarios te atacan.",
+      "image": "calles.png",
+      "options": [
+        { "text": "Defenderse con la espada", "nextNode": "madrid_duelo_victoria", "impact": { "armadaReadiness": -5 } },
+        { "text": "Llamar a la guardia", "nextNode": "madrid_duelo_guardia", "impact": { "royalFavor": -10 } }
+      ]
+    },
+    "madrid_duelo_victoria": {
+      "text": "Vences a los asaltantes. En sus ropajes hallas una lista de traidores en Lisboa. ¡Valiosísimo!",
+      "image": "calles.png",
+      "options": [ { "text": "Ir por fin ante el Rey", "nextNode": "madrid_felipe_ii", "collectItem": "Lista de Traidores" } ]
+    },
+    "madrid_felipe_ii": {
+      "text": "El Rey Prudente te recibe solo. Sus ojos están cansados. 'Bazán, ponme el mundo a mis pies o no vuelvas'.",
+      "image": "felipe.png",
+      "options": [
+        { "text": "Jurar lealtad y pedir la Orden de Partida", "nextNode": "madrid_orden_real", "condition": "royalFavor >= 60" },
+        { "text": "Dudar de la viabilidad de la misión", "nextNode": "madrid_rechazo" }
+      ]
+    },
+    "madrid_orden_real": {
+      "text": "Felipe II firma el pergamino. Tienes el mando absoluto. 'Partid hacia Lisboa. Que Dios os guíe'.",
+      "image": "felipe.png",
+      "options": [ { "text": "Zarpar hacia Lisboa", "nextNode": "final_decision", "collectItem": "Orden Real" } ]
+    },
+    "madrid_rechazo": {
       "type": "gameover",
-      "text": "Has partido sin preparación. A mitad de camino, una patrulla te confunde con un desertor y terminas en las mazmorras de Toledo. GAME OVER.",
-      "image": "mazmorras.png",
+      "text": "El Rey no tolera la duda. Eres destituido y enviado a tus tierras en desgracia. Tu nombre es borrado de los anales. GAME OVER.",
+      "image": "escorial.png",
       "options": []
     },
-    "iglesia_intro": {
+    "final_decision": {
       "text": "La penumbra de la iglesia te acoge. El cocodrilo parece vigilarte.",
       "image": "iglesia.png",
       "options": [
