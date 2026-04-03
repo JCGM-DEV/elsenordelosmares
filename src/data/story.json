@@ -7,8 +7,16 @@
       "options": [
         { "text": "Subir a tu Despacho Personal", "nextNode": "escalera" },
         { "text": "Bajar a las bodegas de suministros", "nextNode": "bodegas" },
-        { "text": "Preguntar a los criados por rumores", "nextNode": "plaza_rumores", "impact": { "royalFavor": 5 } },
+        { "text": "Preguntar a los criados por rumores", "nextNode": "patio_criados", "impact": { "royalFavor": 5 } },
         { "text": "Admirar las pinturas de batallas en el muro", "nextNode": "patio_observar", "impact": { "armadaReadiness": 5 } }
+      ]
+    },
+    "patio_criados": {
+      "text": "Los criados susurran sobre jinetes extraños vistos en el Camino Real. 'Parecen buscar algo en la Iglesia, mi Señor'.",
+      "image": "patio.png",
+      "options": [
+        { "text": "Subir al Despacho a por armas", "nextNode": "escalera" },
+        { "text": "Salir al pueblo a investigar", "nextNode": "calles_intro" }
       ]
     },
     "patio_observar": {
@@ -22,9 +30,14 @@
       "options": [
         { "text": "Abrir el cofre", "nextNode": "bodega_cofre", "collectItem": "Mapa de Lisboa" },
         { "text": "Inspeccionar los barriles de pólvora", "nextNode": "bodega_polvora" },
-        { "text": "Buscar provisiones extras", "nextNode": "camino_preparacion", "collectItem": "Provisiones Extra" },
+        { "text": "Inventariar las provisiones", "nextNode": "bodega_provisiones", "collectItem": "Provisiones Extra" },
         { "text": "Volver al Patio", "nextNode": "patio" }
       ]
+    },
+    "bodega_provisiones": {
+      "text": "Encuentras cecina, bizcocho de mar y barriles de agua limpia. Esto será vital para el largo viaje que te espera.",
+      "image": "bodegas.png",
+      "options": [ { "text": "Volver a las bodegas", "nextNode": "bodegas" } ]
     },
     "bodega_polvora": {
       "text": "La pólvora parece húmeda. Debes dar órdenes para secarla si quieres que tus cañones funcionen.",
@@ -73,9 +86,14 @@
       "options": [
         { "text": "Llamar al Secretario", "nextNode": "secretario_intro" },
         { "text": "Buscar en los cajones secretos", "nextNode": "cajones_despacho", "collectItem": "Sello Real" },
-        { "text": "Estudiar el mapa del Atlántico", "nextNode": "madrid_mapas", "impact": { "armadaReadiness": 5 } },
+        { "text": "Revisar tus notas tácticas", "nextNode": "despacho_notas", "impact": { "armadaReadiness": 5 } },
         { "text": "Escribir una nota a tu familia", "nextNode": "despacho", "impact": { "royalFavor": -2 } }
       ]
+    },
+    "despacho_notas": {
+      "text": "Tus diarios de campaña de Lepanto y Terceira. Repasarlos te recuerda que la victoria reside en la disciplina.",
+      "image": "despacho.png",
+      "options": [ { "text": "Volver al escritorio", "nextNode": "despacho" } ]
     },
     "cajones_despacho": {
       "text": "Tras un panel oculto, encuentras el Sello Real. Con él, podrás emitir órdenes oficiales que ningún noble osará discutir.",
@@ -89,9 +107,14 @@
       "options": [
         { "text": "Usar el Sello Real para registrar aposentos", "nextNode": "registro_exito", "requireItem": "Sello Real" },
         { "text": "Interrogar al secretario sobre sus sospechosos", "nextNode": "secretario_sospechas" },
-        { "text": "Revisar la correspondencia reciente", "nextNode": "despacho", "impact": { "royalFavor": 2 } },
-        { "text": "Investigar por tu cuenta en las calles del pueblo", "nextNode": "calles_intro" }
+        { "text": "Revisar la correspondencia reciente", "nextNode": "despacho_correo", "impact": { "royalFavor": 2 } },
+        { "text": "Bajar al patio para salir al pueblo", "nextNode": "patio" }
       ]
+    },
+    "despacho_correo": {
+      "text": "Cartas de Madrid que hablan de intrigas y de la salud del Rey. Todo parece indicar que tu presencia allí es urgente.",
+      "image": "despacho.png",
+      "options": [ { "text": "Volver al despacho", "nextNode": "despacho" } ]
     },
     "secretario_sospechas": {
       "text": "'Sospecho del monje que llega cada martes desde Madrid, Almirante. Siempre parece evitar la luz del día'.",
@@ -165,8 +188,20 @@
       "image": "taberna.png",
       "options": [
         { "text": "Ir al Convento a investigar", "nextNode": "convento_intro" },
-        { "text": "Comprar provisiones para el viaje", "nextNode": "camino_preparacion", "collectItem": "Provisiones" }
+        { "text": "Preguntar por provisiones para viajar", "nextNode": "taberna_provisiones" },
+        { "text": "Volver a las calles", "nextNode": "calles_intro" },
+        { "text": "Buscar al contacto de la Puerta Azul", "nextNode": "taberna_puerta_azul" }
       ]
+    },
+    "taberna_provisiones": {
+      "text": "El posadero te prepara una saca con bizcocho y carne seca. 'Os hará falta si vais al Escorial'.",
+      "image": "taberna.png",
+      "options": [ { "text": "Salir de la Taberna", "nextNode": "plaza_mercado", "collectItem": "Provisiones" } ]
+    },
+    "taberna_puerta_azul": {
+      "text": "El posadero ríe: '¡Eso es en Lisboa, Marqués! ¡Aún no habéis zarpado!' Te recuerda que tu viaje empieza en Madrid.",
+      "image": "taberna.png",
+      "options": [ { "text": "Volver al centro de la taberna", "nextNode": "taberna_intro" } ]
     },
     "iglesia_intro": {
       "text": "La penumbra fresca de la iglesia te recibe. En un rincón, un cocodrilo disecado cuelga de la pared, un tesoro traído de mares lejanos.",
