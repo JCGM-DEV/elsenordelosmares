@@ -602,6 +602,9 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 .puzzle-box { padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid var(--gold-dark); margin-top: 1rem; }
 .puzzle-q { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 1.5rem; text-align: center; }
 .puzzle-opt { margin-bottom: 0.8rem; width: 100%; }
+.puzzle-input { width: 100%; padding: 1rem; background: rgba(0,0,0,0.5); border: 1px solid var(--gold); color: var(--gold); font-family: 'Cinzel', serif; font-size: 1.1rem; margin-bottom: 1rem; text-align: center; text-transform: uppercase; }
+.puzzle-input:focus { outline: none; border-color: #fff; box-shadow: 0 0 10px var(--gold); }
+.puzzle-submit-btn { background: var(--gold-dark); color: #000; font-weight: bold; }
 
 @media (max-width: 768px) {
   body { overflow-y: auto; overflow-x: hidden; }

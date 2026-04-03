@@ -343,25 +343,44 @@ export class GameEngine {
           `).join('')}
         </div>
       `;
-    }
-
-    const buttons = optionsContainer.querySelectorAll('.puzzle-opt');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const index = parseInt(btn.dataset.index);
-        if (index === puzzle.correctIndex) {
-          this.currentState = puzzle.successNode;
-          this.render();
-        } else {
-          if (puzzle.failImpact) {
-            if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor);
-            if (puzzle.failImpact.armadaReadiness) this.gameState.armadaReadiness = Math.max(0, this.gameState.armadaReadiness + puzzle.failImpact.armadaReadiness);
-          }
-          this.currentState = puzzle.failNode;
-          this.render();
-        }
+      const buttons = optionsContainer.querySelectorAll('.puzzle-opt');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const index = parseInt(btn.dataset.index);
+          this.checkPuzzleResult(index === puzzle.correctIndex, puzzle);
+        });
       });
-    });
+    } else if (puzzle.type === 'cipher') {
+      optionsContainer.innerHTML = `
+        <div class="puzzle-box">
+          <p class="puzzle-q">${puzzle.question}</p>
+          <input type="text" id="puzzle-input" class="puzzle-input" placeholder="Escribe aquí..." autofocus>
+          <button id="puzzle-submit" class="pro-option puzzle-submit-btn">DESCIFRAR</button>
+        </div>
+      `;
+      const submit = document.getElementById('puzzle-submit');
+      const input = document.getElementById('puzzle-input');
+      submit.addEventListener('click', () => {
+        const val = input.value.trim().toLowerCase();
+        this.checkPuzzleResult(val === puzzle.answer.toLowerCase(), puzzle);
+      });
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') submit.click();
+      });
+    }
+  }
+
+  checkPuzzleResult(success, puzzle) {
+    if (success) {
+      this.currentState = puzzle.successNode;
+    } else {
+      if (puzzle.failImpact) {
+        if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor);
+        if (puzzle.failImpact.armadaReadiness) this.gameState.armadaReadiness = Math.max(0, this.gameState.armadaReadiness + puzzle.failImpact.armadaReadiness);
+      }
+      this.currentState = puzzle.failNode;
+    }
+    this.render();
   }
 }
 
