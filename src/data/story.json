@@ -7,9 +7,14 @@
       "options": [
         { "text": "Subir a tu Despacho Personal", "nextNode": "escalera" },
         { "text": "Bajar a las bodegas de suministros", "nextNode": "bodegas" },
-        { "text": "Preguntar a los criados por rumores", "nextNode": "patio_criados", "impact": { "royalFavor": 5 } },
+        { "text": "Marchar hacia Madrid (Camino Real)", "nextNode": "camini_preparacion_check", "requireItem": "Provisiones" },
         { "text": "Admirar las pinturas de batallas en el muro", "nextNode": "patio_observar", "impact": { "armadaReadiness": 5 } }
       ]
+    },
+    "camini_preparacion_check": {
+      "text": "Tus caballos están listos en la puerta del palacio. La saca de provisiones está bien atada. Madrid te espera.",
+      "image": "camino.png",
+      "options": [ { "text": "Cruzar el umbral del Viso", "nextNode": "camino_preparacion" } ]
     },
     "patio_criados": {
       "text": "Los criados susurran sobre jinetes extraños vistos en el Camino Real. 'Parecen buscar algo en la Iglesia, mi Señor'.",
@@ -147,6 +152,7 @@
       "options": [
         { "text": "Escuchar los rumores", "nextNode": "plaza_rumores" },
         { "text": "Ir a la Taberna El Galeón", "nextNode": "taberna_intro" },
+        { "text": "Emprender el viaje a Madrid", "nextNode": "camino_preparacion", "requireItem": "Provisiones" },
         { "text": "Volver a recorrer las calles", "nextNode": "calles_intro" }
       ]
     },
