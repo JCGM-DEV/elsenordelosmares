@@ -84,7 +84,7 @@
     "muerte_camino": {
       "type": "gameover",
       "text": "Has partido sin preparación. A mitad de camino, una patrulla te confunde con un desertor y terminas en las mazmorras de Toledo. GAME OVER.",
-      "image": "escorial.png",
+      "image": "mazmorras.png",
       "options": []
     },
     "iglesia_intro": {
