@@ -6,15 +6,32 @@
       "image": "patio.png",
       "options": [
         { "text": "Subir a tu Despacho Personal", "nextNode": "escalera" },
-        { "text": "Bajar a las bodegas de suministros", "nextNode": "bodegas" }
+        { "text": "Bajar a las bodegas de suministros", "nextNode": "bodegas" },
+        { "text": "Preguntar a los criados por rumores", "nextNode": "plaza_rumores", "impact": { "royalFavor": 5 } },
+        { "text": "Admirar las pinturas de batallas en el muro", "nextNode": "patio_observar", "impact": { "armadaReadiness": 5 } }
       ]
+    },
+    "patio_observar": {
+      "text": "Te detienes ante el fresco de la Batalla de Lepanto. Recordar tus victorias pasadas te llena de determinación táctica.",
+      "image": "patio.png",
+      "options": [ { "text": "Volver al centro del patio", "nextNode": "patio" } ]
     },
     "bodegas": {
       "text": "Las bodegas huelen a salitre, madera vieja y aceite de oliva. Entre los pesados barriles de vino, encuentras un cofre pequeño de cuero, medio oculto.",
       "image": "bodegas.png",
       "options": [
         { "text": "Abrir el cofre", "nextNode": "bodega_cofre", "collectItem": "Mapa de Lisboa" },
+        { "text": "Inspeccionar los barriles de pólvora", "nextNode": "bodega_polvora" },
+        { "text": "Buscar provisiones extras", "nextNode": "camino_preparacion", "collectItem": "Provisiones Extra" },
         { "text": "Volver al Patio", "nextNode": "patio" }
+      ]
+    },
+    "bodega_polvora": {
+      "text": "La pólvora parece húmeda. Debes dar órdenes para secarla si quieres que tus cañones funcionen.",
+      "image": "bodegas.png",
+      "options": [
+        { "text": "Dar órdenes de mantenimiento", "nextNode": "bodegas", "impact": { "armadaReadiness": 10 } },
+        { "text": "Ignorarlo por ahora", "nextNode": "bodegas" }
       ]
     },
     "bodega_cofre": { 
@@ -55,7 +72,9 @@
       "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.png" },
       "options": [
         { "text": "Llamar al Secretario", "nextNode": "secretario_intro" },
-        { "text": "Buscar en los cajones secretos", "nextNode": "cajones_despacho", "collectItem": "Sello Real" }
+        { "text": "Buscar en los cajones secretos", "nextNode": "cajones_despacho", "collectItem": "Sello Real" },
+        { "text": "Estudiar el mapa del Atlántico", "nextNode": "madrid_mapas", "impact": { "armadaReadiness": 5 } },
+        { "text": "Escribir una nota a tu familia", "nextNode": "despacho", "impact": { "royalFavor": -2 } }
       ]
     },
     "cajones_despacho": {
