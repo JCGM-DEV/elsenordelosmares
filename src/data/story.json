@@ -88,8 +88,15 @@
       "character": { "name": "Secretario", "image": "/secretario.png" },
       "options": [
         { "text": "Usar el Sello Real para registrar aposentos", "nextNode": "registro_exito", "requireItem": "Sello Real" },
+        { "text": "Interrogar al secretario sobre sus sospechosos", "nextNode": "secretario_sospechas" },
+        { "text": "Revisar la correspondencia reciente", "nextNode": "despacho", "impact": { "royalFavor": 2 } },
         { "text": "Investigar por tu cuenta en las calles del pueblo", "nextNode": "calles_intro" }
       ]
+    },
+    "secretario_sospechas": {
+      "text": "'Sospecho del monje que llega cada martes desde Madrid, Almirante. Siempre parece evitar la luz del día'.",
+      "image": "despacho.png",
+      "options": [ { "text": "Ir a las calles", "nextNode": "calles_intro" } ]
     },
     "registro_exito": {
       "text": "Bajo las pesadas alfombras de los aposentos del traidor, hallas una Bolsa de Oro inglés. ¡La prueba irrefutable de la conspiración!",
@@ -102,8 +109,14 @@
       "options": [
         { "text": "Ir a la Plaza Mayor", "nextNode": "plaza_mercado" },
         { "text": "Visitar la Iglesia de la Asunción", "nextNode": "iglesia_intro" },
-        { "text": "Ir al Convento", "nextNode": "convento_intro" }
+        { "text": "Ir al Convento", "nextNode": "convento_intro" },
+        { "text": "Hablar con los soldados que descansan", "nextNode": "calles_soldados", "impact": { "armadaReadiness": 5 } }
       ]
+    },
+    "calles_soldados": {
+      "text": "Los soldados están ansiosos por zarpar. 'Dadle duro a los ingleses por nosotros, Almirante'. Tu liderazgo les inspira.",
+      "image": "calles.png",
+      "options": [ { "text": "Seguir por las calles", "nextNode": "calles_intro" } ]
     },
     "plaza_mercado": {
       "text": "La Plaza Mayor está llena de mercaderes y griterío. Unos marineros retirados hablan en voz baja sobre barcos que se hunden en el Tajo.",
@@ -160,8 +173,15 @@
       "image": "iglesia.png",
       "options": [
         { "text": "Hablar con el Cura", "nextNode": "iglesia_cura" },
-        { "text": "Observar el cocodrilo de cerca", "nextNode": "iglesia_cocodrilo" }
+        { "text": "Observar el cocodrilo de cerca", "nextNode": "iglesia_cocodrilo" },
+        { "text": "Rezar por la victoria de la Armada", "nextNode": "iglesia_intro", "impact": { "royalFavor": 5 } },
+        { "text": "Buscar inscripciones en las tumbas", "nextNode": "iglesia_tumbas" }
       ]
+    },
+    "iglesia_tumbas": {
+      "text": "Encuentras la tumba de un antepasado. El honor de tu linaje te da fuerzas para lo que viene.",
+      "image": "iglesia.png",
+      "options": [ { "text": "Volver a la nave central", "nextNode": "iglesia_intro" } ]
     },
     "iglesia_cocodrilo": {
       "text": "Al tocar una placa de bronce bajo el animal, se abre un pequeño compartimento. Encuentras una Llave Antigua labrada en plata.",
@@ -217,8 +237,20 @@
       "image": "escorial.png",
       "options": [
         { "text": "Presentar el Sello Real ante la guardia", "nextNode": "madrid_consejo", "requireItem": "Sello Real" },
-        { "text": "Intentar entrar sin protocolos", "nextNode": "muerte_camino" }
+        { "text": "Intentar entrar de incógnito por la zona de obras", "nextNode": "madrid_incognito" },
+        { "text": "Bribar a un guardia con oro", "nextNode": "madrid_consejo", "requireItem": "Bolsa de Oro", "impact": { "royalFavor": -10 } },
+        { "text": "Esperar a que salga un noble conocido", "nextNode": "madrid_espera" }
       ]
+    },
+    "madrid_espera": {
+      "text": "Esperas horas. Finalmente ves al Duque de Alba. Te reconoce y te facilita la entrada, pero has perdido tiempo.",
+      "image": "escorial.png",
+      "options": [ { "text": "Entrar al Escorial", "nextNode": "madrid_consejo" } ]
+    },
+    "madrid_incognito": {
+      "text": "Te infiltras entre los canteros. Escuchas a unos obreros quejarse de un 'conglomerado' de nobles que no quieren la guerra.",
+      "image": "escorial.png",
+      "options": [ { "text": "Llegar al Consejo de Guerra", "nextNode": "madrid_consejo" } ]
     },
     "muerte_camino": {
       "type": "gameover",
