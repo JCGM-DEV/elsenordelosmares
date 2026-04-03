@@ -138,8 +138,9 @@
       "options": [ { "text": "Recoger Llave y salir", "nextNode": "calles_intro", "collectItem": "Llave Antigua" } ]
     },
     "iglesia_cura": {
-      "text": "El párroco te bendice con solemnidad: 'En Lisboa, Almirante, buscad la casa de la puerta azul en la Alfama'.",
+      "text": "El párroco te bendice con solemnidad: 'En Lisboa, Almirante, buscad la casa de la puerta azul en la Alfama. No confiéis en los mercaderes del Tajo'.",
       "image": "iglesia.png",
+      "character": { "name": "Párroco del Viso", "image": "mensajero.png" },
       "options": [ { "text": "Agradecer y salir", "nextNode": "calles_intro" } ]
     },
     "convento_intro": {
@@ -192,8 +193,9 @@
       "options": [ { "text": "Acudir a la Audiencia Real", "nextNode": "madrid_felipe_ii" } ]
     },
     "madrid_consejo_diplomacia": {
-      "text": "Tus palabras convencen a medias. El Consejo duda. Necesitas un plan estratégico brillante.",
+      "text": "Tus palabras convencen a medias. El Consejo duda. Necesitas un plan estratégico brillante para callar a los burócratas.",
       "image": "mapas.png",
+      "character": { "name": "Secretario de Guerra", "image": "secretario.png" },
       "options": [ { "text": "Ir a la Sala de Mapas", "nextNode": "madrid_mapas" } ]
     },
     "madrid_mapas": {
@@ -242,8 +244,9 @@
       "options": [ { "text": "Ir a los Astilleros", "nextNode": "lisboa_astilleros", "collectItem": "Pólvora Superior" } ]
     },
     "lisboa_astilleros": {
-      "text": "Los Astilleros. El San Martín, tu nave capitana, está casi lista, pero detectas un intento de sabotaje en los almacenes.",
+      "text": "Los Astilleros. El San Martín, tu nave capitana, está casi lista, pero detectas un intento de sabotaje en los almacenes de estopa.",
       "image": "astilleros.png",
+      "character": { "name": "Capataz de Ribera", "image": "mensajero.png" },
       "options": [
         { "text": "Detener al saboteador (Con la Lista)", "nextNode": "lisboa_victoria", "requireItem": "Lista de Traidores" },
         { "text": "Vigilar las sombras", "nextNode": "lisboa_incendio" }
