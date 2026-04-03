@@ -613,7 +613,8 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
   .title-actions { justify-content: center; width: 100%; }
   .btn-primary, .btn-secondary { width: 100%; text-align: center; padding: 1rem; }
   
-  .title-footer { position: relative; flex-direction: column; gap: 10px; padding: 2rem; background: #000; }
+  .title-footer { position: relative; flex-direction: column; gap: 10px; padding: 2rem; background: #000; width: 100%; border-top: 1px solid var(--gold-dark); margin-top: 2rem; }
+  .title-footer a { color: var(--gold); }
 
   /* In-Game HUD Mobile - Stacked Art */
   .background-art { position: relative; height: 35vh; width: 100%; top: 0; left: 0; z-index: 10; background-size: cover; background-position: center; border-bottom: 2px solid var(--gold); }

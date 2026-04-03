@@ -221,6 +221,11 @@ export class GameEngine {
               <button id="close-map" class="close-btn">Cerrar</button>
            </div>
         </div>
+
+        <div class="title-footer">
+          <span>Palacio del Viso del Marqués · Siglo XVI</span>
+          <a href="https://jcgm.dev" target="_blank" class="copyright-link">© 2026 JCGM.DEV</a>
+        </div>
       </div>
     `;
 
