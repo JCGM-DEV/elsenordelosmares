@@ -112,9 +112,21 @@
       ]
     },
     "taberna_beber": {
-      "text": "La gente se vuelve más habladora. 'Dicen que Madrid es un nido de víboras ahora mismo, Almirante'.",
+      "text": "La gente se vuelve más habladora. Ves a unos marinos jugando a los dados. '¿Te atreves, Almirante? Si ganas el 4, te contaré lo que sé del Escorial'.",
       "image": "taberna.png",
-      "options": [ { "text": "Hablar con el posadero", "nextNode": "taberna_posadero" } ]
+      "puzzle": {
+        "type": "dice",
+        "question": "Lanza para sacar un 4 o más:",
+        "target": 4,
+        "successNode": "taberna_posadero",
+        "failNode": "taberna_beber_fallo",
+        "failImpact": { "royalFavor": -2 }
+      }
+    },
+    "taberna_beber_fallo": {
+      "text": "La suerte no está de tu lado. 'Mejor retiraos a vuestro palacio, Marqués', ríen los marineros mientras recogen tu oro.",
+      "image": "taberna.png",
+      "options": [ { "text": "Intentar hablar con el posadero directamente", "nextNode": "taberna_posadero" } ]
     },
     "taberna_posadero": {
       "text": "'Almirante, han visto extraños cerca del Convento por las noches. Guardan caballos frescos para un viaje largo'.",
@@ -220,18 +232,31 @@
       "character": { "name": "Secretario de Guerra", "image": "secretario.png" },
       "options": [ { "text": "Ir a la Sala de Mapas", "nextNode": "madrid_mapas" } ]
     },
-    "madrid_mapas": {
-      "text": "En la Sala de Mapas descubres un error en la ruta de las Azores. Si no lo corriges, la flota será masacrada.",
-      "image": "mapas.png",
-      "options": [
-        { "text": "Corregir los mapas con tu experiencia", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 20 } },
-        { "text": "Investigar a los cartógrafos", "nextNode": "madrid_duelo_victoria", "collectItem": "Lista de Traidores" }
-      ]
+    "madrid_espia_corte": {
+      "text": "Sigues al oficial hasta un callejón sombrío tras el Monasterio. Es una trampa. ¡Desenvaina y defiéndete de sus paradas!",
+      "image": "espia.png",
+      "puzzle": {
+        "type": "sequence",
+        "question": "¡Sigue el ritmo del duelo!",
+        "buttons": ["Arriba", "Abajo", "Centro"],
+        "sequence": ["Arriba", "Abajo", "Arriba", "Centro"],
+        "successNode": "madrid_duelo_victoria",
+        "failNode": "muerte_camino",
+        "failImpact": { "armadaReadiness": -10 }
+      }
     },
     "madrid_duelo_victoria": {
       "text": "Tras un breve duelo en los pasillos del Escorial, obtienes la lista de conspiradores. ¡Ahora estás listo para el Rey!",
       "image": "escorial.png",
       "options": [ { "text": "Entrar a la Audiencia", "nextNode": "madrid_felipe_ii" } ]
+    },
+    "madrid_mapas": {
+      "text": "En la Sala de Mapas descubres un error en la ruta de las Azores. Si no lo corriges, la flota será masacrada.",
+      "image": "mapas.png",
+      "options": [
+        { "text": "Corregir los mapas con tu experiencia", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 20 } },
+        { "text": "Investigar a los cartógrafos", "nextNode": "madrid_espia_corte", "collectItem": "Lista de Traidores" }
+      ]
     },
     "madrid_felipe_ii": {
       "text": "Rey Felipe II. Austero y poderoso. 'Bazán, ponme el mundo a mis pies o no regreséis jamás'.",
