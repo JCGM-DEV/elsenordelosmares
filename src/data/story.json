@@ -152,9 +152,26 @@
       ]
     },
     "convento_mensaje": {
-      "text": "La carta dice: 'El traidor en Madrid os espera en el Consejo de Guerra. No vayáis solo'.",
+      "text": "La carta está cifrada. 'EL XUDLGRU HQ PDGULG...'. Usas la Cifra de César (A=C, B=D). ¿Cuál es la palabra que define el peligro?",
       "image": "convento.png",
-      "options": [ { "text": "Volver a las calles", "nextNode": "calles_intro" } ]
+      "puzzle": {
+        "type": "cipher",
+        "question": "Traduce la primera palabra (en mayúsculas): EL XUDLGRU...",
+        "answer": "TRAIDOR",
+        "successNode": "convento_mensaje_descifrado",
+        "failNode": "convento_mensaje_fallido",
+        "failImpact": { "royalFavor": -5 }
+      }
+    },
+    "convento_mensaje_descifrado": {
+      "text": "¡Logras descifrarlo! 'EL TRAIDOR EN MADRID OS ESPERA'. Ahora sabes a qué te enfrentas en la corte.",
+      "image": "convento.png",
+      "options": [ { "text": "Volver a las calles con esta ventaja", "nextNode": "calles_intro" } ]
+    },
+    "convento_mensaje_fallido": {
+      "text": "No logras romper el código. Pierdes un tiempo precioso y los nervios te traicionan.",
+      "image": "convento.png",
+      "options": [ { "text": "Regresar a las calles frustrado", "nextNode": "calles_intro" } ]
     },
     "camino_preparacion": {
       "text": "Con provisiones y determinación, el Camino Real a Madrid se abre ante ti. Las tierras de la Mancha son vastas y peligrosas.",
@@ -179,12 +196,17 @@
       "options": []
     },
     "madrid_consejo": {
-      "text": "El Consejo de Guerra. Diez hombres poderosos te juzgan. 'La Armada requiere un oro que no tenemos, Almirante. ¿Por qué confiar en vos?'",
+      "text": "El Consejo de Guerra. Diez hombres poderosos te juzgan. El Marqués de Denia te pone a prueba: 'Bazán, recordadnos vuestra mayor gloria. ¿Dónde destrozasteis a la flota otomana en 1571?'",
       "image": "consejo.png",
-      "options": [
-        { "text": "Revelar la traición (Si tienes el oro inglés)", "nextNode": "madrid_consejo_pruebas", "requireItem": "Bolsa de Oro" },
-        { "text": "Usar la diplomacia y el honor", "nextNode": "madrid_consejo_diplomacia", "impact": { "royalFavor": 10 } }
-      ]
+      "puzzle": {
+        "type": "quiz",
+        "question": "Selecciona la batalla correcta:",
+        "options": ["Lepanto", "Las Azores", "Trafalgar"],
+        "correctIndex": 0,
+        "successNode": "madrid_consejo_pruebas",
+        "failNode": "madrid_rechazo",
+        "failImpact": { "royalFavor": -20 }
+      }
     },
     "madrid_consejo_pruebas": {
       "text": "Arrojas la bolsa de oro inglés sobre la mesa. El impacto es total. El Rey, oculto tras una celosía, decide escucharte.",
@@ -239,7 +261,19 @@
       ]
     },
     "lisboa_puerta_azul": {
-      "text": "Usas la Llave Antigua para entrar. Una red de espías fieles al Rey te entrega Pólvora Superior. 'Para los cañones del San Martín'.",
+      "text": "Llamas a la puerta azul. Una voz susurra desde el interior: 'El mar es mi...' Completa la contraseña para entrar.",
+      "image": "lisboa.png",
+      "puzzle": {
+        "type": "cipher",
+        "question": "Contraseña secreta (una palabra):",
+        "answer": "DESTINO",
+        "successNode": "lisboa_puerta_azul_exito",
+        "failNode": "lisboa_astilleros",
+        "failImpact": { "armadaReadiness": -5 }
+      }
+    },
+    "lisboa_puerta_azul_exito": {
+      "text": "La puerta se abre. Te entregan Pólvora Superior. 'Para los cañones del San Martín. ¡Gloria a España!'",
       "image": "lisboa.png",
       "options": [ { "text": "Ir a los Astilleros", "nextNode": "lisboa_astilleros", "collectItem": "Pólvora Superior" } ]
     },
@@ -265,12 +299,17 @@
       "options": [ { "text": "Boarding the San Martín", "nextNode": "san_martin_camarote" } ]
     },
     "san_martin_camarote": {
-      "text": "El camarote del Almirante. Desde la ventana ves tu imponente flota. Tienes que tomar una decisión táctica final.",
+      "text": "El camarote del Almirante. Desde la ventana ves tu imponente flota. Debes trazar la ruta final para interceptar al enemigo.",
       "image": "barco.png",
-      "options": [
-        { "text": "Zarpar hacia las Azores con Honor", "nextNode": "azores_batalla", "condition": "armadaReadiness >= 40" },
-        { "text": "Retrasar la partida por seguridad", "nextNode": "muerte_naval" }
-      ]
+      "puzzle": {
+        "type": "quiz",
+        "question": "Si el viento sopla de Poniente, ¿hacia dónde vira la flota para ganar el barlovento?",
+        "options": ["Hacia Babor (Norte)", "Hacia Estribor (Sur)", "Mantener rumbo"],
+        "correctIndex": 0,
+        "successNode": "azores_batalla",
+        "failNode": "muerte_naval",
+        "failImpact": { "armadaReadiness": -20 }
+      }
     },
     "muerte_naval": {
       "type": "gameover",
