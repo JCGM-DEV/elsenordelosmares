@@ -73,13 +73,67 @@
       "options": [ { "text": "Recoger el Oro y bajar al pueblo", "nextNode": "calles_intro", "collectItem": "Bolsa de Oro" } ]
     },
     "calles_intro": {
-      "text": "Las calles del Viso son un hervidero. Un jinete te informa de que el Rey está cerca.",
+      "text": "Las calles del Viso son un hervidero. Un jinete te informa de que el Rey está en el Escorial, pero antes debes asegurar el pueblo.",
       "image": "calles.png",
       "options": [
+        { "text": "Ir a la Plaza Mayor", "nextNode": "plaza_mercado" },
         { "text": "Visitar la Iglesia", "nextNode": "iglesia_intro" },
-        { "text": "Ir al Convento", "nextNode": "convento_intro" },
-        { "text": "Partir hacia Lisboa (Sin mapas ni suministros)", "nextNode": "muerte_camino" }
+        { "text": "Ir al Convento", "nextNode": "convento_intro" }
       ]
+    },
+    "plaza_mercado": {
+      "text": "La Plaza Mayor está llena de mercaderes. Un grupo de marineros retirados habla en voz baja sobre barcos ingleses en el Tajo.",
+      "image": "plaza.png",
+      "options": [
+        { "text": "Escuchar a escondidas", "nextNode": "plaza_rumores" },
+        { "text": "Ir a la Taberna El Galeón", "nextNode": "taberna_intro" },
+        { "text": "Volver a las calles", "nextNode": "calles_intro" }
+      ]
+    },
+    "plaza_rumores": {
+      "text": "Oyes que alguien ha estado comprando lealtades en Lisboa. Necesitas un salvoconducto real para entrar al puerto sin ser detenido.",
+      "image": "plaza.png",
+      "options": [
+        { "text": "Ir a la Taberna por más info", "nextNode": "taberna_intro" },
+        { "text": "Buscar el Sello Real en el Palacio (si no lo tienes)", "nextNode": "patio" }
+      ]
+    },
+    "taberna_intro": {
+      "text": "El olor a vino y humo de leña te envuelve. El posadero te mira con respeto pero con cautela.",
+      "image": "taberna.png",
+      "options": [
+        { "text": "Interrogar al posadero", "nextNode": "taberna_posadero" },
+        { "text": "Pagar una ronda para ganar confianza", "nextNode": "taberna_beber", "impact": { "royalFavor": -5 } }
+      ]
+    },
+    "taberna_posadero": {
+      "text": "'Almirante, han visto extraños cerca del Convento por las noches. Dicen que son mensajeros de Madrid'.",
+      "image": "taberna.png",
+      "options": [
+        { "text": "Ir al Convento de inmediato", "nextNode": "convento_intro" },
+        { "text": "Comprar provisiones para el viaje", "nextNode": "camino_preparacion", "collectItem": "Provisiones" }
+      ]
+    },
+    "camino_preparacion": {
+      "text": "Tienes caballos y provisiones. El camino a Madrid es largo y peligroso. ¿Estás listo para partir?",
+      "image": "camino.png",
+      "options": [
+        { "text": "Iniciar el viaje al Escorial", "nextNode": "madrid_llegada", "requireItem": "Provisiones" },
+        { "text": "Terminar asuntos en El Viso", "nextNode": "calles_intro" }
+      ]
+    },
+    "madrid_llegada": {
+      "text": "Tras días de galope, las imponentes torres del Escorial surgen entre la niebla. El centro del mundo te espera.",
+      "image": "escorial.png",
+      "options": [
+        { "text": "Presentar tus credenciales en la guardia", "nextNode": "madrid_guardia", "requireItem": "Sello Real" },
+        { "text": "Entrar de incógnito", "nextNode": "madrid_incognito" }
+      ]
+    },
+    "madrid_guardia": {
+      "text": "La guardia ve tu Sello Real y se cuadra. 'Pase, Almirante. El Consejo le espera'.",
+      "image": "escorial.png",
+      "options": [ { "text": "Entrar al Consejo de Guerra", "nextNode": "madrid_consejo" } ]
     },
     "muerte_camino": {
       "type": "gameover",
