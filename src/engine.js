@@ -259,7 +259,12 @@ export class GameEngine {
     const node = this.storyData.nodes[this.currentState];
     const optionsContainer = document.getElementById('options-container');
     optionsContainer.classList.remove('hidden');
-    
+
+    if (node.puzzle) {
+      this.renderPuzzle(node.puzzle);
+      return;
+    }
+
     const availableOptions = node.options.filter(opt => {
       // Condition check (stats)
       if (opt.condition) {
@@ -321,6 +326,40 @@ export class GameEngine {
 
         this.currentState = nextNodeId;
         this.render();
+      });
+    });
+  }
+
+  renderPuzzle(puzzle) {
+    const optionsContainer = document.getElementById('options-container');
+    if (puzzle.type === 'quiz') {
+      optionsContainer.innerHTML = `
+        <div class="puzzle-box">
+          <p class="puzzle-q">${puzzle.question}</p>
+          ${puzzle.options.map((opt, i) => `
+            <button class="pro-option puzzle-opt" data-index="${i}">
+              <span class="opt-text">${opt}</span>
+            </button>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    const buttons = optionsContainer.querySelectorAll('.puzzle-opt');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt(btn.dataset.index);
+        if (index === puzzle.correctIndex) {
+          this.currentState = puzzle.successNode;
+          this.render();
+        } else {
+          if (puzzle.failImpact) {
+            if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor);
+            if (puzzle.failImpact.armadaReadiness) this.gameState.armadaReadiness = Math.max(0, this.gameState.armadaReadiness + puzzle.failImpact.armadaReadiness);
+          }
+          this.currentState = puzzle.failNode;
+          this.render();
+        }
       });
     });
   }
