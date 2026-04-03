@@ -9,7 +9,7 @@ export class GameEngine {
       armadaReadiness: 30,
       inventory: [],
       visitedRooms: new Set(['patio']),
-      musicEnabled: false
+      musicEnabled: true
     };
     this.audio = new Audio();
     this.audio.src = 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3';
@@ -48,7 +48,7 @@ export class GameEngine {
             <div class="title-actions animate-fade-up delay-4" style="margin-top: 2rem;">
               <button id="btn-start" class="btn-primary">COMENZAR AVENTURA</button>
               <button id="btn-credits" class="btn-secondary">CRÉDITOS</button>
-              <button id="btn-music-toggle" class="btn-icon">🔇</button>
+              <button id="btn-music-toggle" class="btn-icon">🔊</button>
             </div>
           </div>
         </div>
@@ -83,6 +83,17 @@ export class GameEngine {
     });
 
     document.getElementById('btn-music-toggle').addEventListener('click', () => this.toggleMusic());
+
+    // Music autoplay on first interaction
+    const startMusic = () => {
+      if (this.gameState.musicEnabled && this.audio.paused) {
+        this.audio.play().catch(e => console.log("Interacción requerida"));
+      }
+      document.body.removeEventListener('click', startMusic);
+      document.body.removeEventListener('keydown', startMusic);
+    };
+    document.body.addEventListener('click', startMusic);
+    document.body.addEventListener('keydown', startMusic);
   }
 
   toggleMusic() {
