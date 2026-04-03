@@ -367,6 +367,60 @@ export class GameEngine {
       input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') submit.click();
       });
+    } else if (puzzle.type === 'sequence') {
+      let currentIdx = 0;
+      optionsContainer.innerHTML = `
+        <div class="puzzle-box">
+          <p class="puzzle-q">${puzzle.question}</p>
+          <div class="sequence-display" id="seq-display">Repite: ${puzzle.sequence.map(() => '⚪').join(' ')}</div>
+          <div class="sequence-btns">
+            ${puzzle.buttons.map((btnLabel, i) => `
+              <button class="pro-option seq-btn" data-label="${btnLabel}">${btnLabel}</button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      const seqBtns = optionsContainer.querySelectorAll('.seq-btn');
+      const display = document.getElementById('seq-display');
+      seqBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const label = btn.dataset.label;
+          if (label === puzzle.sequence[currentIdx]) {
+            currentIdx++;
+            display.innerText = 'Racha: ' + puzzle.sequence.slice(0, currentIdx).map(() => '🟢').join(' ') + puzzle.sequence.slice(currentIdx).map(() => '⚪').join(' ');
+            if (currentIdx === puzzle.sequence.length) {
+              setTimeout(() => this.checkPuzzleResult(true, puzzle), 500);
+            }
+          } else {
+            display.innerText = '¡FALLO!';
+            setTimeout(() => this.checkPuzzleResult(false, puzzle), 800);
+          }
+        });
+      });
+    } else if (puzzle.type === 'dice') {
+      optionsContainer.innerHTML = `
+        <div class="puzzle-box">
+          <p class="puzzle-q">${puzzle.question}</p>
+          <div id="dice-result" class="dice-value">?</div>
+          <button id="roll-dice" class="pro-option puzzle-submit-btn">LANZAR DADOS</button>
+        </div>
+      `;
+      const rollBtn = document.getElementById('roll-dice');
+      const diceRes = document.getElementById('dice-result');
+      rollBtn.addEventListener('click', () => {
+        rollBtn.disabled = true;
+        let rolls = 0;
+        const interval = setInterval(() => {
+          diceRes.innerText = Math.floor(Math.random() * 6) + 1;
+          rolls++;
+          if (rolls > 10) {
+            clearInterval(interval);
+            const finalVal = Math.floor(Math.random() * 6) + 1;
+            diceRes.innerText = finalVal;
+            setTimeout(() => this.checkPuzzleResult(finalVal >= puzzle.target, puzzle), 1000);
+          }
+        }, 500);
+      });
     }
   }
 
