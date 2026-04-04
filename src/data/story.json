@@ -26,7 +26,7 @@
     },
     "patio_observar": {
       "text": "Te detienes ante el fresco de la Batalla de Lepanto. Recordar tus victorias pasadas te llena de determinación táctica.",
-      "image": "patio.png",
+      "image": "patio_observar.png",
       "options": [ { "text": "Volver al centro del patio", "nextNode": "patio" } ]
     },
     "bodegas": {
@@ -41,12 +41,12 @@
     },
     "bodega_provisiones": {
       "text": "Encuentras cecina, bizcocho de mar y barriles de agua limpia. Esto será vital para el largo viaje que te espera.",
-      "image": "bodegas.png",
+      "image": "taberna_provisiones.png",
       "options": [ { "text": "Volver a las bodegas", "nextNode": "bodegas" } ]
     },
     "bodega_polvora": {
       "text": "La pólvora parece húmeda. Debes dar órdenes para secarla si quieres que tus cañones funcionen.",
-      "image": "bodegas.png",
+      "image": "bodega_polvora.png",
       "options": [
         { "text": "Dar órdenes de mantenimiento", "nextNode": "bodegas", "impact": { "armadaReadiness": 10 } },
         { "text": "Ignorarlo por ahora", "nextNode": "bodegas" }
@@ -54,7 +54,7 @@
     },
     "bodega_cofre": { 
       "text": "Dentro del cofre hay un Mapa de Lisboa detallado con las corrientes del Tajo marcadas en rojo. 'Esto será vital', piensas.", 
-      "image": "bodegas.png", 
+      "image": "bodega_mapa.png", 
       "options": [ { "text": "Regresar al sol del patio", "nextNode": "patio" } ] 
     },
     "escalera": {
@@ -67,7 +67,7 @@
     },
     "confrontar_espia": {
       "text": "Es un hombre embozado, con el rostro oculto. 'Tengo información sobre una traición que se gesta en la corte de Madrid, Almirante'.",
-      "image": "escalera.png",
+      "image": "escalera_espia.png",
       "character": { "name": "Informador Anónimo", "image": "secretario.png" },
       "options": [
         { "text": "Darle una Bolsa de Oro (Si la tienes)", "nextNode": "espia_revela", "requireItem": "Bolsa de Oro" },
@@ -97,12 +97,12 @@
     },
     "despacho_notas": {
       "text": "Tus diarios de campaña de Lepanto y Terceira. Repasarlos te recuerda que la victoria reside en la disciplina.",
-      "image": "despacho.png",
+      "image": "despacho_notas.png",
       "options": [ { "text": "Volver al escritorio", "nextNode": "despacho" } ]
     },
     "cajones_despacho": {
       "text": "Tras un panel oculto, encuentras el Sello Real. Con él, podrás emitir órdenes oficiales que ningún noble osará discutir.",
-      "image": "despacho.png",
+      "image": "despacho_sello.png",
       "options": [ { "text": "Hablar con el Secretario", "nextNode": "secretario_intro" } ]
     },
     "secretario_intro": {
@@ -118,7 +118,7 @@
     },
     "despacho_correo": {
       "text": "Cartas de Madrid que hablan de intrigas y de la salud del Rey. Todo parece indicar que tu presencia allí es urgente.",
-      "image": "despacho.png",
+      "image": "convento_pergamino.png",
       "options": [ { "text": "Volver al despacho", "nextNode": "despacho" } ]
     },
     "secretario_sospechas": {
@@ -143,7 +143,7 @@
     },
     "calles_soldados": {
       "text": "Los soldados están ansiosos por zarpar. 'Dadle duro a los ingleses por nosotros, Almirante'. Tu liderazgo les inspira.",
-      "image": "calles.png",
+      "image": "calles_soldados.png",
       "options": [ { "text": "Seguir por las calles", "nextNode": "calles_intro" } ]
     },
     "plaza_mercado": {
@@ -158,7 +158,7 @@
     },
     "plaza_rumores": {
       "text": "Oyes que alguien está comprando lealtades en los muelles de Lisboa. Necesitas un salvoconducto oficial para llegar con seguridad.",
-      "image": "plaza.png",
+      "image": "plaza_marineros.png",
       "options": [
         { "text": "Entrar en El Galeón por más info", "nextNode": "taberna_intro" },
         { "text": "Ir al Palacio por el Sello (si no lo tienes)", "nextNode": "patio" }
@@ -174,7 +174,7 @@
     },
     "taberna_beber": {
       "text": "La gente se vuelve más habladora. Ves a unos marinos jugando a los dados. '¿Te atreves, Almirante? Si ganas el 4, te contaré lo que sé del Escorial'.",
-      "image": "taberna.png",
+      "image": "taberna_dados.png",
       "puzzle": {
         "type": "dice",
         "question": "Lanza para sacar un 4 o más:",
@@ -201,7 +201,7 @@
     },
     "taberna_provisiones": {
       "text": "El posadero te prepara una saca con bizcocho y carne seca. 'Os hará falta si vais al Escorial'.",
-      "image": "taberna.png",
+      "image": "taberna_provisiones.png",
       "options": [ { "text": "Salir de la Taberna", "nextNode": "plaza_mercado", "collectItem": "Provisiones" } ]
     },
     "taberna_puerta_azul": {
@@ -221,7 +221,7 @@
     },
     "iglesia_tumbas": {
       "text": "Encuentras la tumba de un antepasado. El honor de tu linaje te da fuerzas para lo que viene.",
-      "image": "iglesia.png",
+      "image": "iglesia_tumbas.png",
       "options": [ { "text": "Volver a la nave central", "nextNode": "iglesia_intro" } ]
     },
     "iglesia_cocodrilo": {
@@ -237,7 +237,7 @@
     },
     "convento_intro": {
       "text": "El silencio del convento solo se rompe por el canto de las monjas. Un mensajero te entrega un pergamino sellado con cera roja.",
-      "image": "convento.png",
+      "image": "convento_pergamino.png",
       "options": [
         { "text": "Abrir el pergamino", "nextNode": "convento_mensaje", "collectItem": "Carta del Informador" },
         { "text": "Seguir hacia el pueblo", "nextNode": "calles_intro" }
@@ -245,7 +245,7 @@
     },
     "convento_mensaje": {
       "text": "La carta está cifrada. 'EL XUDLGRU HQ PDGULG...'. Usas la Cifra de César (A=C, B=D). ¿Cuál es la palabra que define el peligro?",
-      "image": "convento.png",
+      "image": "convento_pergamino.png",
       "puzzle": {
         "type": "cipher",
         "question": "Traduce la primera palabra (en mayúsculas): EL XUDLGRU...",
@@ -257,7 +257,7 @@
     },
     "convento_mensaje_descifrado": {
       "text": "¡Logras descifrarlo! 'EL TRAIDOR EN MADRID OS ESPERA'. Ahora sabes a qué te enfrentas en la corte.",
-      "image": "convento.png",
+      "image": "convento_pergamino.png",
       "options": [ { "text": "Volver a las calles con esta ventaja", "nextNode": "calles_intro" } ]
     },
     "convento_mensaje_fallido": {
@@ -290,7 +290,7 @@
     },
     "madrid_incognito": {
       "text": "Te infiltras entre los canteros. Escuchas a unos obreros quejarse de un 'conglomerado' de nobles que no quieren la guerra.",
-      "image": "escorial.png",
+      "image": "madrid_obras.png",
       "options": [ { "text": "Llegar al Consejo de Guerra", "nextNode": "madrid_consejo" } ]
     },
     "muerte_camino": {
@@ -314,7 +314,7 @@
     },
     "madrid_consejo_pruebas": {
       "text": "Arrojas la bolsa de oro inglés sobre la mesa. El impacto es total. El Rey, oculto tras una celosía, decide escucharte.",
-      "image": "consejo.png",
+      "image": "consejo_oro.png",
       "impact": { "royalFavor": 30 },
       "options": [ { "text": "Acudir a la Audiencia Real", "nextNode": "madrid_felipe_ii" } ]
     },
@@ -339,7 +339,7 @@
     },
     "madrid_duelo_victoria": {
       "text": "Tras un breve duelo en los pasillos del Escorial, obtienes la lista de conspiradores. ¡Ahora estás listo para el Rey!",
-      "image": "escorial.png",
+      "image": "alvaro_hero.png",
       "options": [ { "text": "Entrar a la Audiencia", "nextNode": "madrid_felipe_ii" } ]
     },
     "madrid_mapas": {
@@ -362,7 +362,7 @@
     },
     "madrid_orden_real": {
       "text": "El Rey firma el pergamino. Tienes el mando absoluto. 'Partid hacia Lisboa. Que Dios os guíe'.",
-      "image": "felipe.png",
+      "image": "convento_pergamino.png",
       "options": [ { "text": "Iniciar el Acto III: Lisboa", "nextNode": "lisboa_llegada", "collectItem": "Orden Real" } ]
     },
     "madrid_rechazo": {
@@ -383,7 +383,7 @@
     },
     "lisboa_mercaderes": {
       "text": "Los mercaderes están preocupados. 'Si la flota no zarpa pronto, el comercio colapsará'. Te ofrecen suministros a cambio de protección futura.",
-      "image": "lisboa.png",
+      "image": "lisboa_mercaderes.png",
       "options": [ { "text": "Volver al puerto principal", "nextNode": "lisboa_llegada" } ]
     },
     "lisboa_puerta_azul": {
@@ -421,13 +421,13 @@
     },
     "lisboa_incendio": {
       "text": "¡Fuego! Varios suministros se pierden. El retraso será fatal para la campaña.",
-      "image": "astilleros.png",
+      "image": "lisboa_incendio.png",
       "impact": { "armadaReadiness": -30 },
       "options": [ { "text": "Subir al San Martín a pesar de todo", "nextNode": "san_martin_camarote" } ]
     },
     "lisboa_victoria": {
       "text": "El sabotaje es frustrado. La Armada está en su máxima capacidad. '¡Hacia las Azores!', gritan los marineros.",
-      "image": "astilleros.png",
+      "image": "alvaro_hero.png",
       "impact": { "armadaReadiness": 40 },
       "options": [ { "text": "Boarding the San Martín", "nextNode": "san_martin_camarote" } ]
     },
@@ -452,7 +452,7 @@
     },
     "azores_batalla": {
       "text": "¡Contacto! La flota enemiga aparece por estribor cerca de las Islas Azores. El mar está en calma chicha. El momento del Rayo de la Guerra ha llegado.",
-      "image": "barco.png",
+      "image": "azores_batalla.png",
       "options": [
         { "text": "Descarga de artillería pesada", "nextNode": "final_logic", "requireItem": "Pólvora Superior" },
         { "text": "Maniobrar para el abordaje", "nextNode": "final_logic", "condition": "armadaReadiness >= 60" },
@@ -462,7 +462,7 @@
     },
     "final_logic": {
       "text": "¡VICTORIA! Tus tácticas y preparación han sido perfectas. El Almirante enemigo huye y España asegura el océano. Eres el Señor de los Mares.",
-      "image": "barco.png",
+      "image": "azores_batalla.png",
       "options": [
         { "text": "VOLVER AL PALACIO COMO HÉROE", "nextNode": "patio" },
         { "text": "REVISAR LAS BAJAS Y EL BOTÍN", "nextNode": "victoria_botin" },
@@ -472,7 +472,7 @@
     },
     "victoria_botin": {
         "text": "Has capturado tres galeones ingleses repletos de especias y seda. Tu riqueza y poder son ahora legendarios.",
-        "image": "patio.png",
+        "image": "patio_observar.png",
         "options": [ { "text": "Regresar triunfante al Palacio", "nextNode": "patio" } ]
     }
   }
