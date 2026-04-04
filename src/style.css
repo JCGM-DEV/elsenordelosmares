@@ -171,7 +171,7 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 }
 
 /* Existing HUD styles ... */
-.hud-box { width: 100%; max-width: 1000px; z-index: 20; margin-bottom: 0; padding: 0 20px; position: absolute; bottom: 20px; }
+.hud-box { width: 100%; max-width: 1000px; z-index: 100; margin-bottom: 0; padding: 0 20px; position: absolute; bottom: 20px; }
 .parchment-sheet { background: rgba(249, 245, 232, 0.9) url('/clean_parchment.png') center/cover; background-blend-mode: overlay; padding: 1.5rem 2.5rem; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.7); border-left: 6px solid var(--gold); position: relative; }
 .pro-text { color: var(--ink); font-size: 1.3rem; line-height: 1.3; margin-bottom: 1.5rem; font-weight: 700; min-height: 3rem; }
 .pro-options { display: flex; flex-direction: column; gap: 0.8rem; }

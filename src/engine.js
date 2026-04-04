@@ -14,8 +14,8 @@ export class GameEngine {
     };
     this.tracks = {
         act1: 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3',
-        act2: 'https://cdn.pixabay.com/audio/2021/11/25/audio_91b3cb80ed.mp3',
-        act3: 'https://cdn.pixabay.com/audio/2022/01/18/audio_d0a13f69d2.mp3'
+        act2: './act2.ogg',
+        act3: './act3.ogg'
     };
     this.currentTrack = 'act1';
     this.audio = new Audio();
@@ -587,25 +587,30 @@ export class GameEngine {
     if (node.type === 'gameover') {
       this._triggerDamage();
       optionsContainer.innerHTML = `
-        <button class="pro-option game-over-btn" onclick="localStorage.removeItem('elsenormares_save'); location.reload()">
+        <button class="pro-option game-over-btn" id="btn-restart-game">
           <span class="opt-text">REINICIAR TODO</span>
         </button>
       `;
       if (localStorage.getItem('elsenormares_save')) {
           optionsContainer.innerHTML += `
-            <button class="pro-option" onclick="location.reload()" style="background:var(--gold); color:#000; justify-content:center;">
+            <button class="pro-option" id="btn-load-game" style="background:var(--gold); color:#000; justify-content:center;">
               <span class="opt-text">CARGAR ÚLTIMO PUNTO</span>
             </button>
           `;
       }
-    } else {
-      optionsContainer.innerHTML = availableOptions.map((opt, index) => `
+      
+      requestAnimationFrame(() => {
+          document.getElementById('btn-restart-game').addEventListener('click', () => this._restartFullGame());
+          const loadBtn = document.getElementById('btn-load-game');
+          if (loadBtn) loadBtn.addEventListener('click', () => { window.location.reload(); });
+      });
+      return;
+    }  optionsContainer.innerHTML = availableOptions.map((opt, index) => `
         <button class="pro-option" data-next="${opt.nextNode}" data-impact='${JSON.stringify(opt.impact || {})}'>
           <span class="opt-num">${index + 1}</span>
           <span class="opt-text">${opt.text}</span>
         </button>
       `).join('');
-    }
 
     this.bindEvents();
   }
@@ -766,6 +771,23 @@ export class GameEngine {
           this.currentState = puzzle.failNode;
       }
     }
+    this.render();
+  }
+
+  _restartFullGame() {
+    localStorage.removeItem('elsenormares_save');
+    this.gameState = {
+      royalFavor: 50,
+      armadaReadiness: 30,
+      daysRemaining: 15,
+      inventory: [],
+      visitedRooms: new Set(['patio']),
+      musicEnabled: true
+    };
+    this.currentState = this.startNode;
+    this.currentTrack = 'act1';
+    this.audio.src = this.tracks.act1;
+    this.audio.play().catch(e => {});
     this.render();
   }
 }
