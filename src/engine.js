@@ -22,6 +22,7 @@ export class GameEngine {
     this.audio.crossOrigin = 'anonymous';
     this.audio.preload = 'auto';
     this.audio.loop = true;
+    this.audio.volume = 0.3;
     this.actx = null;
     this.ttsEnabled = localStorage.getItem('elsenormares_tts') === 'true';
   }
