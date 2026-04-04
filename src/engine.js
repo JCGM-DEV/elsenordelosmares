@@ -85,7 +85,7 @@ export class GameEngine {
         </div>
 
         <div class="title-footer">
-          <span>Palacio del Viso del Marqués · Siglo XVI</span>
+          <span>Palacio de Viso del Marqués · Siglo XVI</span>
           <a href="https://jcgm.dev" target="_blank" class="copyright-link">© 2026 JCGM.DEV</a>
         </div>
 
@@ -427,7 +427,7 @@ export class GameEngine {
               <div class="nav-grid">
                 <button class="nav-loc ${this.currentState === 'patio' ? 'active' : ''}" data-node="patio">Patio de Honor</button>
                 <button class="nav-loc ${this.currentState === 'despacho' ? 'active' : ''}" data-node="despacho">Despacho Personal</button>
-                <button class="nav-loc ${this.currentState === 'calles_intro' ? 'active' : ''}" data-node="calles_intro">Calles del Viso</button>
+                <button class="nav-loc ${this.currentState === 'calles_intro' ? 'active' : ''}" data-node="calles_intro">Calles de Viso</button>
                 <button class="nav-loc ${this.currentState === 'convento_intro' ? 'active' : ''}" data-node="convento_intro">El Convento</button>
                 <button class="nav-loc ${this.currentState === 'iglesia_intro' ? 'active' : ''}" data-node="iglesia_intro">La Iglesia</button>
               </div>
@@ -436,7 +436,7 @@ export class GameEngine {
         </div>
 
         <div class="title-footer">
-          <span>Palacio del Viso del Marqués · Siglo XVI</span>
+          <span>Palacio de Viso del Marqués · Siglo XVI</span>
           <a href="https://jcgm.dev" target="_blank" class="copyright-link">© 2026 JCGM.DEV</a>
         </div>
       </div>

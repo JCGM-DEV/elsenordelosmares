@@ -2,7 +2,7 @@
   "startNode": "patio",
   "nodes": {
     "patio": {
-      "text": "Estás en el Patio de Honor del Palacio del Viso. Un lugar de mármol y gloria. Las gentes del pueblo saben que algo grande se gesta bajo el mando del Marqués de Santa Cruz.",
+      "text": "Estás en el Patio de Honor del Palacio de Viso. Un lugar de mármol y gloria. Las gentes del pueblo saben que algo grande se gesta bajo el mando del Marqués de Santa Cruz.",
       "image": "patio.png",
       "options": [
         {
@@ -299,7 +299,7 @@
       ]
     },
     "calles_intro": {
-      "text": "Las calles del Viso son un hervidero de gentes. Los jinetes van y vienen con noticias de la frontera. Algo se prepara.",
+      "text": "Las calles de Viso son un hervidero de gentes. Los jinetes van y vienen con noticias de la frontera. Algo se prepara.",
       "image": "calles.png",
       "options": [
         {
@@ -506,7 +506,7 @@
       "text": "El párroco te bendice con solemnidad: 'En Lisboa, Almirante, buscad la casa de la puerta azul en la Alfama. No confiéis en los mercaderes del Tajo'.",
       "image": "iglesia.png",
       "character": {
-        "name": "Párroco del Viso",
+        "name": "Párroco de Viso",
         "image": "mensajero.png"
       },
       "options": [
@@ -1032,7 +1032,7 @@
       "nextNode": "final_homenaje_viso"
     },
     "final_homenaje_viso": {
-      "text": "Sopla un viento cálido que huele a las tierras de Castilla. 'Mis pensamientos vuelan ahora hacia mi amado Viso del Marqués. Allí, entre los muros de mi palacio y la paz de mi tierra, descansarán mis picas. Gracias, tierra bendita, por darme la cuna y el refugio. Mi espada siempre será de España, pero mi corazón es del Viso'.",
+      "text": "Sopla un viento cálido que huele a las tierras de Castilla. 'Mis pensamientos vuelan ahora hacia mi amado Viso del Marqués. Allí, entre los muros de mi palacio y la paz de mi tierra, descansarán mis picas. Gracias, tierra bendita, por darme la cuna y el refugio. Mi espada siempre será de España, pero mi corazón es de Viso'.",
       "image": "palacio_viso_epic.png",
       "options": [
         {
