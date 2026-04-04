@@ -7,6 +7,7 @@ export class GameEngine {
     this.gameState = {
       royalFavor: 50,
       armadaReadiness: 30,
+      daysRemaining: 15,
       inventory: [],
       visitedRooms: new Set(['patio']),
       musicEnabled: true
@@ -58,6 +59,7 @@ export class GameEngine {
         <div class="particles" id="particles"></div>
 
         <div class="title-content">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Escudo_de_Viso_del_Marqu%C3%A9s.svg" alt="Escudo Viso del Marqués" class="hero-crest animate-fade-down" style="width: 120px; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(255,215,0,0.5));">
           <div class="hero-portrait animate-rise">
             <img src="./alvaro_hero.png" alt="Don Álvaro de Bazán">
           </div>
@@ -165,7 +167,8 @@ export class GameEngine {
   _speakText(text) {
       if (!this.ttsEnabled || !('speechSynthesis' in window)) return;
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(text);
+      const cleanText = text.replace(/<[^>]*>?/gm, '');
+      const utterance = new SpeechSynthesisUtterance(cleanText);
       utterance.lang = 'es-ES';
       utterance.rate = 1.05;
       utterance.pitch = 0.9;
@@ -175,6 +178,18 @@ export class GameEngine {
       if (esVoice) utterance.voice = esVoice;
 
       window.speechSynthesis.speak(utterance);
+  }
+
+  _highlightLore(text) {
+      const keywords = [
+          'Felipe II', 'Álvaro de Bazán', 'Santa Cruz', 'Armada', 'Lisboa', 'Azores', 'Madrid', 'El Viso', 'Viso del Marqués', 'San Martín', 'Ingleses', 'Inglaterra', 'Pólvora', 'Provisiones', 'Sello Real', 'Oro', 'Mapa', 'Isabel', 'Drake', 'Códice', 'Lepanto'
+      ];
+      let highlighted = text;
+      keywords.forEach(kw => {
+          const regex = new RegExp(`\\b(${kw})\\b`, 'gi');
+          highlighted = highlighted.replace(regex, '<span class="lore-gold">$1</span>');
+      });
+      return highlighted;
   }
 
   _checkCinematicMode() {
@@ -201,12 +216,13 @@ export class GameEngine {
     }
   }
 
-  typeWriter(text, element, speed = 20) {
+  typeWriter(rawText, element, speed = 20) {
     this.isTyping = true;
     element.innerHTML = '';
-    let i = 0;
     
-    this._speakText(text);
+    this._speakText(rawText);
+
+    const text = this._highlightLore(rawText);
 
     if (this._typingInterval) clearInterval(this._typingInterval);
     
@@ -230,10 +246,16 @@ export class GameEngine {
         container.style.cursor = 'pointer';
     }
 
+    let i = 0;
     this._typingInterval = setInterval(() => {
       if (i < text.length) {
-        element.innerHTML += text.charAt(i);
-        i++;
+        if (text.charAt(i) === '<') {
+            const closingIdx = text.indexOf('>', i);
+            if (closingIdx !== -1) i = closingIdx + 1;
+        } else {
+            i++;
+        }
+        element.innerHTML = text.substring(0, i);
       } else {
         clearInterval(this._typingInterval);
         this.isTyping = false;
@@ -348,6 +370,10 @@ export class GameEngine {
         <div class="vignette"></div>
 
         <div class="status-dashboard">
+          <div class="status-item">
+            <span class="status-label">Días</span>
+            <span class="status-value ${this.gameState.daysRemaining <= 5 ? 'urgency-flash' : ''}" style="font-size: 1.5rem; font-weight: bold; color: ${this.gameState.daysRemaining <= 5 ? '#ff4444' : 'var(--gold)'}; text-shadow: 0 0 5px rgba(0,0,0,0.8);">${this.gameState.daysRemaining}</span>
+          </div>
           <div class="status-item">
             <span class="status-label">Favor Real</span>
             <div class="status-bar-container">
@@ -598,9 +624,16 @@ export class GameEngine {
         const impact = JSON.parse(btn.dataset.impact || '{}');
         if (impact.royalFavor) this.gameState.royalFavor = Math.min(100, Math.max(0, this.gameState.royalFavor + impact.royalFavor));
         if (impact.armadaReadiness) this.gameState.armadaReadiness = Math.min(100, Math.max(0, this.gameState.armadaReadiness + impact.armadaReadiness));
+        if (impact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + impact.days);
         
-        if (impact.royalFavor < 0 || impact.armadaReadiness < 0) {
+        if (impact.royalFavor < 0 || impact.armadaReadiness < 0 || (impact.days && impact.days < 0)) {
             this._triggerDamage();
+        }
+
+        if (this.gameState.daysRemaining <= 0 && nextNodeId !== 'gameover' && !nextNodeId.startsWith('final_')) {
+            this.currentState = 'gameover_tiempo';
+            this.render();
+            return;
         }
         
         // Single use logic
@@ -725,8 +758,13 @@ export class GameEngine {
       if (puzzle.failImpact) {
         if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor);
         if (puzzle.failImpact.armadaReadiness) this.gameState.armadaReadiness = Math.max(0, this.gameState.armadaReadiness + puzzle.failImpact.armadaReadiness);
+        if (puzzle.failImpact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + puzzle.failImpact.days);
       }
-      this.currentState = puzzle.failNode;
+      if (this.gameState.daysRemaining <= 0) {
+          this.currentState = 'gameover_tiempo';
+      } else {
+          this.currentState = puzzle.failNode;
+      }
     }
     this.render();
   }
