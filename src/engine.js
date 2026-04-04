@@ -59,14 +59,14 @@ export class GameEngine {
         <div class="particles" id="particles"></div>
 
         <div class="title-content">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Escudo_de_Viso_del_Marqu%C3%A9s.svg" alt="Escudo Viso del Marqués" class="hero-crest animate-fade-down" style="width: 120px; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(255,215,0,0.5));">
           <div class="hero-portrait animate-rise">
             <img src="./alvaro_hero.png" alt="Don Álvaro de Bazán">
           </div>
           
           <div class="title-text-block">
-            <div class="title-pretitle animate-fade-down">La Historia de</div>
-            <h1 class="title-main animate-fade-down delay-1">El Señor<br>de los Mares</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Escudo_de_Viso_del_Marqu%C3%A9s.svg" alt="Escudo Viso del Marqués" class="hero-crest animate-fade-down" style="width: 120px; margin-bottom: 2rem; filter: drop-shadow(0 0 15px rgba(255,215,0,0.8)); display: block; margin-left: auto; margin-right: auto;">
+            <div class="title-pretitle animate-fade-down delay-1">La Historia de</div>
+            <h1 class="title-main animate-fade-down delay-2">El Señor<br>de los Mares</h1>
             <div class="title-subtitle animate-fade-down delay-2">"El rayo de la guerra, el que nunca conoció la derrota"</div>
             <div class="title-separator animate-fade-down delay-3">⚓ · ⚔ · ⚓</div>
             
