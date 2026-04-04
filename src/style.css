@@ -776,25 +776,27 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
   .title-footer a { color: var(--gold); font-size: 0.8rem; }
   .hero-crest { width: 60px !important; margin-bottom: 0.2rem !important; }
 
-  /* In-Game HUD Mobile - Compact Optimization */
-  .background-art { position: relative; height: 30vh; width: 100%; top: 0; left: 0; z-index: 10; background-size: cover; background-position: center; border-bottom: 2px solid var(--gold); }
+  /* In-Game HUD Mobile - Ultra-Compact Art */
+  .background-art { position: relative; height: 22vh; width: 100%; top: 0; left: 0; z-index: 10; background-size: cover; background-position: center; border-bottom: 2px solid var(--gold); }
   .background-blur { display: none; }
   .vignette { display: none; }
 
   .status-dashboard { 
     position: relative; top: 0; right: 0; left: 0; width: 100%; 
-    display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 10px;
-    background: #000; border: none; border-bottom: 1px solid var(--gold-dark);
+    display: flex; justify-content: space-around; gap: 8px; padding: 6px 10px;
+    background: rgba(0,0,0,0.9); border: none; border-bottom: 1px solid var(--gold-dark);
     z-index: 20;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
   }
+  .status-item { padding: 4px 8px; }
   
-  .nav-control { position: relative; top: 0; left: 0; right: 0; padding: 12px; background: #111; display: flex; justify-content: space-between; width: 100%; border-bottom: 1px solid var(--gold-dark); }
+  .nav-control { position: relative; top: 0; left: 0; right: 0; padding: 8px 12px; background: #000; display: flex; justify-content: space-between; width: 100%; border-bottom: 1px solid var(--gold-dark); }
+  .hud-btn { padding: 4px; font-size: 0.8rem; }
   
-  .hud-box { position: relative; margin-top: 0; padding: 15px 10px; bottom: auto; width: 100%; flex: 1; overflow-y: auto; }
-  .parchment-sheet { padding: 1.2rem; border-left-width: 4px; box-shadow: none; border-radius: 0; }
-  .pro-text { font-size: 1.05rem; min-height: auto; margin-bottom: 1.2rem; line-height: 1.5; }
-  .pro-option { padding: 0.7rem 0.8rem; font-size: 0.95rem; gap: 0.8rem; margin-bottom: 0.5rem; }
+  .hud-box { position: relative; margin-top: 0; padding: 8px 6px; bottom: auto; width: 100%; flex: 1; overflow-y: auto; background: #000; }
+  .parchment-sheet { padding: 1rem; border-left-width: 4px; box-shadow: none; border-radius: 0; }
+  .pro-text { font-size: 0.95rem; min-height: auto; margin-bottom: 0.8rem; line-height: 1.4; color: #ddd; }
+  .pro-option { padding: 0.6rem 0.8rem; font-size: 0.9rem; gap: 0.6rem; margin-bottom: 0.4rem; border-width: 1px; }
   
   .portrait-container { display: none; } /* Too much clutter on mobile */
   
