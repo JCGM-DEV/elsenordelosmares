@@ -598,7 +598,54 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
    MOBILE RESPONSIVENESS
    ======================== */
 
+.locked-option {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(50, 0, 0, 0.4) !important;
+}
+.achv-toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #5b21b6;
+    color: #ffd700;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    z-index: 9999;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    border: 1px solid #ffd700;
+    transition: opacity 0.5s ease;
+}
+.achv-panel {
+    background: rgba(17, 24, 39, 0.95);
+    padding: 2rem;
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    z-index: 10000;
+}
+.achv-list {
+    text-align: left;
+    margin-top: 1rem;
+    color: white;
+}
+.achv-item {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.achv-item.locked {
+    opacity: 0.4;
+    filter: grayscale(100%);
+}
+
 /* Puzzles */
+
 .puzzle-box { padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid var(--gold-dark); margin-top: 1rem; }
 .puzzle-q { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--gold); margin-bottom: 1.5rem; text-align: center; }
 .puzzle-opt { margin-bottom: 0.8rem; width: 100%; }

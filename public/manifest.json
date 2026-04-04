@@ -1,0 +1,16 @@
+{
+  "name": "El Señor de los Mares",
+  "short_name": "Señor Mares",
+  "description": "Una aventura gráfica narrativa en la España del Siglo XVI.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "./favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
