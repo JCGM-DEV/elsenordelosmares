@@ -16,7 +16,7 @@
         {
           "text": "Marchar hacia Madrid (Camino Real)",
           "nextNode": "camini_preparacion_check",
-          "requireItem": "Provisiones"
+          "requireItem": "Sello Real"
         },
         {
           "text": "Admirar las pinturas de batallas en el muro",
@@ -29,12 +29,17 @@
       ]
     },
     "camini_preparacion_check": {
-      "text": "Tus caballos están listos en la puerta del palacio. La saca de provisiones está bien atada. Madrid te espera.",
+      "text": "Los caballos están listos. Tienes el Sello Real en tu poder, pero un viaje tan largo al corazón de Castilla requerirá raciones y agua para no desfallecer.",
       "image": "camino.png",
       "options": [
         {
-          "text": "Cruzar el umbral del Viso",
-          "nextNode": "camino_preparacion"
+          "text": "Iniciar la cabalgada a Madrid (Próximo Acto)",
+          "nextNode": "camino_preparacion",
+          "requireItem": "Provisiones"
+        },
+        {
+          "text": "Volver al interior del Palacio en busca de suministros",
+          "nextNode": "patio"
         }
       ]
     },
