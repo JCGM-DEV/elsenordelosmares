@@ -14,8 +14,8 @@ export class GameEngine {
     };
     this.tracks = {
         act1: 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3',
-        act2: './act2.ogg',
-        act3: './act3.ogg'
+        act2: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Agnus%20Dei%20X.mp3',
+        act3: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Faceoff.mp3'
     };
     this.currentTrack = 'act1';
     this.audio = new Audio();

@@ -802,7 +802,8 @@
         },
         {
           "text": "Buscar la Casa de la Puerta Azul",
-          "nextNode": "lisboa_puerta_azul"
+          "nextNode": "lisboa_puerta_azul",
+          "condition": "!this.gameState.inventory.includes('Pólvora Superior')"
         },
         {
           "text": "Inspeccionar las mercancías del puerto",
