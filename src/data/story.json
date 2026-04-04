@@ -810,6 +810,15 @@
           "nextNode": "lisboa_mercaderes"
         },
         {
+          "text": "Adiestrar a la marinería en el Tajo (-2 Días)",
+          "nextNode": "lisboa_llegada",
+          "impact": {
+            "days": -2,
+            "armadaReadiness": 15
+          },
+          "singleUse": true
+        },
+        {
           "text": "¡Llamar a zafarrancho! (Zarpar)",
           "nextNode": "azores_lanzamiento"
         }
@@ -824,7 +833,7 @@
           "nextNode": "lisboa_llegada",
           "impact": {
             "royalFavor": -10,
-            "armadaReadiness": 12
+            "armadaReadiness": 15
           },
           "singleUse": true
         },
@@ -871,13 +880,13 @@
       },
       "options": [
         {
-          "text": "Detener al saboteador de estopas (Requiere Lista)",
-          "nextNode": "lisboa_vista_astillero",
-          "requireItem": "Lista de Traidores",
-          "impact": {
-            "armadaReadiness": 25
-          },
-          "singleUse": true
+          "text": "Detener al saboteador con la Lista",
+          "nextNode": "lisboa_victoria",
+          "requireItem": "Lista de Traidores"
+        },
+        {
+          "text": "Investigar el almacén por tu cuenta",
+          "nextNode": "lisboa_sabotaje_puzzle"
         },
         {
           "text": "Volver a la base general (-1 Día)",
@@ -888,39 +897,54 @@
         }
       ]
     },
-    "lisboa_victoria_parcial": {
-      "text": "La guardia extra disuade a los saboteadores, pero el coste en oro real te resta puntos en la corte. Al menos la flota está segura.",
+    "lisboa_sabotaje_puzzle": {
+      "text": "Encuentras a los saboteadores entre las barricas de brea. Te ven y sacan sus dagas. ¡Debes repeler el ataque con precisión!",
       "image": "astilleros.png",
+      "puzzle": {
+        "type": "sequence",
+        "question": "¡Sigue el ritmo del combate!",
+        "buttons": ["Corte", "Parada", "Estocada"],
+        "sequence": ["Parada", "Estocada", "Corte"],
+        "successNode": "lisboa_victoria_parcial",
+        "failNode": "lisboa_incendio"
+      }
+    },
+    "lisboa_victoria_parcial": {
+      "text": "Logras expulsar a los saboteadores, pero han logrado quemar algo de estopa. La flota está segura pero el retraso es leve.",
+      "image": "astilleros.png",
+      "impact": {
+        "armadaReadiness": 15
+      },
       "options": [
         {
-          "text": "Subir al San Martín",
-          "nextNode": "san_martin_camarote"
+          "text": "Regresar al mando central",
+          "nextNode": "lisboa_llegada"
         }
       ]
     },
     "lisboa_incendio": {
-      "text": "¡Fuego! Varios suministros se pierden. El retraso será fatal para la campaña.",
+      "text": "¡Fuego! No lograste detener a los saboteadores a tiempo. Varios suministros se pierden entre las llamas. El desastre es total para la moral de los carpinteros.",
       "image": "lisboa_incendio.png",
       "impact": {
-        "armadaReadiness": -30
+        "armadaReadiness": -25
       },
       "options": [
         {
-          "text": "Subir al San Martín a pesar de todo",
-          "nextNode": "san_martin_camarote"
+          "text": "Intentar salvar lo que queda",
+          "nextNode": "lisboa_llegada"
         }
       ]
     },
     "lisboa_victoria": {
-      "text": "El sabotaje es frustrado. La Armada está en su máxima capacidad. '¡Hacia las Azores!', gritan los marineros.",
+      "text": "El sabotaje es frustrado por completo gracias a tu información. La Armada está en su máxima capacidad operativa. '¡Gloria a la Armada!', gritan los marineros.",
       "image": "alvaro_hero.png",
       "impact": {
-        "armadaReadiness": 40
+        "armadaReadiness": 35
       },
       "options": [
         {
-          "text": "Boarding the San Martín",
-          "nextNode": "san_martin_camarote"
+          "text": "Regresar triunfante al mando",
+          "nextNode": "lisboa_llegada"
         }
       ]
     },
