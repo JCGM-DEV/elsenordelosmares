@@ -644,11 +644,11 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
     filter: grayscale(100%);
 }
 
-.header-overlay, .character-portrait, .hero-portrait {
+.pro-container, .header-overlay, .character-portrait, .hero-portrait {
     transform-style: preserve-3d;
     perspective: 1000px;
 }
-.scene-img, .character-img, .hero-portrait img {
+.scene-img, .character-img, .hero-portrait img, .background-art {
     transition: transform 0.1s ease-out;
     transform: rotateY(calc(var(--mouse-x, 0) * 15deg)) rotateX(calc(var(--mouse-y, 0) * -15deg)) translateZ(10px) scale(1.05);
 }
