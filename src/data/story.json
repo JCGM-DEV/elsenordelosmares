@@ -472,7 +472,7 @@
     },
     "victoria_botin": {
         "text": "Has capturado tres galeones ingleses repletos de especias y seda. Tu riqueza y poder son ahora legendarios.",
-        "image": "patio_observar.png",
+        "image": "victoria_botin.png",
         "options": [ { "text": "Regresar triunfante al Palacio", "nextNode": "final_gratitud" } ]
     },
     "final_gratitud": {
