@@ -383,13 +383,13 @@ export class GameEngine {
           <div class="status-item">
             <span class="status-label">Favor Real</span>
             <div class="status-bar-container">
-              <div id="bar-favor" class="status-bar favor" style="width: ${this.gameState.royalFavor}%"></div>
+              <div id="bar-favor" class="status-bar favor" style="width: ${this.gameState.royalFavor}%">${this.gameState.royalFavor}%</div>
             </div>
           </div>
           <div class="status-item">
             <span class="status-label">Estado Armada</span>
             <div class="status-bar-container">
-              <div id="bar-armada" class="status-bar armada" style="width: ${this.gameState.armadaReadiness}%"></div>
+              <div id="bar-armada" class="status-bar armada" style="width: ${this.gameState.armadaReadiness}%">${this.gameState.armadaReadiness}%</div>
             </div>
           </div>
           
