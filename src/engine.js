@@ -136,14 +136,6 @@ export class GameEngine {
     };
     document.body.addEventListener('click', startMusic);
     document.body.addEventListener('keydown', startMusic);
-
-    // Parallax effect mapped to CSS Variables
-    document.addEventListener('mousemove', (e) => {
-      const x = (e.clientX / window.innerWidth) - 0.5;
-      const y = (e.clientY / window.innerHeight) - 0.5;
-      document.documentElement.style.setProperty('--mouse-x', x);
-      document.documentElement.style.setProperty('--mouse-y', y);
-    });
   }
 
   toggleMusic() {

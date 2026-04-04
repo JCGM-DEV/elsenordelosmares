@@ -1,4 +1,4 @@
-const CACHE_NAME = 'elsenormares-v2';
+const CACHE_NAME = 'elsenormares-v3';
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
