@@ -210,25 +210,20 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 .title-bg {
   position: absolute;
   inset: -5%;
-  background: url('/patio.png') center / cover no-repeat;
+  background: url('/palacio_viso_epic.png') center / cover no-repeat;
   z-index: 0;
-  animation: kenBurns 20s ease-in-out infinite alternate;
-  filter: brightness(0.35);
+  animation: kenBurns 30s ease-in-out infinite alternate;
+  filter: brightness(0.6) contrast(1.1);
 }
+
 .title-bg-2 {
-  background: url('/galeria.png') center / cover no-repeat;
-  animation-delay: -10s;
-  opacity: 0;
-  animation: kenBurns2 20s ease-in-out infinite alternate;
+  background: radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.4) 100%);
+  z-index: 1;
 }
 
 @keyframes kenBurns {
-  0%   { transform: scale(1.0) translateX(0); filter: brightness(0.35); }
-  100% { transform: scale(1.12) translateX(-2%); filter: brightness(0.45); }
-}
-@keyframes kenBurns2 {
-  0%   { transform: scale(1.1) translateX(-2%); filter: brightness(0.30); opacity: 0.6; }
-  100% { transform: scale(1.0) translateX(0); filter: brightness(0.40); opacity: 0.4; }
+  0%   { transform: scale(1.0) translateX(0); }
+  100% { transform: scale(1.1) translateX(2%); }
 }
 
 .title-overlay {
@@ -285,24 +280,24 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 95vh;
-  width: 45vw;
+  height: 90vh;
+  width: 50vw;
   z-index: 5;
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
 }
 
 .hero-portrait img {
   height: 100%;
   width: auto;
-  object-fit: cover;
-  mask-image: linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 90%), 
-              linear-gradient(to top, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 90%), 
-                      linear-gradient(to top, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
-  filter: drop-shadow(0 0 30px rgba(0,0,0,0.5));
-  opacity: 0.9;
+  object-fit: contain;
+  /* Cinematic Radial/Oval Mask - Fixes 'residual' vertical edges */
+  mask-image: radial-gradient(ellipse 45% 45% at 45% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse 45% 45% at 45% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  
+  filter: drop-shadow(0 0 30px rgba(0,0,0,0.8));
+  opacity: 1;
 }
 
 /* Text block */
@@ -310,10 +305,12 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
   flex: 1;
   z-index: 10;
   padding: 4rem;
-  background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 70%, transparent 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 .title-pretitle {
   font-family: var(--font-title);
@@ -355,20 +352,34 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 .title-actions { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 
 .btn-primary {
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold) 0%, #dab84a 50%, var(--gold) 100%);
   color: #000;
-  border: none;
+  border: 1px solid rgba(255,255,255,0.4);
   padding: 1.2rem 3rem;
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  letter-spacing: 3px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: 0.5s;
+}
+.btn-primary:hover::before {
+  left: 100%;
 }
 .btn-primary:hover {
   background: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(197,160,33,0.5);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(197,160,33,0.6);
 }
 
 .btn-secondary {
@@ -521,14 +532,22 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 }
 
 .how-to-play {
-  background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(199, 168, 122, 0.3);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(199, 168, 122, 0.25);
   border-left: 4px solid var(--gold);
-  padding: 1.5rem;
-  margin-top: 2rem;
-  max-width: 650px;
-  border-radius: 4px;
+  padding: 1.2rem;
+  margin-top: 1.5rem;
+  max-width: 600px;
+  border-radius: 6px;
   text-align: left;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: transform 0.3s ease;
+}
+.how-to-play:hover {
+    transform: translateY(-2px);
+    border-color: rgba(199, 168, 122, 0.5);
 }
 .how-to-play h3 {
   font-family: var(--font-title);
@@ -725,18 +744,32 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
   .pro-container { height: auto; min-height: 100vh; justify-content: flex-start; padding-top: 0; display: flex; flex-direction: column; }
   
   /* Title Screen Mobile */
-  .title-content { flex-direction: column; align-items: center; gap: 2rem; padding: 1rem; margin-top: 2rem; }
-  .hero-portrait { position: relative; height: 35vh; width: 100%; top: 0; left: 0; margin-bottom: -4rem; }
-  .hero-portrait img { height: 100%; width: auto; mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%); }
+  .title-content { flex-direction: column; align-items: center; gap: 1rem; padding: 1rem; margin-top: 0; height: auto; }
+  .hero-portrait { position: relative; height: 40vh; width: 100%; top: 0; left: 0; margin-bottom: -1rem; z-index: 5; }
+  .hero-portrait img { height: 100%; width: 100%; object-fit: contain; mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%); -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 20%, rgba(0,0,0,0) 100%); }
   
-  .title-text-block { padding: 2rem 1.5rem; background: rgba(0,0,0,0.7); text-align: center; width: 100%; }
-  .title-main { font-size: 2.8rem; letter-spacing: 2px; }
-  .title-subtitle { font-size: 1rem; margin-bottom: 1.5rem; }
-  .title-actions { justify-content: center; width: 100%; }
-  .btn-primary, .btn-secondary { width: 100%; text-align: center; padding: 1rem; }
+  .title-text-block { 
+    padding: 1.5rem 1rem; 
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%); 
+    text-align: center; 
+    width: 100%; 
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  .title-pretitle { font-size: 0.9rem; letter-spacing: 4px; }
+  .title-main { font-size: 2.2rem; letter-spacing: 1px; line-height: 1.1; margin-bottom: 0.5rem; }
+  .title-subtitle { font-size: 0.9rem; margin-bottom: 1rem; line-height: 1.4; opacity: 0.9; }
+  .title-separator { margin-bottom: 1.5rem; font-size: 1rem; letter-spacing: 8px; }
   
-  .title-footer { position: relative; flex-direction: column; gap: 10px; padding: 2rem; background: #000; width: 100%; border-top: 1px solid var(--gold-dark); margin-top: 2rem; }
-  .title-footer a { color: var(--gold); }
+  .how-to-play { padding: 1rem; margin-top: 1rem; font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .how-to-play p { font-size: 0.85rem; line-height: 1.5; }
+
+  .title-actions { justify-content: center; width: 100%; flex-direction: column; gap: 0.8rem; }
+  .btn-primary, .btn-secondary { width: 100%; text-align: center; padding: 1rem; font-size: 0.9rem; }
+  
+  .title-footer { position: relative; flex-direction: column; gap: 10px; padding: 2rem; background: #000; width: 100%; border-top: 1px solid var(--gold-dark); margin-top: auto; }
+  .title-footer a { color: var(--gold); font-size: 0.8rem; }
+  .hero-crest { width: 60px !important; margin-bottom: 0.2rem !important; }
 
   /* In-Game HUD Mobile - Stacked Art */
   .background-art { position: relative; height: 35vh; width: 100%; top: 0; left: 0; z-index: 10; background-size: cover; background-position: center; border-bottom: 2px solid var(--gold); }

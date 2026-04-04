@@ -1137,14 +1137,17 @@
       "image": "barco.png",
       "options": [
         {
-          "text": "¡Zarpar con fuerza letal! (Requiere Armada >= 80 y Pólvora Superior)",
+          "text": "¡Zarpar con fuerza letal! (Requiere Armada >= 70 y Pólvora Superior)",
           "nextNode": "san_martin_camarote",
-          "condition": "armadaReadiness >= 80",
+          "condition": "armadaReadiness >= 70",
           "requireItem": "Pólvora Superior"
         },
         {
           "text": "Asumir el riesgo y zarpar con lo que tienes",
-          "nextNode": "muerte_naval"
+          "nextNode": "san_martin_camarote",
+          "impact": {
+            "royalFavor": -15
+          }
         },
         {
           "text": "Cancelar el toque para seguir preparándote (-1 Día)",

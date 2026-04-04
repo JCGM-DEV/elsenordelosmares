@@ -16,8 +16,8 @@ export class GameEngine {
     };
     this.tracks = {
         act1: 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3',
-        act2: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Agnus%20Dei%20X.mp3',
-        act3: 'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Faceoff.mp3'
+        act2: 'https://cdn.pixabay.com/audio/2025/04/28/audio_80aa4ceff2.mp3',
+        act3: 'https://cdn.pixabay.com/audio/2025/06/17/audio_3ae4c7db2c.mp3'
     };
     this.currentTrack = 'act1';
     this.audio = new Audio();
@@ -66,22 +66,26 @@ export class GameEngine {
           </div>
           
           <div class="title-text-block">
-            <img src="./escudo.svg" alt="Escudo Viso del Marqués" class="hero-crest animate-fade-down" style="width: 85px; margin-bottom: 0.5rem; filter: drop-shadow(0 0 8px rgba(0,0,0,0.8)); display: block; margin-left: auto; margin-right: auto;">
-            <div class="title-pretitle animate-fade-down delay-1">La Historia de</div>
-            <h1 class="title-main animate-fade-down delay-2">El Señor<br>de los Mares</h1>
-            <div class="title-subtitle animate-fade-down delay-2">"El rayo de la guerra, el que nunca conoció la derrota"</div>
+            <div class="crest-container animate-fade-down">
+                <img src="./escudo.svg" alt="Escudo Viso del Marqués" class="hero-crest" style="width: 85px; filter: drop-shadow(0 0 12px rgba(197,160,33,0.5));">
+            </div>
+            <div class="title-pretitle animate-fade-down delay-1">Memoria de una Epopeya</div>
+            <h1 class="title-main animate-fade-down delay-2">EL SEÑOR<br>DE LOS MARES</h1>
+            <div class="title-subtitle animate-fade-down delay-2">"El rayo de la guerra, el que nunca conoció la derrota en el mar"</div>
             <div class="title-separator animate-fade-down delay-3">⚓ · ⚔ · ⚓</div>
             
             <div class="how-to-play animate-fade-up delay-4">
-              <h3>INSTRUCCIONES</h3>
-              <p>Toma decisiones críticas, gestiona tu inventario y mantén el Favor del Rey para evitar el fracaso. Cada objeto recogido puede ser la llave de tu victoria o tu perdición.</p>
+              <h3>ORDEN DE OPERACIÓN</h3>
+              <p>Como Marqués de Santa Cruz, tus órdenes decidirán el futuro del Imperio. Gestiona con prudencia la Armada y el Favor Real.</p>
             </div>
 
-            <div class="title-actions animate-fade-up delay-4" style="margin-top: 2rem;">
-              ${localStorage.getItem('elsenormares_save') ? '<button id="btn-continue" class="btn-primary" style="background:#5b21b6; color:white; border-color:#8b5cf6; margin-bottom: 10px;">CONTINUAR PARTIDA</button>' : ''}
+            <div class="title-actions animate-fade-up delay-4">
+              ${localStorage.getItem('elsenormares_save') ? '<button id="btn-continue" class="btn-primary" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color:white; border-color:#60a5fa;">CONTINUAR PARTIDA</button>' : ''}
               <button id="btn-start" class="btn-primary">NUEVA AVENTURA</button>
-              <button id="btn-credits" class="btn-secondary">CRÉDITOS</button>
-              <button id="btn-music-toggle" class="btn-icon">🔊</button>
+              <div style="display:flex; gap:10px; width:100%; justify-content:center;">
+                <button id="btn-credits" class="btn-secondary" style="flex:1;">CRÉDITOS</button>
+                <button id="btn-music-toggle" class="btn-icon">🔊</button>
+              </div>
             </div>
           </div>
         </div>
@@ -94,8 +98,9 @@ export class GameEngine {
         <div id="credits-panel" class="credits-panel hidden">
           <div class="credits-body">
             <h3>El Señor de los Mares</h3>
-            <p>Una epopeya histórica sobre Don Álvaro de Bazán, Marqués de Santa Cruz.</p>
-            <button id="close-credits" class="btn-secondary" style="margin-top:2rem;">Cerrar</button>
+            <p>Una epopeya histórica inspirada en la vida de Don Álvaro de Bazán.</p>
+            <p style="font-size:0.9rem; margin-top:1rem; opacity:0.8;">Diseño y Desarrollo: JCGM.DEV</p>
+            <button id="close-credits" class="btn-primary" style="margin-top:2rem; width:100%;">Cerrar</button>
           </div>
         </div>
       </div>
