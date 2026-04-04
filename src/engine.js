@@ -22,10 +22,9 @@ export class GameEngine {
     this.currentTrack = 'act1';
     this.audio = new Audio();
     this.audio.src = this.tracks.act1;
-    this.audio.crossOrigin = 'anonymous';
     this.audio.preload = 'auto';
     this.audio.loop = true;
-    this.audio.volume = 0.3;
+    this.audio.volume = 0.6;
     this.actx = null;
     this.ttsEnabled = localStorage.getItem('elsenormares_tts') === 'true';
   }
