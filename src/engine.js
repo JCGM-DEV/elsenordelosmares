@@ -137,16 +137,12 @@ export class GameEngine {
     document.body.addEventListener('click', startMusic);
     document.body.addEventListener('keydown', startMusic);
 
-    // Parallax effect
+    // Parallax effect mapped to CSS Variables
     document.addEventListener('mousemove', (e) => {
-      const scenes = document.querySelectorAll('.scene-img, .character-img');
-      if (!scenes.length) return;
       const x = (e.clientX / window.innerWidth) - 0.5;
       const y = (e.clientY / window.innerHeight) - 0.5;
-      scenes.forEach(img => {
-         img.style.transform = `perspective(1000px) rotateY(${x * 15}deg) rotateX(${-y * 15}deg) translateZ(20px)`;
-         img.style.transition = 'transform 0.1s ease-out';
-      });
+      document.documentElement.style.setProperty('--mouse-x', x);
+      document.documentElement.style.setProperty('--mouse-y', y);
     });
   }
 
