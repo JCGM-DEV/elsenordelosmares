@@ -16,6 +16,26 @@ export class GameEngine {
     this.audio.crossOrigin = 'anonymous';
     this.audio.preload = 'auto';
     this.audio.loop = true;
+    this.actx = null;
+  }
+
+  playSfx() {
+    if (!this.gameState.musicEnabled) return;
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!this.actx) this.actx = new AudioContext();
+        const osc = this.actx.createOscillator();
+        const gain = this.actx.createGain();
+        osc.connect(gain);
+        gain.connect(this.actx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(400, this.actx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(100, this.actx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.2, this.actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.actx.currentTime + 0.1);
+        osc.start();
+        osc.stop(this.actx.currentTime + 0.1);
+    } catch (e) {}
   }
 
   init() {
@@ -46,7 +66,8 @@ export class GameEngine {
             </div>
 
             <div class="title-actions animate-fade-up delay-4" style="margin-top: 2rem;">
-              <button id="btn-start" class="btn-primary">COMENZAR AVENTURA</button>
+              ${localStorage.getItem('elsenormares_save') ? '<button id="btn-continue" class="btn-primary" style="background:#5b21b6; color:white; border-color:#8b5cf6; margin-bottom: 10px;">CONTINUAR PARTIDA</button>' : ''}
+              <button id="btn-start" class="btn-primary">NUEVA AVENTURA</button>
               <button id="btn-credits" class="btn-secondary">CRÉDITOS</button>
               <button id="btn-music-toggle" class="btn-icon">🔊</button>
             </div>
@@ -71,9 +92,23 @@ export class GameEngine {
     this._spawnParticles();
 
     document.getElementById('btn-start').addEventListener('click', () => {
+      this.playSfx();
+      localStorage.removeItem('elsenormares_save');
       this.container.querySelector('.title-screen').classList.add('fade-out');
       setTimeout(() => this.render(), 800);
     });
+
+    const btnCont = document.getElementById('btn-continue');
+    if (btnCont) {
+        btnCont.addEventListener('click', () => {
+            this.playSfx();
+            const saved = JSON.parse(localStorage.getItem('elsenormares_save'));
+            this.currentState = saved.node;
+            this.gameState = saved.state;
+            this.container.querySelector('.title-screen').classList.add('fade-out');
+            setTimeout(() => this.render(), 800);
+        });
+    }
 
     document.getElementById('btn-credits').addEventListener('click', () => {
       document.getElementById('credits-panel').classList.remove('hidden');
@@ -139,10 +174,41 @@ export class GameEngine {
     }, speed);
   }
 
+  saveGame() {
+    localStorage.setItem('elsenormares_save', JSON.stringify({
+        node: this.currentState,
+        state: this.gameState
+    }));
+  }
+
+  isMapAvailable() {
+      return ['patio', 'despacho', 'calles_intro', 'convento_intro', 'iglesia_intro'].includes(this.currentState);
+  }
+
+  getIconFor(item) {
+     const icons = {
+         'Provisiones': '🥩',
+         'Provisiones Extra': '🥩',
+         'Mapa de Lisboa': '🗺️',
+         'Bolsa de Oro': '💰',
+         'Sello Real': '📜',
+         'Llave Antigua': '🔑',
+         'Carta del Informador': '✉️',
+         'Lista de Traidores': '📝',
+         'Orden Real': '👑',
+         'Pólvora Superior': '💣'
+     };
+     return icons[item] || item.charAt(0);
+  }
+
   render() {
     const node = this.storyData.nodes[this.currentState];
     if (!node) return;
     
+    if (node.type !== 'gameover' && !node.video) {
+        this.saveGame();
+    }
+
     const container = this.container.querySelector('.pro-container');
     if (container) {
       container.classList.add('scene-fade-out');
@@ -184,7 +250,7 @@ export class GameEngine {
             <span class="status-label">Inventario</span>
             <div class="inventory-slots">
               ${this.gameState.inventory.length > 0 ? 
-                this.gameState.inventory.map(item => `<div class="inv-item" title="${item}">${item.charAt(0)}</div>`).join('') : 
+                this.gameState.inventory.map(item => `<div class="inv-item" title="${item}">${this.getIconFor(item)}</div>`).join('') : 
                 '<span class="empty-inv">Vacío</span>'}
             </div>
           </div>
@@ -205,8 +271,8 @@ export class GameEngine {
         </div>
 
         <div class="nav-control">
-          <button id="map-toggle" class="map-btn">Plan del Palacio</button>
-          <button id="btn-hud-music" class="map-btn" style="margin-left: 1rem; width: 50px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
+          ${ this.isMapAvailable() ? `<button id="map-toggle" class="map-btn">Plan del Palacio</button>` : ''}
+          <button id="btn-hud-music" class="map-btn" style="margin-left: ${this.isMapAvailable() ? '1rem' : '0'}; width: 50px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
         </div>
 
         <div class="header-overlay">
@@ -318,12 +384,17 @@ export class GameEngine {
     const closeMap = document.getElementById('close-map');
     const navLocs = document.querySelectorAll('.nav-loc');
 
-    mapToggle.addEventListener('click', () => navOverlay.classList.remove('hidden'));
-    closeMap.addEventListener('click', () => navOverlay.classList.add('hidden'));
+    if (mapToggle) {
+        mapToggle.addEventListener('click', () => { this.playSfx(); navOverlay.classList.remove('hidden'); });
+    }
+    if (closeMap) {
+        closeMap.addEventListener('click', () => { this.playSfx(); navOverlay.classList.add('hidden'); });
+    }
 
     navLocs.forEach(btn => {
       btn.addEventListener('click', () => {
         if (this.isTyping || btn.classList.contains('active')) return;
+        this.playSfx();
         this.currentState = btn.dataset.node;
         this.render();
       });
@@ -370,10 +441,17 @@ export class GameEngine {
 
     if (node.type === 'gameover') {
       optionsContainer.innerHTML = `
-        <button class="pro-option game-over-btn" onclick="location.reload()">
-          <span class="opt-text">REINTENTAR AVENTURA</span>
+        <button class="pro-option game-over-btn" onclick="localStorage.removeItem('elsenormares_save'); location.reload()">
+          <span class="opt-text">REINICIAR TODO</span>
         </button>
       `;
+      if (localStorage.getItem('elsenormares_save')) {
+          optionsContainer.innerHTML += `
+            <button class="pro-option" onclick="location.reload()" style="background:var(--gold); color:#000; justify-content:center;">
+              <span class="opt-text">CARGAR ÚLTIMO PUNTO</span>
+            </button>
+          `;
+      }
     } else {
       optionsContainer.innerHTML = availableOptions.map((opt, index) => `
         <button class="pro-option" data-next="${opt.nextNode}" data-impact='${JSON.stringify(opt.impact || {})}'>
@@ -390,7 +468,8 @@ export class GameEngine {
     const buttons = this.container.querySelectorAll('.pro-option');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        if (this.isTyping) return;
+        if (this.isTyping && !btn.classList.contains('game-over-btn')) return;
+        this.playSfx();
         
         const node = this.storyData.nodes[this.currentState];
         const nextNodeId = btn.dataset.next;
@@ -433,6 +512,7 @@ export class GameEngine {
       const buttons = optionsContainer.querySelectorAll('.puzzle-opt');
       buttons.forEach(btn => {
         btn.addEventListener('click', () => {
+          this.playSfx();
           const index = parseInt(btn.dataset.index);
           this.checkPuzzleResult(index === puzzle.correctIndex, puzzle);
         });
@@ -448,6 +528,7 @@ export class GameEngine {
       const submit = document.getElementById('puzzle-submit');
       const input = document.getElementById('puzzle-input');
       submit.addEventListener('click', () => {
+        this.playSfx();
         const val = input.value.trim().toLowerCase();
         this.checkPuzzleResult(val === puzzle.answer.toLowerCase(), puzzle);
       });
@@ -471,6 +552,7 @@ export class GameEngine {
       const display = document.getElementById('seq-display');
       seqBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+          this.playSfx();
           const label = btn.dataset.label;
           if (label === puzzle.sequence[currentIdx]) {
             currentIdx++;
@@ -495,6 +577,7 @@ export class GameEngine {
       const rollBtn = document.getElementById('roll-dice');
       const diceRes = document.getElementById('dice-result');
       rollBtn.addEventListener('click', () => {
+        this.playSfx();
         rollBtn.disabled = true;
         let rolls = 0;
         const interval = setInterval(() => {
