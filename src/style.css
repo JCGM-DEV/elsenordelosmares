@@ -644,6 +644,56 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
     filter: grayscale(100%);
 }
 
+.fx-candle {
+    animation: candle-flicker 4s infinite alternate;
+}
+@keyframes candle-flicker {
+    0% { opacity: 0.8; }
+    25% { opacity: 0.95; }
+    50% { opacity: 0.85; }
+    75% { opacity: 0.9; }
+    100% { opacity: 0.75; }
+}
+
+.fx-smoke {
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="a"><feTurbulence type="fractalNoise" baseFrequency="0.01 0.01" numOctaves="3" result="noise"/><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0" in="noise"/></filter><rect width="100%" height="100%" filter="url(%23a)"/></svg>');
+    opacity: 0.3;
+    animation: smoke-move 20s linear infinite;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    z-index: 5;
+}
+@keyframes smoke-move {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+.shake {
+    animation: screen-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+@keyframes screen-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.damage-flash::after {
+    content: ''; position: fixed; inset: 0; background: rgba(255,0,0,0.4); z-index: 9999; pointer-events: none; animation: flash-fade 0.5s forwards;
+}
+@keyframes flash-fade { 100% { opacity: 0; } }
+
+.char-breathe {
+    animation: breathe 4s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02) translateY(-2px); }
+}
+
 /* Puzzles */
 
 .puzzle-box { padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid var(--gold-dark); margin-top: 1rem; }

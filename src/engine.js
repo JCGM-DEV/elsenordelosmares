@@ -181,6 +181,37 @@ export class GameEngine {
     }));
   }
 
+  _triggerDamage() {
+      const app = document.getElementById('app');
+      if (app) {
+          app.classList.add('shake', 'damage-flash');
+          setTimeout(() => app.classList.remove('shake', 'damage-flash'), 500);
+      }
+      if (!this.gameState.musicEnabled) return;
+      try {
+          const actx = window.AudioContext || window.webkitAudioContext;
+          if (!this.actx) this.actx = new actx();
+          const osc = this.actx.createOscillator();
+          const gain = this.actx.createGain();
+          osc.connect(gain); gain.connect(this.actx.destination);
+          osc.type = 'sawtooth'; osc.frequency.setValueAtTime(80, this.actx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(10, this.actx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.5, this.actx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, this.actx.currentTime + 0.3);
+          osc.start(); osc.stop(this.actx.currentTime + 0.3);
+      } catch(e){}
+  }
+
+  _getVignetteClass() {
+      const indoors = ['despacho', 'despacho_notas', 'bodegas', 'taberna', 'taberna_intro', 'taberna_posadero', 'convento_intro', 'convento_mensaje', 'iglesia_intro', 'iglesia_tumbas', 'madrid_consejo', 'madrid_felipe_ii', 'san_martin_camarote'];
+      return indoors.includes(this.currentState) ? 'fx-candle' : '';
+  }
+
+  _getVfxLayer() {
+      const smokeNodes = ['azores_batalla', 'lisboa_incendio', 'bodega_polvora'];
+      return smokeNodes.includes(this.currentState) ? '<div class="fx-smoke"></div>' : '';
+  }
+
   isMapAvailable() {
       return ['patio', 'despacho', 'calles_intro', 'convento_intro', 'iglesia_intro'].includes(this.currentState);
   }
@@ -440,6 +471,7 @@ export class GameEngine {
     });
 
     if (node.type === 'gameover') {
+      this._triggerDamage();
       optionsContainer.innerHTML = `
         <button class="pro-option game-over-btn" onclick="localStorage.removeItem('elsenormares_save'); location.reload()">
           <span class="opt-text">REINICIAR TODO</span>
@@ -478,6 +510,10 @@ export class GameEngine {
         const impact = JSON.parse(btn.dataset.impact || '{}');
         if (impact.royalFavor) this.gameState.royalFavor = Math.min(100, Math.max(0, this.gameState.royalFavor + impact.royalFavor));
         if (impact.armadaReadiness) this.gameState.armadaReadiness = Math.min(100, Math.max(0, this.gameState.armadaReadiness + impact.armadaReadiness));
+        
+        if (impact.royalFavor < 0 || impact.armadaReadiness < 0) {
+            this._triggerDamage();
+        }
         
         // Single use logic
         if (opt && opt.singleUse) {
