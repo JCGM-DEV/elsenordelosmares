@@ -11,12 +11,19 @@ export class GameEngine {
       visitedRooms: new Set(['patio']),
       musicEnabled: true
     };
+    this.tracks = {
+        act1: 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3',
+        act2: 'https://cdn.pixabay.com/audio/2021/11/25/audio_91b3cb80ed.mp3',
+        act3: 'https://cdn.pixabay.com/audio/2022/01/18/audio_d0a13f69d2.mp3'
+    };
+    this.currentTrack = 'act1';
     this.audio = new Audio();
-    this.audio.src = 'https://cdn.pixabay.com/audio/2026/03/24/audio_0d4f0907cb.mp3';
+    this.audio.src = this.tracks.act1;
     this.audio.crossOrigin = 'anonymous';
     this.audio.preload = 'auto';
     this.audio.loop = true;
     this.actx = null;
+    this.ttsEnabled = localStorage.getItem('elsenormares_tts') === 'true';
   }
 
   playSfx() {
@@ -129,6 +136,18 @@ export class GameEngine {
     };
     document.body.addEventListener('click', startMusic);
     document.body.addEventListener('keydown', startMusic);
+
+    // Parallax effect
+    document.addEventListener('mousemove', (e) => {
+      const scenes = document.querySelectorAll('.scene-img, .character-img');
+      if (!scenes.length) return;
+      const x = (e.clientX / window.innerWidth) - 0.5;
+      const y = (e.clientY / window.innerHeight) - 0.5;
+      scenes.forEach(img => {
+         img.style.transform = `perspective(1000px) rotateY(${x * 15}deg) rotateX(${-y * 15}deg) translateZ(20px)`;
+         img.style.transition = 'transform 0.1s ease-out';
+      });
+    });
   }
 
   toggleMusic() {
@@ -141,6 +160,41 @@ export class GameEngine {
       this.audio.pause();
       if (btn) btn.innerText = '🔇';
     }
+  }
+
+  toggleTts() {
+    this.playSfx();
+    this.ttsEnabled = !this.ttsEnabled;
+    localStorage.setItem('elsenormares_tts', this.ttsEnabled);
+    const btn = document.getElementById('btn-hud-tts');
+    if (btn) btn.innerText = this.ttsEnabled ? '🗣️' : '🤫';
+    if (!this.ttsEnabled && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+
+  _speakText(text) {
+      if (!this.ttsEnabled || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'es-ES';
+      utterance.rate = 1.05;
+      utterance.pitch = 0.9;
+      
+      const voices = window.speechSynthesis.getVoices();
+      const esVoice = voices.find(v => v.lang.startsWith('es') && (v.name.includes('Google') || v.name.includes('Natural')));
+      if (esVoice) utterance.voice = esVoice;
+
+      window.speechSynthesis.speak(utterance);
+  }
+
+  _checkCinematicMode() {
+      const epicNodes = ['madrid_consejo', 'madrid_felipe_ii', 'azores_batalla', 'final_logic', 'final_gratitud', 'final_homenaje_viso'];
+      if (epicNodes.includes(this.currentState)) {
+          document.body.classList.add('cinematic-mode', 'active-bars');
+      } else {
+          document.body.classList.remove('active-bars');
+      }
   }
 
   _spawnParticles() {
@@ -162,13 +216,39 @@ export class GameEngine {
     this.isTyping = true;
     element.innerHTML = '';
     let i = 0;
-    const timer = setInterval(() => {
+    
+    this._speakText(text);
+
+    if (this._typingInterval) clearInterval(this._typingInterval);
+    
+    this._skipTyping = () => {
+        clearInterval(this._typingInterval);
+        element.innerHTML = text;
+        this.isTyping = false;
+        this._typingInterval = null;
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        this.showOptions();
+    };
+
+    const container = element.parentElement;
+    if (container) {
+        container.onclick = () => {
+            if (this.isTyping && this._skipTyping) {
+                this._skipTyping();
+                this.playSfx();
+            }
+        };
+        container.style.cursor = 'pointer';
+    }
+
+    this._typingInterval = setInterval(() => {
       if (i < text.length) {
         element.innerHTML += text.charAt(i);
         i++;
       } else {
-        clearInterval(timer);
+        clearInterval(this._typingInterval);
         this.isTyping = false;
+        this._typingInterval = null;
         this.showOptions();
       }
     }, speed);
@@ -236,8 +316,23 @@ export class GameEngine {
     const node = this.storyData.nodes[this.currentState];
     if (!node) return;
     
+    this._checkCinematicMode();
+
     if (node.type !== 'gameover' && !node.video) {
         this.saveGame();
+    }
+
+    let nextTrack = 'act1';
+    if (this.currentState.startsWith('madrid_')) nextTrack = 'act2';
+    if (this.currentState.startsWith('lisboa_') || this.currentState.startsWith('azores_') || this.currentState.startsWith('san_martin_') || this.currentState.startsWith('victoria_') || this.currentState.startsWith('final_')) nextTrack = 'act3';
+    
+    if (nextTrack !== this.currentTrack) {
+       this.currentTrack = nextTrack;
+       const wasPlaying = !this.audio.paused && this.gameState.musicEnabled;
+       this.audio.src = this.tracks[this.currentTrack];
+       if (wasPlaying) {
+           this.audio.play().catch(e => console.warn("Track change autoplay block:", e));
+       }
     }
 
     const container = this.container.querySelector('.pro-container');
@@ -304,6 +399,7 @@ export class GameEngine {
         <div class="nav-control">
           ${ this.isMapAvailable() ? `<button id="map-toggle" class="map-btn">Plan del Palacio</button>` : ''}
           <button id="btn-hud-music" class="map-btn" style="margin-left: ${this.isMapAvailable() ? '1rem' : '0'}; width: 50px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
+          <button id="btn-hud-tts" class="map-btn" style="margin-left: 0.5rem; width: 50px;" title="Narrador">${this.ttsEnabled ? '🗣️' : '🤫'}</button>
         </div>
 
         <div class="header-overlay">
@@ -433,6 +529,9 @@ export class GameEngine {
 
     const hudMusic = document.getElementById('btn-hud-music');
     if (hudMusic) hudMusic.addEventListener('click', () => this.toggleMusic());
+
+    const ttsBtn = document.getElementById('btn-hud-tts');
+    if (ttsBtn) ttsBtn.addEventListener('click', () => this.toggleTts());
   }
 
   showOptions() {
