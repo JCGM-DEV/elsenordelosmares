@@ -464,16 +464,36 @@
       "text": "¡VICTORIA! Tus tácticas y preparación han sido perfectas. El Almirante enemigo huye y España asegura el océano. Eres el Señor de los Mares.",
       "image": "azores_batalla.png",
       "options": [
-        { "text": "VOLVER AL PALACIO COMO HÉROE", "nextNode": "patio" },
+        { "text": "VOLVER AL PALACIO COMO HÉROE", "nextNode": "final_gratitud" },
         { "text": "REVISAR LAS BAJAS Y EL BOTÍN", "nextNode": "victoria_botin" },
-        { "text": "ENVIAR MENSAJERO AL REY", "nextNode": "patio", "impact": { "royalFavor": 20 } },
-        { "text": "CELEBRAR CON LA TRIPULACIÓN", "nextNode": "patio", "impact": { "armadaReadiness": 20 } }
+        { "text": "ENVIAR MENSAJERO AL REY", "nextNode": "final_gratitud", "impact": { "royalFavor": 20 } },
+        { "text": "CELEBRAR CON LA TRIPULACIÓN", "nextNode": "final_gratitud", "impact": { "armadaReadiness": 20 } }
       ]
     },
     "victoria_botin": {
         "text": "Has capturado tres galeones ingleses repletos de especias y seda. Tu riqueza y poder son ahora legendarios.",
         "image": "patio_observar.png",
-        "options": [ { "text": "Regresar triunfante al Palacio", "nextNode": "patio" } ]
+        "options": [ { "text": "Regresar triunfante al Palacio", "nextNode": "final_gratitud" } ]
+    },
+    "final_gratitud": {
+      "text": "El Almirante Don Álvaro de Bazán se detiene en la popa del San Martín. Os mira directamente, con una mezcla de respeto y cansancio noble. 'Habéis sido mi brújula y mi valor en esta jornada. Sin vuestro ingenio, el Rayo de la Guerra se habría apagado. Os debo la gloria, alma estratégica'.",
+      "image": "almirante_triumph.png",
+      "options": [
+        { "text": "Aceptar los honores", "nextNode": "final_homenaje_viso" }
+      ]
+    },
+    "final_homenaje_viso": {
+      "text": "Sopla un viento cálido que huele a las tierras de Castilla. 'Mis pensamientos vuelan ahora hacia mi amado Viso del Marqués. Allí, entre los muros de mi palacio y la paz de mi tierra, descansarán mis picas. Gracias, tierra bendita, por darme la cuna y el refugio. Mi espada siempre será de España, pero mi corazón es del Viso'.",
+      "image": "palacio_viso_epic.png",
+      "options": [
+        { "text": "Contemplar el horizonte", "nextNode": "final_despedida" }
+      ]
+    },
+    "final_despedida": {
+      "text": "La historia guardará vuestro nombre entre susurros de pólvora y sal. La jornada ha terminado. Don Álvaro de Bazán, Marqués de Santa Cruz, descansa finalmente con el deber cumplido. FIN.",
+      "image": "almirante_final_message.png",
+      "type": "gameover",
+      "options": []
     }
   }
 }
