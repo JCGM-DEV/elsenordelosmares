@@ -8,7 +8,7 @@
         { "text": "Subir a tu Despacho Personal", "nextNode": "escalera" },
         { "text": "Bajar a las bodegas de suministros", "nextNode": "bodegas" },
         { "text": "Marchar hacia Madrid (Camino Real)", "nextNode": "camini_preparacion_check", "requireItem": "Provisiones" },
-        { "text": "Admirar las pinturas de batallas en el muro", "nextNode": "patio_observar", "impact": { "armadaReadiness": 5 } }
+        { "text": "Admirar las pinturas de batallas en el muro", "nextNode": "patio_observar", "impact": { "armadaReadiness": 5 }, "singleUse": true }
       ]
     },
     "camini_preparacion_check": {
@@ -35,7 +35,7 @@
       "options": [
         { "text": "Abrir el cofre", "nextNode": "bodega_cofre", "collectItem": "Mapa de Lisboa" },
         { "text": "Inspeccionar los barriles de pólvora", "nextNode": "bodega_polvora" },
-        { "text": "Inventariar las provisiones", "nextNode": "bodega_provisiones", "collectItem": "Provisiones Extra" },
+        { "text": "Inventariar las provisiones", "nextNode": "bodega_provisiones", "collectItem": "Provisiones" },
         { "text": "Volver al Patio", "nextNode": "patio" }
       ]
     },
@@ -91,8 +91,8 @@
       "options": [
         { "text": "Llamar al Secretario", "nextNode": "secretario_intro" },
         { "text": "Buscar en los cajones secretos", "nextNode": "cajones_despacho", "collectItem": "Sello Real" },
-        { "text": "Revisar tus notas tácticas", "nextNode": "despacho_notas", "impact": { "armadaReadiness": 5 } },
-        { "text": "Escribir una nota a tu familia", "nextNode": "despacho", "impact": { "royalFavor": -2 } }
+        { "text": "Revisar tus notas tácticas", "nextNode": "despacho_notas", "impact": { "armadaReadiness": 5 }, "singleUse": true },
+        { "text": "Escribir una nota a tu familia", "nextNode": "despacho", "impact": { "royalFavor": -2 }, "singleUse": true }
       ]
     },
     "despacho_notas": {
@@ -112,7 +112,7 @@
       "options": [
         { "text": "Usar el Sello Real para registrar aposentos", "nextNode": "registro_exito", "requireItem": "Sello Real" },
         { "text": "Interrogar al secretario sobre sus sospechosos", "nextNode": "secretario_sospechas" },
-        { "text": "Revisar la correspondencia reciente", "nextNode": "despacho_correo", "impact": { "royalFavor": 2 } },
+        { "text": "Revisar la correspondencia reciente", "nextNode": "despacho_correo", "impact": { "royalFavor": 2 }, "singleUse": true },
         { "text": "Bajar al patio para salir al pueblo", "nextNode": "patio" }
       ]
     },
@@ -138,7 +138,7 @@
         { "text": "Ir a la Plaza Mayor", "nextNode": "plaza_mercado" },
         { "text": "Visitar la Iglesia de la Asunción", "nextNode": "iglesia_intro" },
         { "text": "Ir al Convento", "nextNode": "convento_intro" },
-        { "text": "Hablar con los soldados que descansan", "nextNode": "calles_soldados", "impact": { "armadaReadiness": 5 } }
+        { "text": "Hablar con los soldados que descansan", "nextNode": "calles_soldados", "impact": { "armadaReadiness": 5 }, "singleUse": true }
       ]
     },
     "calles_soldados": {
@@ -185,7 +185,7 @@
       }
     },
     "taberna_beber_fallo": {
-      "text": "La suerte no está de tu lado. 'Mejor retiraos a vuestro palacio, Marqués', ríen los marineros mientras recogen tu oro.",
+      "text": "La suerte no está de tu lado. 'Mejor retiraos a vuestro palacio, Marqués', ríen los marineros. El posadero, viendo tu enojo, se apiada y te llama en voz baja.",
       "image": "taberna.png",
       "options": [ { "text": "Intentar hablar con el posadero directamente", "nextNode": "taberna_posadero" } ]
     },
@@ -215,7 +215,7 @@
       "options": [
         { "text": "Hablar con el Cura", "nextNode": "iglesia_cura" },
         { "text": "Observar el cocodrilo de cerca", "nextNode": "iglesia_cocodrilo" },
-        { "text": "Rezar por la victoria de la Armada", "nextNode": "iglesia_intro", "impact": { "royalFavor": 5 } },
+        { "text": "Rezar por la victoria de la Armada", "nextNode": "iglesia_intro", "impact": { "royalFavor": 5 }, "singleUse": true },
         { "text": "Buscar inscripciones en las tumbas", "nextNode": "iglesia_tumbas" }
       ]
     },
@@ -269,7 +269,7 @@
       "text": "Con provisiones y determinación, el Camino Real a Madrid se abre ante ti. Las tierras de la Mancha son vastas y peligrosas.",
       "image": "camino.png",
       "options": [
-        { "text": "Zarpar hacia el Escorial", "nextNode": "madrid_llegada", "requireItem": "Provisiones" },
+        { "text": "Cabalgar hacia el Escorial", "nextNode": "madrid_llegada", "requireItem": "Provisiones" },
         { "text": "Ultimar detalles en El Viso", "nextNode": "calles_intro" }
       ]
     },
@@ -340,14 +340,14 @@
     "madrid_duelo_victoria": {
       "text": "Tras un breve duelo en los pasillos del Escorial, obtienes la lista de conspiradores. ¡Ahora estás listo para el Rey!",
       "image": "alvaro_hero.png",
-      "options": [ { "text": "Entrar a la Audiencia", "nextNode": "madrid_felipe_ii" } ]
+      "options": [ { "text": "Entrar a la Audiencia", "nextNode": "madrid_felipe_ii", "collectItem": "Lista de Traidores" } ]
     },
     "madrid_mapas": {
       "text": "En la Sala de Mapas descubres un error en la ruta de las Azores. Si no lo corriges, la flota será masacrada.",
       "image": "mapas.png",
       "options": [
         { "text": "Corregir los mapas con tu experiencia", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 20 } },
-        { "text": "Investigar a los cartógrafos", "nextNode": "madrid_espia_corte", "collectItem": "Lista de Traidores" }
+        { "text": "Investigar a los cartógrafos", "nextNode": "madrid_espia_corte" }
       ]
     },
     "madrid_felipe_ii": {
@@ -355,8 +355,8 @@
       "image": "felipe.png",
       "options": [
         { "text": "Jurar lealtad y pedir la Orden de Partida", "nextNode": "madrid_orden_real", "condition": "royalFavor >= 50" },
-        { "text": "Pedir más hombres y barcos para la flota", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 20, "royalFavor": -10 } },
-        { "text": "Informar sobre la red de espionaje inglesa", "nextNode": "madrid_felipe_ii", "impact": { "royalFavor": 15 } },
+        { "text": "Pedir más hombres y barcos para la flota", "nextNode": "madrid_felipe_ii", "impact": { "armadaReadiness": 20, "royalFavor": -10 }, "singleUse": true },
+        { "text": "Informar sobre la red de espionaje inglesa", "nextNode": "madrid_felipe_ii", "impact": { "royalFavor": 15 }, "singleUse": true },
         { "text": "Rechazar la misión por falta de medios", "nextNode": "madrid_rechazo" }
       ]
     },
@@ -378,7 +378,7 @@
         { "text": "Ir a los Astilleros del Tajo", "nextNode": "lisboa_astilleros", "requireItem": "Orden Real" },
         { "text": "Buscar la Casa de la Puerta Azul", "nextNode": "lisboa_puerta_azul" },
         { "text": "Hablar con los mercaderes del puerto", "nextNode": "lisboa_mercaderes" },
-        { "text": "Revisar los fortines de defensa de la ría", "nextNode": "lisboa_llegada", "impact": { "armadaReadiness": 10 } }
+        { "text": "Revisar los fortines de defensa de la ría", "nextNode": "lisboa_llegada", "impact": { "armadaReadiness": 10 }, "singleUse": true }
       ]
     },
     "lisboa_mercaderes": {
@@ -411,7 +411,7 @@
         { "text": "Detener al saboteador (Con la Lista)", "nextNode": "lisboa_victoria", "requireItem": "Lista de Traidores" },
         { "text": "Vigilar las sombras personalmente", "nextNode": "lisboa_incendio" },
         { "text": "Doblar la guardia nocturna", "nextNode": "lisboa_victoria_parcial", "impact": { "royalFavor": -5 } },
-        { "text": "Arengar a los carpinteros y calafates", "nextNode": "lisboa_astilleros", "impact": { "armadaReadiness": 10 } }
+        { "text": "Arengar a los carpinteros y calafates", "nextNode": "lisboa_astilleros", "impact": { "armadaReadiness": 10 }, "singleUse": true }
       ]
     },
     "lisboa_victoria_parcial": {

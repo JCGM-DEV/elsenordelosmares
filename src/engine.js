@@ -344,6 +344,9 @@ export class GameEngine {
     }
 
     const availableOptions = node.options.filter(opt => {
+      // Single use check
+      if (opt.singleUse && this.gameState.usedOptions && this.gameState.usedOptions.includes(opt.text)) return false;
+
       // Condition check (stats)
       if (opt.condition) {
         try {
@@ -397,6 +400,12 @@ export class GameEngine {
         if (impact.royalFavor) this.gameState.royalFavor = Math.min(100, Math.max(0, this.gameState.royalFavor + impact.royalFavor));
         if (impact.armadaReadiness) this.gameState.armadaReadiness = Math.min(100, Math.max(0, this.gameState.armadaReadiness + impact.armadaReadiness));
         
+        // Single use logic
+        if (opt && opt.singleUse) {
+          if (!this.gameState.usedOptions) this.gameState.usedOptions = [];
+          this.gameState.usedOptions.push(opt.text);
+        }
+
         // Collection logic
         if (opt && opt.collectItem && !this.gameState.inventory.includes(opt.collectItem)) {
           this.gameState.inventory.push(opt.collectItem);
