@@ -1,8 +1,9 @@
 export class GameEngine {
   constructor(storyData, containerId) {
-    this.storyData = storyData;
+    this.nodes = storyData.nodes;
     this.container = document.getElementById(containerId);
-    this.currentState = storyData.startNode;
+    this.startNode = storyData.startNode;
+    this.currentState = this.startNode;
     this.isTyping = false;
     this.gameState = {
       royalFavor: 50,
@@ -585,6 +586,7 @@ export class GameEngine {
     });
 
     if (node.type === 'gameover') {
+      this.audio.pause();
       this._triggerDamage();
       optionsContainer.innerHTML = `
         <button class="pro-option game-over-btn" id="btn-restart-game">
