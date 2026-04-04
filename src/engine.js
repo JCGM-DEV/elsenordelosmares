@@ -1,5 +1,6 @@
 export class GameEngine {
   constructor(storyData, containerId) {
+    this.storyData = storyData;
     this.nodes = storyData.nodes;
     this.container = document.getElementById(containerId);
     this.startNode = storyData.startNode;
