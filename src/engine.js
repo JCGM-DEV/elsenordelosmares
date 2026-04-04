@@ -155,6 +155,11 @@ export class GameEngine {
   }
 
   _renderNodeContent(node) {
+    if (node.video) {
+        this._renderVideoCinematic(node);
+        return;
+    }
+
     this.container.innerHTML = `
       <div class="pro-container scene-fade-in">
         <div class="background-blur" style="background-image: url('${node.image || ''}')"></div>
@@ -232,6 +237,79 @@ export class GameEngine {
     const textElement = document.getElementById('story-text');
     this.typeWriter(node.text, textElement);
     this.setupNavEvents();
+  }
+
+  _renderVideoCinematic(node) {
+    // Mute game music during cinematic
+    const wasMusicEnabled = this.gameState.musicEnabled;
+    if (wasMusicEnabled) {
+        this.audio.pause();
+    }
+
+    // Attempt to handle base path correctly for Vite
+    // If the path doesn't start with / and we have a base, we might need to adjust it
+    const videoSrc = node.video.startsWith('http') || node.video.startsWith('/') 
+        ? node.video 
+        : `./${node.video}`;
+
+    this.container.innerHTML = `
+      <div class="cinematic-container">
+        <video id="cinematic-video" class="cinematic-video" playsinline preload="auto">
+          <source src="${videoSrc}" type="video/mp4">
+          Tu navegador no soporta videos.
+        </video>
+        <div class="cinematic-overlay"></div>
+        <div id="video-error-msg" class="hidden" style="position:absolute; color:white; z-index:2002; background:rgba(255,0,0,0.5); padding:20px; text-align:center;">
+            <h3>Error al cargar el cinemático</h3>
+            <p>Ruta: ${videoSrc}</p>
+            <button id="error-skip" class="btn-primary" style="margin-top:10px;">Continuar de todos modos</button>
+        </div>
+        <button id="skip-cinematic" class="skip-cinematic">Saltar</button>
+      </div>
+    `;
+
+    const video = document.getElementById('cinematic-video');
+    const skipBtn = document.getElementById('skip-cinematic');
+    const errorMsg = document.getElementById('video-error-msg');
+    const errorSkip = document.getElementById('error-skip');
+
+    const endCinematic = () => {
+        video.pause();
+        video.onended = null;
+        if (wasMusicEnabled) {
+            this.audio.play();
+        }
+        this.currentState = node.nextNode;
+        this.render();
+    };
+
+    video.onerror = (e) => {
+        console.error("Video element error:", video.error);
+        errorMsg.classList.remove('hidden');
+    };
+
+    errorSkip.addEventListener('click', endCinematic);
+
+    // Try to play. If it fails, it might be due to sound. Try muted.
+    const playVideo = async () => {
+        try {
+            await video.play();
+        } catch (err) {
+            console.warn("Autoplay failed, trying muted:", err);
+            video.muted = true;
+            try {
+                await video.play();
+            } catch (err2) {
+                console.error("Video failed even when muted:", err2);
+                errorMsg.classList.remove('hidden');
+            }
+        }
+    };
+
+    playVideo();
+
+    video.addEventListener('ended', endCinematic);
+    skipBtn.addEventListener('click', endCinematic);
   }
 
   setupNavEvents() {

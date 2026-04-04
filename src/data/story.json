@@ -1,5 +1,5 @@
 {
-  "startNode": "patio",
+  "startNode": "final_gratitud",
   "nodes": {
     "patio": {
       "text": "Estás en el Patio de Honor del Palacio del Viso. Un lugar de mármol y gloria. Las gentes del pueblo saben que algo grande se gesta bajo el mando del Marqués de Santa Cruz.",
@@ -479,8 +479,12 @@
       "text": "El Almirante Don Álvaro de Bazán se detiene en la popa del San Martín. Os mira directamente, con una mezcla de respeto y cansancio noble. 'Habéis sido mi brújula y mi valor en esta jornada. Sin vuestro ingenio, el Rayo de la Guerra se habría apagado. Os debo la gloria, alma estratégica'.",
       "image": "almirante_triumph.png",
       "options": [
-        { "text": "Aceptar los honores", "nextNode": "final_homenaje_viso" }
+        { "text": "Aceptar los honores", "nextNode": "final_video_cinematic" }
       ]
+    },
+    "final_video_cinematic": {
+      "video": "videos/marques.mp4",
+      "nextNode": "final_homenaje_viso"
     },
     "final_homenaje_viso": {
       "text": "Sopla un viento cálido que huele a las tierras de Castilla. 'Mis pensamientos vuelan ahora hacia mi amado Viso del Marqués. Allí, entre los muros de mi palacio y la paz de mi tierra, descansarán mis picas. Gracias, tierra bendita, por darme la cuna y el refugio. Mi espada siempre será de España, pero mi corazón es del Viso'.",
