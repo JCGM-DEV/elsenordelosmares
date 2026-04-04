@@ -680,7 +680,7 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 .cinematic-video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 0 100px rgba(0,0,0,1);
 }
 
