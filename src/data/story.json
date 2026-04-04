@@ -824,7 +824,7 @@
           "nextNode": "lisboa_llegada",
           "impact": {
             "royalFavor": -10,
-            "armadaReadiness": 15
+            "armadaReadiness": 12
           },
           "singleUse": true
         },
@@ -1109,7 +1109,7 @@
       "text": "¡Descifraste la clave secreta de los piratas! Obtienes mapas detallados de Inglaterra y las Azores.",
       "image": "mapas.png",
       "impact": {
-        "armadaReadiness": 20
+        "armadaReadiness": 18
       },
       "options": [
         {
@@ -1137,16 +1137,16 @@
       "image": "barco.png",
       "options": [
         {
-          "text": "¡Zarpar con fuerza letal! (Requiere Armada >= 70 y Pólvora Superior)",
+          "text": "¡Zarpar con fuerza letal! (Requiere Armada >= 80 y Pólvora Superior)",
           "nextNode": "san_martin_camarote",
-          "condition": "armadaReadiness >= 70",
+          "condition": "armadaReadiness >= 80",
           "requireItem": "Pólvora Superior"
         },
         {
           "text": "Asumir el riesgo y zarpar con lo que tienes",
           "nextNode": "san_martin_camarote",
           "impact": {
-            "royalFavor": -15
+            "royalFavor": -25
           }
         },
         {

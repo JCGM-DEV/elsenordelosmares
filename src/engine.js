@@ -7,9 +7,9 @@ export class GameEngine {
     this.currentState = this.startNode;
     this.isTyping = false;
     this.gameState = {
-      royalFavor: 50,
+      royalFavor: 45,
       armadaReadiness: 30,
-      daysRemaining: 15,
+      daysRemaining: 13,
       inventory: [],
       visitedRooms: new Set(['patio']),
       musicEnabled: true
