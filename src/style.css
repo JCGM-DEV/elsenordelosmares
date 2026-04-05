@@ -16,8 +16,9 @@
 
 /* ... existing reset and container styles ... */
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; color: #fff; font-family: var(--font-story); overflow: hidden; height: 100vh; }
+* { margin: 0; padding: 0; box-sizing: border-box; background: #000; }
+html { background: #000; height: 100%; overflow: hidden; }
+body { background: #000; color: #fff; font-family: var(--font-story); overflow: hidden; height: 100vh; height: 100dvh; }
 
 .pro-container {
   height: 100vh; width: 100vw; position: relative;
@@ -749,8 +750,8 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
 @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
 @media (max-width: 768px) {
-  body { overflow-y: auto; height: auto; min-height: 100svh; }
-  .pro-container { height: auto; min-height: 100svh; overflow: visible; display: flex; flex-direction: column; }
+  body { overflow-y: auto; height: auto; min-height: 100vh; min-height: 100svh; background: #000; }
+  .pro-container { height: auto; min-height: 100vh; min-height: 100svh; overflow: visible; display: flex; flex-direction: column; background: #000; }
   
   /* Title Screen Mobile - Ultra Compact */
   .title-content { flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; }

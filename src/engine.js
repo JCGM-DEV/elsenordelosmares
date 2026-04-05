@@ -26,7 +26,10 @@ export class GameEngine {
     this.audio.loop = true;
     this.audio.volume = 0.6;
     this.actx = null;
-    this.ttsEnabled = localStorage.getItem('elsenormares_tts') === 'true';
+    this.ttsEnabled = localStorage.getItem('elsenormares_tts') !== 'false'; // Default to true if not set
+    if (localStorage.getItem('elsenormares_tts') === null) {
+      localStorage.setItem('elsenormares_tts', 'true');
+    }
   }
 
   playSfx() {
