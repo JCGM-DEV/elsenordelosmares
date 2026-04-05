@@ -1,4 +1,4 @@
-const CACHE_NAME = 'elsenormares-v30';
+const CACHE_NAME = 'elsenormares-v31';
 
 const CORE_ASSETS = [
   './',

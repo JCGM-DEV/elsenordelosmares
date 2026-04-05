@@ -80,35 +80,47 @@ export class GameEngine {
       </div>
     `;
 
-    // Preload first-act images
     const criticalImages = [
-      'alvaro_hero.webp', 'patio.webp', 'escudo.svg', 'clean_parchment.webp',
+      'alvaro_hero.webp', 'patio.webp', 'clean_parchment.webp',
       'despacho.webp', 'escalera.webp', 'bodegas.webp', 'calles.webp',
       'palacio_viso_epic.webp', 'don_alvaro.webp'
     ];
 
-    let loaded = 0;
     const bar = document.getElementById('loading-bar');
     const txt = document.getElementById('loading-text');
     const messages = ['Preparando la flota...', 'Cargando los mapas...', 'Afilando las espadas...', 'Listo para zarpar...'];
+    let loaded = 0;
 
-    const onProgress = () => {
+    const advance = () => {
       loaded++;
       const pct = Math.round((loaded / criticalImages.length) * 100);
       if (bar) bar.style.width = pct + '%';
-      if (txt) txt.textContent = messages[Math.floor(loaded / criticalImages.length * (messages.length - 1))] || messages[0];
+      const msgIdx = Math.min(Math.floor(pct / 30), messages.length - 1);
+      if (txt) txt.textContent = messages[msgIdx];
       if (loaded >= criticalImages.length) {
         setTimeout(() => {
           const screen = document.getElementById('loading-screen');
           if (screen) screen.classList.add('loading-fade-out');
           setTimeout(() => this.showTitleScreen(), 600);
-        }, 300);
+        }, 200);
       }
     };
 
+    // Safety timeout — never get stuck, always proceed after 4s max
+    const safetyTimer = setTimeout(() => {
+      const screen = document.getElementById('loading-screen');
+      if (screen) screen.classList.add('loading-fade-out');
+      setTimeout(() => this.showTitleScreen(), 600);
+    }, 4000);
+
+    let pending = criticalImages.length;
     criticalImages.forEach(src => {
       const img = new Image();
-      img.onload = img.onerror = onProgress;
+      img.onload = img.onerror = () => {
+        pending--;
+        advance();
+        if (pending <= 0) clearTimeout(safetyTimer);
+      };
       img.src = './' + src;
     });
   }

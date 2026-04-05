@@ -28,13 +28,16 @@
       </div>
     </div>
     <script>
-      // Failsafe: if engine doesn't start in 4 seconds, show helper
+      // Failsafe: if engine doesn't replace the app content in 8 seconds, show helper
       setTimeout(() => {
+        const app = document.getElementById('app');
         const failsafe = document.getElementById('failsafe-helper');
-        if (document.getElementById('app').children.length <= 1 && failsafe) {
+        // Only show if the loading-screen or title-screen hasn't appeared
+        const hasGameContent = app && (app.querySelector('.loading-screen') || app.querySelector('.title-screen') || app.querySelector('.pro-container'));
+        if (!hasGameContent && failsafe) {
           failsafe.classList.remove('hidden');
         }
-      }, 4000);
+      }, 8000);
     </script>
     <script type="module" src="./src/main.js"></script>
   </body>
