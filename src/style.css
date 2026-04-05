@@ -37,8 +37,8 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 
 .background-art {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 78%;
-  background-size: cover;
+  top: 0; left: 0; width: 100%; height: 80%;
+  background-size: contain;
   background-position: center top;
   background-repeat: no-repeat;
   z-index: 1;
@@ -188,54 +188,35 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
   padding: 0 20px;
   position: absolute;
   bottom: 20px;
-  /* Limit how tall the panel can grow so it never covers more than 55% of screen */
-  max-height: 55vh;
-  display: flex;
-  flex-direction: column;
 }
 .parchment-sheet {
-  background: rgba(249, 245, 232, 0.88) url('/clean_parchment.webp') center/cover;
+  background: rgba(249, 245, 232, 0.92) url('/clean_parchment.webp') center/cover;
   background-blend-mode: overlay;
-  padding: 1rem 1.8rem 1.2rem;
+  padding: 1.1rem 2rem 1.2rem;
   border-radius: 6px;
   box-shadow: 0 -4px 30px rgba(0,0,0,0.5), 0 15px 40px rgba(0,0,0,0.7);
   border-left: 5px solid var(--gold);
   position: relative;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  max-height: 55vh;
 }
 .pro-text {
   color: var(--ink);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   line-height: 1.4;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.7rem;
   font-weight: 700;
   min-height: 2rem;
-  flex-shrink: 0;
 }
 .pro-options {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  overflow-y: auto;
-  /* Custom scrollbar */
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold-dark) transparent;
+  gap: 0.45rem;
 }
-.pro-options::-webkit-scrollbar { width: 4px; }
-.pro-options::-webkit-scrollbar-track { background: transparent; }
-.pro-options::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
-
 .pro-option {
   background: rgba(0,0,0,0.04);
   border: 1px solid rgba(0,0,0,0.1);
-  padding: 0.7rem 1.2rem;
+  padding: 0.65rem 1.2rem;
   font-family: var(--font-story);
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -243,7 +224,6 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
   display: flex;
   align-items: center;
   gap: 1rem;
-  flex-shrink: 0;
   border-radius: 3px;
 }
 .pro-option:hover { background: var(--gold); color: #000; transform: translateX(8px); }
@@ -887,8 +867,7 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
   .parchment-sheet { padding: 1rem; border-left-width: 4px; box-shadow: 0 -10px 20px rgba(0,0,0,0.5); border-radius: 8px; max-height: none; overflow: visible; }
   .pro-text { font-size: 1rem; min-height: auto; margin-bottom: 0.8rem; line-height: 1.5; }
   .pro-option { padding: 0.7rem 0.9rem; font-size: 0.95rem; gap: 0.8rem; margin-bottom: 0.4rem; border-radius: 6px; }
-  .pro-options { overflow-y: visible; }
-  
+  .pro-options { overflow-y: visible; }  
   .portrait-container { 
     position: absolute; 
     bottom: auto;
