@@ -259,7 +259,7 @@
     },
     "secretario_intro": {
       "text": "'Almirante, han descubierto a un traidor entre los criados del palacio. Si no tenemos pruebas, no podremos actuar'.",
-      "image": "despacho.webp",
+      "image": "despacho_secretario.webp",
       "character": {
         "name": "Secretario",
         "image": "secretario.webp"
@@ -300,7 +300,7 @@
     },
     "secretario_sospechas": {
       "text": "'Sospecho del monje que llega cada martes desde Madrid, Almirante. Siempre parece evitar la luz del día'.",
-      "image": "despacho.webp",
+      "image": "despacho_secretario.webp",
       "options": [
         {
           "text": "Ir a las calles",
@@ -815,7 +815,7 @@
     },
     "madrid_orden_real": {
       "text": "El Rey firma el pergamino. Tienes el mando absoluto. 'Partid hacia Lisboa. Que Dios os guíe'.",
-      "image": "convento_pergamino.webp",
+      "image": "pergamino_real.webp",
       "options": [
         {
           "text": "Iniciar el Acto III: Lisboa",
@@ -827,7 +827,7 @@
     "madrid_rechazo": {
       "type": "gameover",
       "text": "Nadie rechaza al Rey Prudente. Eres despojado de tus títulos y enviado al exilio. De Bazán solo quedará el olvido. GAME OVER.",
-      "image": "escorial.webp",
+      "image": "escorial_noche.webp",
       "options": []
     },
     "lisboa_llegada": {
@@ -959,7 +959,7 @@
     },
     "lisboa_sabotaje_puzzle": {
       "text": "Encuentras a los saboteadores entre las barricas de brea. Te ven y sacan sus dagas. ¡Debes repeler el ataque con precisión!",
-      "image": "astilleros.webp",
+      "image": "astilleros_noche.webp",
       "puzzle": {
         "type": "sequence",
         "question": "¡Sigue el ritmo del combate!",
@@ -1018,7 +1018,7 @@
     },
     "san_martin_camarote": {
       "text": "El camarote del Almirante. Desde la ventana ves tu imponente flota. Debes trazar la ruta final para interceptar al enemigo.",
-      "image": "barco.webp",
+      "image": "barco_amanecer.webp",
       "puzzle": {
         "type": "quiz",
         "question": "Si el viento sopla de Poniente, ¿hacia dónde vira la flota para ganar el barlovento?",
@@ -1039,7 +1039,7 @@
     "muerte_naval": {
       "type": "gameover",
       "text": "Tu indecisión permitió que los barcos ingleses bloquearan el Tajo. Eres ridiculizado y mueres de tristeza en Lisboa. GAME OVER.",
-      "image": "barco.webp",
+      "image": "barco_tormenta.webp",
       "options": []
     },
     "azores_batalla": {
@@ -1149,7 +1149,7 @@
     },
     "madrid_taberna_hub": {
       "text": "La Taberna del Oso. Lugar de humo, vino amargo y espías. El tiempo corre, no pierdas la tarde.",
-      "image": "taberna.webp",
+      "image": "taberna_madrid.webp",
       "options": [
         {
           "text": "Comprar una ronda general (-1 Día)",
@@ -1185,7 +1185,7 @@
     },
     "madrid_taberna_cripto": {
       "text": "El tabernero te desliza un papel quemado: 'Para saber cómo ganar, debes conocer el TRATADO... al revés'.",
-      "image": "convento_mensaje.webp",
+      "image": "carta_cifrada.webp",
       "puzzle": {
         "type": "cipher",
         "question": "Palabra secreta:",
@@ -1256,7 +1256,7 @@
     },
     "azores_lanzamiento": {
       "text": "Los cañones retumban. ¿Están todos los galeones listos para surcar el Océano Atlántico y aplastar a Inglaterra?",
-      "image": "barco.webp",
+      "image": "barco_noche.webp",
       "options": [
         {
           "text": "¡Zarpar con fuerza letal! (Requiere Armada >= 80 y Pólvora Superior)",
@@ -1406,7 +1406,7 @@
     },
     "lisboa_alfama": {
       "text": "El barrio de la Alfama huele a bacalao y salitre. Entre sus callejuelas empinadas, los informadores de la corona guardan secretos que valen más que el oro.",
-      "image": "calles.webp",
+      "image": "calles_lisboa.webp",
       "options": [
         {
           "text": "Buscar al contacto del Padre Sousa",
