@@ -335,8 +335,9 @@ export class GameEngine {
 
     const container = element.parentElement;
     if (container) {
-        container.onclick = () => {
-            if (this.isTyping && this._skipTyping) {
+        container.onclick = (e) => {
+            // Only skip typing if clicking directly on the text area, not on option buttons
+            if (this.isTyping && this._skipTyping && !e.target.closest('.pro-option')) {
                 this._skipTyping();
                 this.playSfx();
             }
@@ -773,7 +774,10 @@ export class GameEngine {
     const buttons = this.container.querySelectorAll('.pro-option');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        if (this.isTyping && !btn.classList.contains('game-over-btn')) return;
+        if (this.isTyping) {
+          // Skip typing animation and let the click proceed
+          if (this._skipTyping) this._skipTyping();
+        }
 
         // Contextual SFX based on action type
         const impact = JSON.parse(btn.dataset.impact || '{}');
