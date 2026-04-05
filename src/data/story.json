@@ -207,7 +207,7 @@
           "singleUse": true
         },
         {
-          "text": "Escribir una nota a tu familia",
+          "text": "Escribir una nota a tu familia (distrae del deber)",
           "nextNode": "despacho",
           "impact": {
             "royalFavor": -2
@@ -803,7 +803,7 @@
         {
           "text": "Buscar la Casa de la Puerta Azul",
           "nextNode": "lisboa_puerta_azul",
-          "condition": "!this.gameState.inventory.includes('Pólvora Superior')"
+          "condition": "!hasItem:Pólvora Superior"
         },
         {
           "text": "Inspeccionar las mercancías del puerto",
@@ -1075,7 +1075,7 @@
     "gameover_tiempo": {
       "type": "gameover",
       "text": "El tiempo se agotó. La flota inglesa de Francis Drake atacó la bahía de Cádiz y Lisboa antes de que la Armada estuviera lista. El sueño español arde en llamas. GAME OVER.",
-      "image": "consejo_oro.png",
+      "image": "lisboa_incendio.png",
       "options": []
     },
     "madrid_taberna_hub": {

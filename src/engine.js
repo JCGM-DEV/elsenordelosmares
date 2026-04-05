@@ -11,7 +11,7 @@ export class GameEngine {
       armadaReadiness: 30,
       daysRemaining: 13,
       inventory: [],
-      visitedRooms: new Set(['patio']),
+      visitedRooms: ['patio'],
       musicEnabled: true
     };
     this.tracks = {
@@ -123,6 +123,10 @@ export class GameEngine {
             this.playSfx();
             const saved = JSON.parse(localStorage.getItem('elsenormares_save'));
             this.currentState = saved.node;
+            // Ensure visitedRooms is always a plain array (not a Set)
+            saved.state.visitedRooms = Array.isArray(saved.state.visitedRooms)
+                ? saved.state.visitedRooms
+                : Array.from(saved.state.visitedRooms || []);
             this.gameState = saved.state;
             this.container.querySelector('.title-screen').classList.add('fade-out');
             setTimeout(() => this.render(), 800);
@@ -228,8 +232,6 @@ export class GameEngine {
   typeWriter(rawText, element, speed = 20) {
     this.isTyping = true;
     element.innerHTML = '';
-    
-    this._speakText(rawText);
 
     const text = this._highlightLore(rawText);
 
@@ -240,6 +242,7 @@ export class GameEngine {
         element.innerHTML = text;
         this.isTyping = false;
         this._typingInterval = null;
+        this._speakText(rawText);
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         this.showOptions();
     };
@@ -255,6 +258,10 @@ export class GameEngine {
         container.style.cursor = 'pointer';
     }
 
+    // Show options dimmed while typing so player knows they exist
+    const optionsContainer = document.getElementById('options-container');
+    if (optionsContainer) optionsContainer.classList.add('options-typing');
+
     let i = 0;
     this._typingInterval = setInterval(() => {
       if (i < text.length) {
@@ -269,6 +276,7 @@ export class GameEngine {
         clearInterval(this._typingInterval);
         this.isTyping = false;
         this._typingInterval = null;
+        this._speakText(rawText);
         this.showOptions();
       }
     }, speed);
@@ -313,7 +321,9 @@ export class GameEngine {
   }
 
   isMapAvailable() {
-      return ['patio', 'despacho', 'calles_intro', 'convento_intro', 'iglesia_intro'].includes(this.currentState);
+      // Map only available in Act 1 (El Viso)
+      const act1Nodes = ['patio', 'despacho', 'calles_intro', 'convento_intro', 'iglesia_intro', 'escalera', 'bodegas', 'taberna_intro', 'plaza_mercado'];
+      return act1Nodes.includes(this.currentState);
   }
 
   getIconFor(item) {
@@ -346,6 +356,9 @@ export class GameEngine {
     if (this.currentState.startsWith('madrid_')) nextTrack = 'act2';
     if (this.currentState.startsWith('lisboa_') || this.currentState.startsWith('azores_') || this.currentState.startsWith('san_martin_') || this.currentState.startsWith('victoria_') || this.currentState.startsWith('final_')) nextTrack = 'act3';
     
+    // Determine act label for HUD
+    this._currentActLabel = nextTrack === 'act1' ? 'Acto I · El Viso' : nextTrack === 'act2' ? 'Acto II · Madrid' : 'Acto III · Lisboa';
+    
     if (nextTrack !== this.currentTrack) {
        this.currentTrack = nextTrack;
        const wasPlaying = !this.audio.paused && this.gameState.musicEnabled;
@@ -372,6 +385,14 @@ export class GameEngine {
         return;
     }
 
+    // Bug fix #3: apply node-level impact (not tied to an option click)
+    if (node.impact && !node._impactApplied) {
+        node._impactApplied = true;
+        if (node.impact.royalFavor) this.gameState.royalFavor = Math.min(100, Math.max(0, this.gameState.royalFavor + node.impact.royalFavor));
+        if (node.impact.armadaReadiness) this.gameState.armadaReadiness = Math.min(100, Math.max(0, this.gameState.armadaReadiness + node.impact.armadaReadiness));
+        if (node.impact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + node.impact.days);
+    }
+
     this.container.innerHTML = `
       <div class="pro-container scene-fade-in">
         <div class="background-blur" style="background-image: url('${node.image || ''}')"></div>
@@ -379,6 +400,7 @@ export class GameEngine {
         <div class="vignette"></div>
 
         <div class="status-dashboard">
+          <div class="act-label">${this._currentActLabel || 'Acto I · El Viso'}</div>
           <div class="status-item">
             <span class="status-label">Días</span>
             <span class="status-value ${this.gameState.daysRemaining <= 5 ? 'urgency-flash' : ''}" style="font-size: 1.5rem; font-weight: bold; color: ${this.gameState.daysRemaining <= 5 ? '#ff4444' : 'var(--gold)'}; text-shadow: 0 0 5px rgba(0,0,0,0.8);">${this.gameState.daysRemaining}</span>
@@ -562,6 +584,7 @@ export class GameEngine {
     const node = this.storyData.nodes[this.currentState];
     const optionsContainer = document.getElementById('options-container');
     optionsContainer.classList.remove('hidden');
+    optionsContainer.classList.remove('options-typing');
 
     if (node.puzzle) {
       this.renderPuzzle(node.puzzle);
@@ -575,13 +598,22 @@ export class GameEngine {
       // Condition check (stats)
       if (opt.condition) {
         try {
-          const [variable, operator, value] = opt.condition.split(' ');
-          const varValue = this.gameState[variable];
-          const numValue = parseInt(value);
-          if (operator === '>') if (!(varValue > numValue)) return false;
-          if (operator === '<') if (!(varValue < numValue)) return false;
-          if (operator === '>=') if (!(varValue >= numValue)) return false;
-          if (operator === '<=') if (!(varValue <= numValue)) return false;
+          // Support: "!hasItem:ItemName" and "hasItem:ItemName"
+          if (opt.condition.startsWith('!hasItem:')) {
+            const item = opt.condition.replace('!hasItem:', '');
+            if (this.gameState.inventory.includes(item)) return false;
+          } else if (opt.condition.startsWith('hasItem:')) {
+            const item = opt.condition.replace('hasItem:', '');
+            if (!this.gameState.inventory.includes(item)) return false;
+          } else {
+            const [variable, operator, value] = opt.condition.split(' ');
+            const varValue = this.gameState[variable];
+            const numValue = parseInt(value);
+            if (operator === '>') if (!(varValue > numValue)) return false;
+            if (operator === '<') if (!(varValue < numValue)) return false;
+            if (operator === '>=') if (!(varValue >= numValue)) return false;
+            if (operator === '<=') if (!(varValue <= numValue)) return false;
+          }
         } catch (e) {}
       }
 
@@ -594,14 +626,17 @@ export class GameEngine {
     });
 
     if (node.type === 'gameover') {
-      this.audio.pause();
-      this._triggerDamage();
+      const isHappyEnding = this.currentState === 'final_despedida';
+      if (!isHappyEnding) {
+        this.audio.pause();
+        this._triggerDamage();
+      }
       optionsContainer.innerHTML = `
         <button class="pro-option game-over-btn" id="btn-restart-game">
-          <span class="opt-text">REINICIAR TODO</span>
+          <span class="opt-text">${isHappyEnding ? '⚓ VOLVER AL INICIO' : 'REINICIAR TODO'}</span>
         </button>
       `;
-      if (localStorage.getItem('elsenormares_save')) {
+      if (!isHappyEnding && localStorage.getItem('elsenormares_save')) {
           optionsContainer.innerHTML += `
             <button class="pro-option" id="btn-load-game" style="background:var(--gold); color:#000; justify-content:center;">
               <span class="opt-text">CARGAR ÚLTIMO PUNTO</span>
@@ -621,6 +656,21 @@ export class GameEngine {
           <span class="opt-text">${opt.text}</span>
         </button>
       `).join('');
+
+    // Show locked options as hints (items required but not owned)
+    const lockedOptions = node.options.filter(opt => {
+      if (opt.singleUse && this.gameState.usedOptions && this.gameState.usedOptions.includes(opt.text)) return false;
+      if (opt.requireItem && !this.gameState.inventory.includes(opt.requireItem)) return true;
+      return false;
+    });
+    if (lockedOptions.length > 0) {
+      optionsContainer.innerHTML += lockedOptions.map(opt => `
+        <button class="pro-option locked-option" disabled>
+          <span class="opt-num">🔒</span>
+          <span class="opt-text">${opt.text} <em style="font-size:0.85em; opacity:0.6;">(Necesitas: ${opt.requireItem})</em></span>
+        </button>
+      `).join('');
+    }
 
     this.bindEvents();
   }
@@ -755,13 +805,13 @@ export class GameEngine {
         const interval = setInterval(() => {
           diceRes.innerText = Math.floor(Math.random() * 6) + 1;
           rolls++;
-          if (rolls > 10) {
+          if (rolls > 12) {
             clearInterval(interval);
             const finalVal = Math.floor(Math.random() * 6) + 1;
             diceRes.innerText = finalVal;
-            setTimeout(() => this.checkPuzzleResult(finalVal >= puzzle.target, puzzle), 1000);
+            setTimeout(() => this.checkPuzzleResult(finalVal >= puzzle.target, puzzle), 600);
           }
-        }, 500);
+        }, 80);
       });
     }
   }
@@ -787,18 +837,18 @@ export class GameEngine {
   _restartFullGame() {
     localStorage.removeItem('elsenormares_save');
     this.gameState = {
-      royalFavor: 50,
+      royalFavor: 45,
       armadaReadiness: 30,
-      daysRemaining: 15,
+      daysRemaining: 13,
       inventory: [],
-      visitedRooms: new Set(['patio']),
-      musicEnabled: true
+      visitedRooms: ['patio'],
+      musicEnabled: this.gameState.musicEnabled
     };
     this.currentState = this.startNode;
     this.currentTrack = 'act1';
     this.audio.src = this.tracks.act1;
-    this.audio.play().catch(e => {});
-    this.render();
+    if (this.gameState.musicEnabled) this.audio.play().catch(e => {});
+    this.showTitleScreen();
   }
 }
 

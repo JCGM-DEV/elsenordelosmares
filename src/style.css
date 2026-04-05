@@ -630,8 +630,33 @@ body { background: #000; color: #fff; font-family: var(--font-story); overflow: 
 
 .locked-option {
     opacity: 0.5;
-    cursor: not-allowed;
-    background: rgba(50, 0, 0, 0.4) !important;
+    cursor: not-allowed !important;
+    background: rgba(50, 0, 0, 0.3) !important;
+    border-color: rgba(100,0,0,0.3) !important;
+}
+.locked-option:hover {
+    transform: none !important;
+    background: rgba(50, 0, 0, 0.3) !important;
+}
+
+.act-label {
+  font-family: var(--font-title);
+  color: var(--gold);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(197,160,33,0.3);
+  width: 100%;
+}
+
+/* Typing state: dim options until text finishes */
+.options-typing .pro-option:not(.game-over-btn) {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: default;
 }
 .achv-toast {
     position: fixed;
@@ -803,7 +828,18 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
   .pro-text { font-size: 1.05rem; min-height: auto; margin-bottom: 1.2rem; line-height: 1.5; }
   .pro-option { padding: 0.8rem 1rem; font-size: 1rem; gap: 1rem; margin-bottom: 0.6rem; border-radius: 6px; }
   
-  .portrait-container { display: none; }
+  .portrait-container { 
+    position: absolute; 
+    bottom: auto;
+    top: 30vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px; 
+    z-index: 15;
+    display: block;
+  }
+  .portrait-img { border-width: 1px; }
+  .portrait-name { font-size: 0.7rem; padding: 2px 6px; }
   .header-overlay { top: 10px; pointer-events: none; }
   .header-overlay h2 { font-size: 0.8rem; padding: 4px 12px; letter-spacing: 2px; }
 
