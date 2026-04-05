@@ -68,13 +68,18 @@
       ]
     },
     "bodegas": {
-      "text": "Las bodegas huelen a salitre, madera vieja y aceite de oliva. Entre los pesados barriles de vino, encuentras un cofre pequeño de cuero, medio oculto.",
+      "text": "Las bodegas huelen a salitre, madera vieja y aceite de oliva. Entre los pesados barriles de vino, encuentras un cofre pequeño de cuero, medio oculto. En el fondo, hay un arcón de hierro con cerradura.",
       "image": "bodegas.webp",
       "options": [
         {
-          "text": "Abrir el cofre",
+          "text": "Abrir el cofre de cuero",
           "nextNode": "bodega_cofre",
           "collectItem": "Mapa de Lisboa"
+        },
+        {
+          "text": "Abrir el arcón de hierro con la Llave Antigua",
+          "nextNode": "bodega_arcon_secreto",
+          "requireItem": "Llave Antigua"
         },
         {
           "text": "Inspeccionar los barriles de pólvora",
@@ -119,12 +124,24 @@
       ]
     },
     "bodega_cofre": {
-      "text": "Dentro del cofre hay un Mapa de Lisboa detallado con las corrientes del Tajo marcadas en rojo. 'Esto será vital', piensas.",
+      "text": "Dentro del cofre hay un Mapa de Lisboa detallado con las corrientes del Tajo marcadas en rojo. Alguien conocía bien esas aguas. En Lisboa, este mapa te permitirá maniobrar donde otros encallarían.",
       "image": "bodega_mapa.webp",
       "options": [
         {
           "text": "Regresar al sol del patio",
           "nextNode": "patio"
+        }
+      ]
+    },
+    "bodega_arcon_secreto": {
+      "text": "La Llave Antigua encaja perfectamente. El arcón cruje al abrirse. Dentro encuentras una Bolsa de Oro con monedas de cuño castellano y una nota: 'Para cuando más lo necesites. — Un amigo de la corona'.",
+      "image": "bodega_mapa.webp",
+      "options": [
+        {
+          "text": "Tomar el oro y volver a las bodegas",
+          "nextNode": "bodegas",
+          "collectItem": "Bolsa de Oro",
+          "impact": { "royalFavor": 5 }
         }
       ]
     },
@@ -837,6 +854,12 @@
           "nextNode": "lisboa_san_martin_visita"
         },
         {
+          "text": "Trazar la ruta con el Mapa del Tajo",
+          "nextNode": "lisboa_ruta_mapa",
+          "requireItem": "Mapa de Lisboa",
+          "singleUse": true
+        },
+        {
           "text": "Adiestrar a la marinería en el Tajo (-2 Días)",
           "nextNode": "lisboa_llegada",
           "impact": {
@@ -899,7 +922,7 @@
       ]
     },
     "lisboa_astilleros": {
-      "text": "Los Astilleros. El San Martín, tu nave capitana, está casi lista, pero detectas un intento de sabotaje en los almacenes de estopa.",
+      "text": "Los Astilleros. El San Martín, tu nave capitana, está casi lista, pero detectas un intento de sabotaje en los almacenes de estopa. En un rincón hay una puerta con cerradura antigua que nadie ha abierto en años.",
       "image": "astilleros.webp",
       "character": {
         "name": "Capataz de Ribera",
@@ -910,6 +933,11 @@
           "text": "Detener al saboteador con la Lista",
           "nextNode": "lisboa_victoria",
           "requireItem": "Lista de Traidores"
+        },
+        {
+          "text": "Abrir la puerta con la Llave Antigua",
+          "nextNode": "lisboa_almacen_secreto",
+          "requireItem": "Llave Antigua"
         },
         {
           "text": "Investigar el almacén por tu cuenta",
@@ -1178,8 +1206,32 @@
         }
       ]
     },
-    "lisboa_vista_astillero": {
-      "text": "¡El saboteador inglés cae abatido! El San Martín está libre de peligro. Desde lo alto del astillero ves tu flota completa por primera vez. Es un espectáculo que llena el alma.",
+    "lisboa_almacen_secreto": {
+      "text": "La puerta cede con un chirrido. Dentro, perfectamente conservados bajo lonas enceradas, hay barriles de pólvora seca de la mejor calidad y un juego de cartas náuticas de las Azores. Alguien los dejó aquí para ti.",
+      "image": "bodega_polvora.webp",
+      "options": [
+        {
+          "text": "Cargar la pólvora en el San Martín",
+          "nextNode": "lisboa_llegada",
+          "collectItem": "Pólvora Superior",
+          "impact": { "armadaReadiness": 15 }
+        }
+      ]
+    },
+
+    "lisboa_ruta_mapa": {      "text": "Extiendes el Mapa de Lisboa sobre la mesa del camarote. Las corrientes del Tajo marcadas en rojo revelan un canal secundario que evita los bajíos donde la flota inglesa suele tender emboscadas. Tus pilotos nunca habrían encontrado esto solos.",
+      "image": "bodega_mapa.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "options": [
+        {
+          "text": "Incorporar la ruta a los planes de navegación",
+          "nextNode": "lisboa_llegada",
+          "impact": { "armadaReadiness": 20, "royalFavor": 5 }
+        }
+      ]
+    },
+
+    "lisboa_vista_astillero": {      "text": "¡El saboteador inglés cae abatido! El San Martín está libre de peligro. Desde lo alto del astillero ves tu flota completa por primera vez. Es un espectáculo que llena el alma.",
       "image": "astilleros.webp",
       "options": [
         {
