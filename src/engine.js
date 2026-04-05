@@ -32,7 +32,7 @@ export class GameEngine {
     }
   }
 
-  playSfx() {
+  playSfx(type = 'click') {
     if (!this.gameState.musicEnabled) return;
     try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -41,18 +41,76 @@ export class GameEngine {
         const gain = this.actx.createGain();
         osc.connect(gain);
         gain.connect(this.actx.destination);
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(400, this.actx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(100, this.actx.currentTime + 0.1);
-        gain.gain.setValueAtTime(0.2, this.actx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.01, this.actx.currentTime + 0.1);
+
+        const sfxMap = {
+          click:    { type: 'triangle', freq: 400, endFreq: 100, dur: 0.1, vol: 0.2 },
+          item:     { type: 'sine',     freq: 600, endFreq: 900, dur: 0.15, vol: 0.25 },
+          gold:     { type: 'sine',     freq: 800, endFreq: 1200, dur: 0.2, vol: 0.2 },
+          sword:    { type: 'sawtooth', freq: 300, endFreq: 80,  dur: 0.2, vol: 0.3 },
+          scroll:   { type: 'sine',     freq: 350, endFreq: 500, dur: 0.12, vol: 0.15 },
+          negative: { type: 'sawtooth', freq: 200, endFreq: 60,  dur: 0.25, vol: 0.3 },
+        };
+        const s = sfxMap[type] || sfxMap.click;
+        osc.type = s.type;
+        osc.frequency.setValueAtTime(s.freq, this.actx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(s.endFreq, this.actx.currentTime + s.dur);
+        gain.gain.setValueAtTime(s.vol, this.actx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, this.actx.currentTime + s.dur);
         osc.start();
-        osc.stop(this.actx.currentTime + 0.1);
+        osc.stop(this.actx.currentTime + s.dur);
     } catch (e) {}
   }
 
   init() {
-    this.showTitleScreen();
+    this._showLoadingScreen();
+  }
+
+  _showLoadingScreen() {
+    this.container.innerHTML = `
+      <div class="loading-screen" id="loading-screen">
+        <div class="loading-bg"></div>
+        <div class="loading-content">
+          <img src="./escudo.svg" alt="Escudo" class="loading-crest">
+          <h1 class="loading-title">EL SEÑOR<br>DE LOS MARES</h1>
+          <div class="loading-bar-wrap">
+            <div class="loading-bar" id="loading-bar"></div>
+          </div>
+          <p class="loading-text" id="loading-text">Cargando la epopeya...</p>
+        </div>
+      </div>
+    `;
+
+    // Preload first-act images
+    const criticalImages = [
+      'alvaro_hero.webp', 'patio.webp', 'escudo.svg', 'clean_parchment.webp',
+      'despacho.webp', 'escalera.webp', 'bodegas.webp', 'calles.webp',
+      'palacio_viso_epic.webp', 'don_alvaro.webp'
+    ];
+
+    let loaded = 0;
+    const bar = document.getElementById('loading-bar');
+    const txt = document.getElementById('loading-text');
+    const messages = ['Preparando la flota...', 'Cargando los mapas...', 'Afilando las espadas...', 'Listo para zarpar...'];
+
+    const onProgress = () => {
+      loaded++;
+      const pct = Math.round((loaded / criticalImages.length) * 100);
+      if (bar) bar.style.width = pct + '%';
+      if (txt) txt.textContent = messages[Math.floor(loaded / criticalImages.length * (messages.length - 1))] || messages[0];
+      if (loaded >= criticalImages.length) {
+        setTimeout(() => {
+          const screen = document.getElementById('loading-screen');
+          if (screen) screen.classList.add('loading-fade-out');
+          setTimeout(() => this.showTitleScreen(), 600);
+        }, 300);
+      }
+    };
+
+    criticalImages.forEach(src => {
+      const img = new Image();
+      img.onload = img.onerror = onProgress;
+      img.src = './' + src;
+    });
   }
   showTitleScreen() {
     this.container.innerHTML = `
@@ -64,7 +122,7 @@ export class GameEngine {
 
         <div class="title-content">
           <div class="hero-portrait animate-rise">
-            <img src="./alvaro_hero.png" alt="Don Álvaro de Bazán">
+            <img src="./alvaro_hero.webp" alt="Don Álvaro de Bazán">
           </div>
           
           <div class="title-text-block">
@@ -493,6 +551,13 @@ export class GameEngine {
     const textElement = document.getElementById('story-text');
     this.typeWriter(node.text, textElement);
     this.setupNavEvents();
+
+    // Animate stat bars if there was an impact
+    if (this._pendingImpact) {
+      const { prev, impact } = this._pendingImpact;
+      this._pendingImpact = null;
+      requestAnimationFrame(() => this._animateStatBars(prev, impact));
+    }
   }
 
   _renderVideoCinematic(node) {
@@ -697,21 +762,24 @@ export class GameEngine {
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         if (this.isTyping && !btn.classList.contains('game-over-btn')) return;
-        this.playSfx();
+
+        // Contextual SFX based on action type
+        const impact = JSON.parse(btn.dataset.impact || '{}');
+        let sfxType = 'click';
+        if (opt?.collectItem) {
+          sfxType = (opt.collectItem.includes('Oro') || opt.collectItem.includes('Bolsa')) ? 'gold' : 'item';
+        } else if (opt?.requireItem) {
+          sfxType = 'scroll';
+        } else if (impact.royalFavor < 0 || impact.armadaReadiness < 0) {
+          sfxType = 'negative';
+        }
+        this.playSfx(sfxType);
         
         const node = this.storyData.nodes[this.currentState];
         const nextNodeId = btn.dataset.next;
         const opt = node.options.find(o => o.nextNode === nextNodeId);
 
-        const impact = JSON.parse(btn.dataset.impact || '{}');
-        if (impact.royalFavor) this.gameState.royalFavor = Math.min(100, Math.max(0, this.gameState.royalFavor + impact.royalFavor));
-        if (impact.armadaReadiness) this.gameState.armadaReadiness = Math.min(100, Math.max(0, this.gameState.armadaReadiness + impact.armadaReadiness));
-        if (impact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + impact.days);
-        
-        if (impact.royalFavor < 0 || impact.armadaReadiness < 0 || (impact.days && impact.days < 0)) {
-            this._triggerDamage();
-        }
-
+        this._applyImpactAnimated(impact);
         if (this.gameState.daysRemaining <= 0 && nextNodeId !== 'gameover' && !nextNodeId.startsWith('final_')) {
             this.currentState = 'gameover_tiempo';
             this.render();
@@ -784,7 +852,7 @@ export class GameEngine {
       const submit = document.getElementById('puzzle-submit');
       const input = document.getElementById('puzzle-input');
       submit.addEventListener('click', () => {
-        this.playSfx();
+        this.playSfx('scroll');
         const val = input.value.trim().toLowerCase();
         this.checkPuzzleResult(val === puzzle.answer.toLowerCase(), puzzle);
       });
@@ -808,7 +876,7 @@ export class GameEngine {
       const display = document.getElementById('seq-display');
       seqBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          this.playSfx();
+          this.playSfx('sword');
           const label = btn.dataset.label;
           if (label === puzzle.sequence[currentIdx]) {
             currentIdx++;
@@ -866,6 +934,45 @@ export class GameEngine {
       }
     }
     this.render();
+  }
+
+  _applyImpactAnimated(impact) {
+    if (!impact || Object.keys(impact).length === 0) return;
+    const prev = {
+      royalFavor: this.gameState.royalFavor,
+      armadaReadiness: this.gameState.armadaReadiness,
+      daysRemaining: this.gameState.daysRemaining
+    };
+    if (impact.royalFavor) this.gameState.royalFavor = Math.min(100, Math.max(0, this.gameState.royalFavor + impact.royalFavor));
+    if (impact.armadaReadiness) this.gameState.armadaReadiness = Math.min(100, Math.max(0, this.gameState.armadaReadiness + impact.armadaReadiness));
+    if (impact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + impact.days);
+
+    if (impact.royalFavor < 0 || impact.armadaReadiness < 0 || (impact.days && impact.days < 0)) {
+      this._triggerDamage();
+    }
+
+    // Animate bars after render (called via requestAnimationFrame in render)
+    this._pendingImpact = { prev, impact };
+  }
+
+  _animateStatBars(prev, impact) {
+    const animateBar = (barId, delta) => {
+      const bar = document.getElementById(barId);
+      if (!bar) return;
+      const dir = delta > 0 ? 'positive' : 'negative';
+      bar.classList.add(delta > 0 ? 'stat-up' : 'stat-down');
+      setTimeout(() => bar.classList.remove('stat-up', 'stat-down'), 900);
+
+      const delta_el = document.createElement('span');
+      delta_el.className = `stat-delta ${dir}`;
+      delta_el.textContent = (delta > 0 ? '+' : '') + delta;
+      bar.parentElement.parentElement.style.position = 'relative';
+      bar.parentElement.parentElement.appendChild(delta_el);
+      setTimeout(() => delta_el.remove(), 1300);
+    };
+
+    if (impact.royalFavor) animateBar('bar-favor', impact.royalFavor);
+    if (impact.armadaReadiness) animateBar('bar-armada', impact.armadaReadiness);
   }
 
   _renderAchievementsList() {

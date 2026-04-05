@@ -1,16 +1,35 @@
 {
   "name": "El Señor de los Mares",
   "short_name": "Señor Mares",
-  "description": "Una aventura gráfica narrativa en la España del Siglo XVI.",
+  "description": "Una aventura gráfica narrativa en la España del Siglo XVI. Sé Don Álvaro de Bazán, el Rayo de la Guerra.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#0a0a0a",
-  "theme_color": "#111827",
+  "theme_color": "#c5a021",
+  "lang": "es",
+  "categories": ["games", "entertainment"],
   "icons": [
     {
-      "src": "./favicon.ico",
-      "sizes": "64x64",
-      "type": "image/x-icon"
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "./game_view.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
     }
   ]
 }
