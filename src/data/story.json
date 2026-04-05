@@ -162,9 +162,13 @@
       ]
     },
     "espia_huida": {
-      "text": "El hombre desaparece con agilidad felina por la escalera de servicio. Has perdido una oportunidad valiosa de adelantarte a tus enemigos.",
+      "text": "El hombre desaparece con agilidad felina por la escalera de servicio. Has perdido una oportunidad valiosa... o quizás no. Aún puedes seguirle.",
       "image": "escalera.png",
       "options": [
+        {
+          "text": "Seguirle por las calles del Viso",
+          "nextNode": "espia_seguimiento"
+        },
         {
           "text": "Ir al Despacho",
           "nextNode": "despacho"
@@ -646,7 +650,7 @@
         ],
         "correctIndex": 0,
         "successNode": "madrid_consejo_pruebas",
-        "failNode": "madrid_rechazo",
+        "failNode": "madrid_consejo_diplomacia",
         "failImpact": {
           "royalFavor": -10,
           "days": -1
@@ -666,6 +670,10 @@
           "impact": {
             "days": -1
           }
+        },
+        {
+          "text": "Buscar al Duque de Alba como aliado",
+          "nextNode": "madrid_duque_alba"
         },
         {
           "text": "Acudir a la Audiencia Real",
@@ -808,6 +816,14 @@
         {
           "text": "Inspeccionar las mercancías del puerto",
           "nextNode": "lisboa_mercaderes"
+        },
+        {
+          "text": "Explorar el barrio de la Alfama",
+          "nextNode": "lisboa_alfama"
+        },
+        {
+          "text": "Visitar el San Martín en el astillero",
+          "nextNode": "lisboa_san_martin_visita"
         },
         {
           "text": "Adiestrar a la marinería en el Tajo (-2 Días)",
@@ -1179,6 +1195,307 @@
           "impact": {
             "days": -1
           }
+        }
+      ]
+    },
+
+    "espia_seguimiento": {
+      "text": "Sigues al hombre embozado por los callejones del Viso. Entra en una posada de mala muerte. A través de la ventana ves que entrega un pliego a un jinete con divisas inglesas.",
+      "image": "calles.png",
+      "options": [
+        {
+          "text": "Irrumpir y capturar al jinete",
+          "nextNode": "espia_captura",
+          "impact": { "armadaReadiness": 10 }
+        },
+        {
+          "text": "Esperar y seguir al jinete cuando salga",
+          "nextNode": "espia_seguimiento_2"
+        },
+        {
+          "text": "Volver al palacio con lo que has visto",
+          "nextNode": "despacho"
+        }
+      ]
+    },
+    "espia_captura": {
+      "text": "El jinete inglés cae preso. Entre sus ropas encuentras un mapa con las posiciones de la flota española en Lisboa. ¡Información vital para el enemigo!",
+      "image": "aposentos.png",
+      "character": { "name": "Agente Inglés", "image": "espia.png" },
+      "options": [
+        {
+          "text": "Interrogarlo sobre sus contactos en Madrid",
+          "nextNode": "espia_interrogatorio",
+          "collectItem": "Lista de Traidores"
+        },
+        {
+          "text": "Entregarlo a la guardia y subir al despacho",
+          "nextNode": "despacho",
+          "impact": { "royalFavor": 10 }
+        }
+      ]
+    },
+    "espia_interrogatorio": {
+      "text": "Bajo presión, el agente confiesa: 'El Conde de Villafranca recibe oro de Londres. Tiene acceso al Consejo de Guerra'. Ahora tienes una ventaja decisiva en Madrid.",
+      "image": "aposentos.png",
+      "options": [
+        {
+          "text": "Ir al despacho a preparar el viaje",
+          "nextNode": "despacho",
+          "impact": { "royalFavor": 15 }
+        }
+      ]
+    },
+    "espia_seguimiento_2": {
+      "text": "El jinete cabalga hacia el norte. Lo pierdes en la oscuridad, pero has visto suficiente. La red de espionaje inglesa llega hasta el corazón de Castilla.",
+      "image": "camino.png",
+      "options": [
+        {
+          "text": "Regresar al palacio",
+          "nextNode": "despacho"
+        }
+      ]
+    },
+
+    "patio_amanecer": {
+      "text": "El alba tiñe de oro el patio de honor. Un correo real llega al galope. 'Almirante, el Rey os convoca con urgencia. La flota inglesa ha avistado las costas de Galicia'.",
+      "image": "patio.png",
+      "character": { "name": "Correo Real", "image": "mensajero.png" },
+      "options": [
+        {
+          "text": "Ordenar zafarrancho inmediato",
+          "nextNode": "patio",
+          "impact": { "armadaReadiness": 8, "royalFavor": 5 }
+        },
+        {
+          "text": "Pedir más detalles antes de actuar",
+          "nextNode": "patio",
+          "impact": { "daysRemaining": -1 }
+        }
+      ]
+    },
+
+    "madrid_consejo_diplomacia": {
+      "text": "Tus palabras convencen a medias. El Consejo duda. El Secretario de Guerra te lleva aparte: 'Necesitáis un plan estratégico brillante para callar a los burócratas, Almirante'.",
+      "image": "consejo.png",
+      "character": { "name": "Secretario de Guerra", "image": "secretario.png" },
+      "options": [
+        {
+          "text": "Ir a la Sala de Mapas a preparar el plan",
+          "nextNode": "madrid_mapas"
+        },
+        {
+          "text": "Buscar al espía de la corte",
+          "nextNode": "madrid_espia_corte"
+        },
+        {
+          "text": "Volver ante el Consejo con argumentos de fuerza",
+          "nextNode": "madrid_consejo_pruebas",
+          "impact": { "royalFavor": -5 }
+        }
+      ]
+    },
+
+    "madrid_duque_alba": {
+      "text": "El Duque de Alba te recibe en sus aposentos del Escorial. Viejo y cansado, pero su palabra aún pesa en la corte. 'Bazán, os ayudaré ante el Rey, pero necesito algo a cambio'.",
+      "image": "consejo.png",
+      "character": { "name": "Duque de Alba", "image": "don_alvaro.png" },
+      "options": [
+        {
+          "text": "Prometerle el mando de la vanguardia terrestre",
+          "nextNode": "madrid_felipe_ii",
+          "impact": { "royalFavor": 20, "armadaReadiness": -5 }
+        },
+        {
+          "text": "Ofrecerle gloria pero sin comprometer el mando",
+          "nextNode": "madrid_felipe_ii",
+          "impact": { "royalFavor": 10 }
+        },
+        {
+          "text": "Rechazar sus condiciones",
+          "nextNode": "madrid_consejo_pruebas",
+          "impact": { "royalFavor": -10 }
+        }
+      ]
+    },
+
+    "lisboa_alfama": {
+      "text": "El barrio de la Alfama huele a bacalao y salitre. Entre sus callejuelas empinadas, los informadores de la corona guardan secretos que valen más que el oro.",
+      "image": "calles.png",
+      "options": [
+        {
+          "text": "Buscar al contacto del Padre Sousa",
+          "nextNode": "lisboa_alfama_sousa"
+        },
+        {
+          "text": "Observar los movimientos en el puerto",
+          "nextNode": "lisboa_alfama_puerto",
+          "impact": { "armadaReadiness": 5 }
+        },
+        {
+          "text": "Volver a Lisboa central",
+          "nextNode": "lisboa_llegada"
+        }
+      ]
+    },
+    "lisboa_alfama_sousa": {
+      "text": "El Padre Sousa, un fraile con ojos de halcón, te susurra: 'Tres galeones ingleses esperan en las Azores. Conocen vuestra ruta. Alguien de vuestra tripulación les informa'.",
+      "image": "convento.png",
+      "character": { "name": "Padre Sousa", "image": "mensajero.png" },
+      "options": [
+        {
+          "text": "Pedirle el nombre del traidor",
+          "nextNode": "lisboa_alfama_traidor",
+          "requireItem": "Bolsa de Oro"
+        },
+        {
+          "text": "Cambiar la ruta de navegación",
+          "nextNode": "lisboa_llegada",
+          "impact": { "armadaReadiness": 15, "days": -1 }
+        }
+      ]
+    },
+    "lisboa_alfama_traidor": {
+      "text": "A cambio del oro, el fraile te entrega un nombre: 'El piloto Rodrigo de Haro. Lleva semanas enviando mensajes cifrados a Plymouth'. Ahora puedes actuar.",
+      "image": "convento_pergamino.png",
+      "options": [
+        {
+          "text": "Arrestar al piloto antes de zarpar",
+          "nextNode": "lisboa_llegada",
+          "impact": { "armadaReadiness": 20, "royalFavor": 10 },
+          "collectItem": "Carta del Informador"
+        }
+      ]
+    },
+    "lisboa_alfama_puerto": {
+      "text": "Desde las alturas de la Alfama observas el Tajo. Cuentas los barcos enemigos que rondan la desembocadura. Son más de los que esperabas.",
+      "image": "barco.png",
+      "options": [
+        {
+          "text": "Reforzar la guardia del puerto (-1 Día)",
+          "nextNode": "lisboa_llegada",
+          "impact": { "days": -1, "armadaReadiness": 10 }
+        },
+        {
+          "text": "Ignorarlo y confiar en la velocidad",
+          "nextNode": "lisboa_llegada"
+        }
+      ]
+    },
+
+    "lisboa_san_martin_visita": {
+      "text": "A bordo del San Martín, tu nave capitana. Los marineros te saludan con respeto. El maestre de campo te muestra el estado real de la flota: cañones, víveres, moral.",
+      "image": "barco.png",
+      "character": { "name": "Maestre de Campo", "image": "mensajero.png" },
+      "options": [
+        {
+          "text": "Revisar los cañones personalmente",
+          "nextNode": "lisboa_san_martin_canones",
+          "impact": { "armadaReadiness": 10 }
+        },
+        {
+          "text": "Arengar a la tripulación",
+          "nextNode": "lisboa_san_martin_arenga",
+          "impact": { "royalFavor": 5 }
+        },
+        {
+          "text": "Volver al mando en tierra",
+          "nextNode": "lisboa_llegada"
+        }
+      ]
+    },
+    "lisboa_san_martin_canones": {
+      "text": "Encuentras que tres cañones de babor tienen las cuñas podridas. Si no se reparan, fallarán en el primer intercambio de fuego. Ordenas la reparación inmediata.",
+      "image": "astilleros.png",
+      "options": [
+        {
+          "text": "Supervisar la reparación tú mismo (-1 Día)",
+          "nextNode": "lisboa_llegada",
+          "impact": { "days": -1, "armadaReadiness": 15 }
+        },
+        {
+          "text": "Delegar en el maestre y volver a tierra",
+          "nextNode": "lisboa_llegada",
+          "impact": { "armadaReadiness": 8 }
+        }
+      ]
+    },
+    "lisboa_san_martin_arenga": {
+      "text": "Tu discurso recorre la cubierta como el viento de poniente. Los hombres golpean sus escudos y gritan '¡Santiago y cierra España!'. La moral está por las nubes.",
+      "image": "barco.png",
+      "options": [
+        {
+          "text": "Volver al mando en tierra",
+          "nextNode": "lisboa_llegada",
+          "impact": { "armadaReadiness": 12 }
+        }
+      ]
+    },
+
+    "azores_batalla_dura": {
+      "text": "La batalla es encarnizada. El viento cambia de repente y los ingleses aprovechan para flanquear tu línea. Necesitas una decisión táctica brillante ahora mismo.",
+      "image": "azores_batalla.png",
+      "puzzle": {
+        "type": "quiz",
+        "question": "El enemigo flanquea por estribor con viento favorable. ¿Cuál es la maniobra correcta?",
+        "options": [
+          "Virar en redondo y presentar la proa",
+          "Mantener la línea y abrir fuego de costado",
+          "Retirarse a aguas más profundas"
+        ],
+        "correctIndex": 1,
+        "successNode": "final_logic",
+        "failNode": "azores_retirada",
+        "failImpact": { "armadaReadiness": -20, "royalFavor": -10 }
+      }
+    },
+    "azores_retirada": {
+      "text": "La maniobra falla. Varios galeones quedan expuestos. Ordenas la retirada táctica para reagrupar. La victoria se complica pero no está perdida.",
+      "image": "barco.png",
+      "options": [
+        {
+          "text": "Reagrupar y atacar de nuevo",
+          "nextNode": "final_logic",
+          "impact": { "armadaReadiness": -10, "royalFavor": -5 }
+        },
+        {
+          "text": "Negociar una retirada honrosa",
+          "nextNode": "final_derrota_honrosa"
+        }
+      ]
+    },
+    "final_derrota_honrosa": {
+      "text": "Retiras la flota con orden y disciplina. No es la victoria que España esperaba, pero has salvado la Armada para luchar otro día. Felipe II te recibe en silencio. 'Volveréis a intentarlo, Bazán'. FIN ALTERNATIVO.",
+      "image": "escorial.png",
+      "type": "gameover",
+      "options": []
+    },
+
+    "final_victoria_total": {
+      "text": "¡VICTORIA ABSOLUTA! Con la Armada en plena forma, la Pólvora Superior y el favor del Rey, has aplastado a la flota inglesa sin perder un solo galeón. Drake huye herido. Felipe II te nombra Gran Almirante de los Océanos. Tu nombre vivirá eternamente. FIN GLORIOSO.",
+      "image": "almirante_triumph.png",
+      "type": "gameover",
+      "options": []
+    },
+    "final_victoria_pírrica": {
+      "text": "La victoria es tuya, pero a un precio terrible. La mitad de la flota yace en el fondo del Atlántico. Los supervivientes te aclaman, pero tú solo ves los rostros de los caídos. España ha ganado el océano, pero a qué coste. FIN AGRIDULCE.",
+      "image": "almirante_final_message.png",
+      "type": "gameover",
+      "options": []
+    },
+
+    "lisboa_vista_astillero": {
+      "text": "¡El saboteador inglés cae abatido! El San Martín está libre de peligro. Desde lo alto del astillero ves tu flota completa por primera vez. Es un espectáculo que llena el alma.",
+      "image": "astilleros.png",
+      "options": [
+        {
+          "text": "Bajar al mando central (-1 Día)",
+          "nextNode": "lisboa_llegada",
+          "impact": { "days": -1, "armadaReadiness": 5 }
+        },
+        {
+          "text": "Visitar el San Martín mientras estás aquí",
+          "nextNode": "lisboa_san_martin_visita"
         }
       ]
     }

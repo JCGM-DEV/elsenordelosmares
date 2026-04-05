@@ -86,6 +86,7 @@ export class GameEngine {
               <button id="btn-start" class="btn-primary">NUEVA AVENTURA</button>
               <div style="display:flex; gap:10px; width:100%; justify-content:center;">
                 <button id="btn-credits" class="btn-secondary" style="flex:1;">CRÉDITOS</button>
+                <button id="btn-achievements" class="btn-secondary" style="flex:1;">LOGROS</button>
                 <button id="btn-music-toggle" class="btn-icon">🔊</button>
               </div>
             </div>
@@ -103,6 +104,14 @@ export class GameEngine {
             <p>Una epopeya histórica inspirada en la vida de Don Álvaro de Bazán.</p>
             <p style="font-size:0.9rem; margin-top:1rem; opacity:0.8;">Diseño y Desarrollo: JCGM.DEV</p>
             <button id="close-credits" class="btn-primary" style="margin-top:2rem; width:100%;">Cerrar</button>
+          </div>
+        </div>
+
+        <div id="achievements-panel" class="credits-panel hidden">
+          <div class="credits-body">
+            <h3>⚓ Logros</h3>
+            ${this._renderAchievementsList()}
+            <button id="close-achievements" class="btn-primary" style="margin-top:2rem; width:100%;">Cerrar</button>
           </div>
         </div>
       </div>
@@ -138,6 +147,13 @@ export class GameEngine {
     });
     document.getElementById('close-credits').addEventListener('click', () => {
       document.getElementById('credits-panel').classList.add('hidden');
+    });
+
+    document.getElementById('btn-achievements').addEventListener('click', () => {
+      document.getElementById('achievements-panel').classList.remove('hidden');
+    });
+    document.getElementById('close-achievements').addEventListener('click', () => {
+      document.getElementById('achievements-panel').classList.add('hidden');
     });
 
     document.getElementById('btn-music-toggle').addEventListener('click', () => this.toggleMusic());
@@ -347,6 +363,7 @@ export class GameEngine {
     if (!node) return;
     
     this._checkCinematicMode();
+    this._checkAchievements();
 
     if (node.type !== 'gameover' && !node.video) {
         this.saveGame();
@@ -712,10 +729,27 @@ export class GameEngine {
           this.gameState.inventory.push(opt.collectItem);
         }
 
-        this.currentState = nextNodeId;
+        this.currentState = this._resolveEnding(nextNodeId);
         this.render();
       });
     });
+  }
+
+  _resolveEnding(nextNodeId) {
+    // Multiple endings based on stats when reaching final_logic
+    if (nextNodeId !== 'final_logic') return nextNodeId;
+    const { royalFavor, armadaReadiness, inventory } = this.gameState;
+    const hasPolvora = inventory.includes('Pólvora Superior');
+    // Glorious victory: high favor + high armada + gunpowder
+    if (royalFavor >= 70 && armadaReadiness >= 75 && hasPolvora) {
+      return 'final_victoria_total';
+    }
+    // Pyrrhic victory: won but at great cost
+    if (armadaReadiness < 50 || royalFavor < 40) {
+      return 'final_victoria_pírrica';
+    }
+    // Standard good ending
+    return 'final_logic';
   }
 
   renderPuzzle(puzzle) {
@@ -818,7 +852,7 @@ export class GameEngine {
 
   checkPuzzleResult(success, puzzle) {
     if (success) {
-      this.currentState = puzzle.successNode;
+      this.currentState = this._resolveEnding(puzzle.successNode);
     } else {
       if (puzzle.failImpact) {
         if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor);
@@ -832,6 +866,30 @@ export class GameEngine {
       }
     }
     this.render();
+  }
+
+  _renderAchievementsList() {
+    const ALL_ACHIEVEMENTS = [
+      { id: 'coleccionista',    icon: '🎒', label: 'El Coleccionista',           hint: 'Recoge 5 objetos' },
+      { id: 'favorito_rey',     icon: '👑', label: 'Favorito del Rey',            hint: 'Favor Real al 90%' },
+      { id: 'armada_lista',     icon: '⚓', label: 'Armada Invencible',           hint: 'Armada al 90%' },
+      { id: 'veloz',            icon: '⚡', label: 'Veloz como el Rayo',          hint: 'Llega a Madrid con 10+ días' },
+      { id: 'gloria_total',     icon: '🌟', label: 'Gloria Eterna',               hint: 'Consigue el final glorioso' },
+      { id: 'victoria_amarga',  icon: '⚔️', label: 'Victoria Amarga',             hint: 'Consigue el final agridulce' },
+      { id: 'cazaespias',       icon: '🕵️', label: 'Cazaespías',                  hint: 'Interroga al agente inglés' },
+      { id: 'espadachin',       icon: '🗡️', label: 'Espadachín del Escorial',     hint: 'Gana el duelo en Madrid' },
+      { id: 'preparado',        icon: '📋', label: 'Perfectamente Preparado',     hint: 'Lleva Pólvora, Lista y Orden Real' },
+      { id: 'red_rota',         icon: '🕸️', label: 'Red Rota',                    hint: 'Descubre al traidor en Lisboa' },
+    ];
+    const unlocked = this._getAchievements();
+    return `<div class="achv-list">${ALL_ACHIEVEMENTS.map(a => {
+      const done = unlocked.includes(a.id);
+      return `<div class="achv-item ${done ? '' : 'locked'}">
+        <span style="font-size:1.3rem">${done ? a.icon : '🔒'}</span>
+        <span style="margin-left:0.5rem"><strong>${done ? a.label : '???'}</strong><br>
+        <small style="opacity:0.6">${done ? a.hint : 'Sin desbloquear'}</small></span>
+      </div>`;
+    }).join('')}</div>`;
   }
 
   _restartFullGame() {
@@ -849,6 +907,45 @@ export class GameEngine {
     this.audio.src = this.tracks.act1;
     if (this.gameState.musicEnabled) this.audio.play().catch(e => {});
     this.showTitleScreen();
+  }
+
+  // ── ACHIEVEMENTS ──────────────────────────────────────────────
+  _getAchievements() {
+    return JSON.parse(localStorage.getItem('elsenormares_achv') || '[]');
+  }
+
+  _unlockAchievement(id, label, icon) {
+    const achieved = this._getAchievements();
+    if (achieved.includes(id)) return;
+    achieved.push(id);
+    localStorage.setItem('elsenormares_achv', JSON.stringify(achieved));
+    this._showAchievementToast(label, icon);
+  }
+
+  _showAchievementToast(label, icon) {
+    const toast = document.createElement('div');
+    toast.className = 'achv-toast';
+    toast.innerHTML = `${icon} <strong>Logro desbloqueado:</strong> ${label}`;
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 600); }, 3500);
+  }
+
+  _checkAchievements() {
+    const { royalFavor, armadaReadiness, daysRemaining, inventory } = this.gameState;
+    const node = this.currentState;
+
+    if (inventory.length >= 5) this._unlockAchievement('coleccionista', 'El Coleccionista', '🎒');
+    if (royalFavor >= 90) this._unlockAchievement('favorito_rey', 'Favorito del Rey', '👑');
+    if (armadaReadiness >= 90) this._unlockAchievement('armada_lista', 'Armada Invencible', '⚓');
+    if (daysRemaining >= 10 && node.startsWith('madrid_')) this._unlockAchievement('veloz', 'Veloz como el Rayo', '⚡');
+    if (node === 'final_victoria_total') this._unlockAchievement('gloria_total', 'Gloria Eterna', '🌟');
+    if (node === 'final_victoria_pírrica') this._unlockAchievement('victoria_amarga', 'Victoria Amarga', '⚔️');
+    if (node === 'espia_interrogatorio') this._unlockAchievement('cazaespias', 'Cazaespías', '🕵️');
+    if (node === 'madrid_duelo_victoria') this._unlockAchievement('espadachin', 'Espadachín del Escorial', '🗡️');
+    if (inventory.includes('Pólvora Superior') && inventory.includes('Lista de Traidores') && inventory.includes('Orden Real')) {
+      this._unlockAchievement('preparado', 'Perfectamente Preparado', '📋');
+    }
+    if (node === 'lisboa_alfama_traidor') this._unlockAchievement('red_rota', 'Red Rota', '🕸️');
   }
 }
 
