@@ -775,12 +775,15 @@ export class GameEngine {
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
         if (this.isTyping) {
-          // Skip typing animation and let the click proceed
           if (this._skipTyping) this._skipTyping();
         }
 
-        // Contextual SFX based on action type
+        const node = this.storyData.nodes[this.currentState];
+        const nextNodeId = btn.dataset.next;
+        const opt = node.options.find(o => o.nextNode === nextNodeId);
         const impact = JSON.parse(btn.dataset.impact || '{}');
+
+        // Contextual SFX based on action type
         let sfxType = 'click';
         if (opt?.collectItem) {
           sfxType = (opt.collectItem.includes('Oro') || opt.collectItem.includes('Bolsa')) ? 'gold' : 'item';
@@ -790,25 +793,20 @@ export class GameEngine {
           sfxType = 'negative';
         }
         this.playSfx(sfxType);
-        
-        const node = this.storyData.nodes[this.currentState];
-        const nextNodeId = btn.dataset.next;
-        const opt = node.options.find(o => o.nextNode === nextNodeId);
 
         this._applyImpactAnimated(impact);
+
         if (this.gameState.daysRemaining <= 0 && nextNodeId !== 'gameover' && !nextNodeId.startsWith('final_')) {
             this.currentState = 'gameover_tiempo';
             this.render();
             return;
         }
-        
-        // Single use logic
+
         if (opt && opt.singleUse) {
           if (!this.gameState.usedOptions) this.gameState.usedOptions = [];
           this.gameState.usedOptions.push(opt.text);
         }
 
-        // Collection logic
         if (opt && opt.collectItem && !this.gameState.inventory.includes(opt.collectItem)) {
           this.gameState.inventory.push(opt.collectItem);
         }
