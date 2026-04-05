@@ -1590,14 +1590,18 @@
     "final_victoria_total": {
       "text": "¡VICTORIA ABSOLUTA! Con la Armada en plena forma, la Pólvora Superior y el favor del Rey, has aplastado a la flota inglesa sin perder un solo galeón. Drake huye herido. Felipe II te nombra Gran Almirante de los Océanos. Tu nombre vivirá eternamente. FIN GLORIOSO.",
       "image": "almirante_triumph.webp",
-      "type": "gameover",
-      "options": []
+      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "options": [
+        { "text": "Contemplar la victoria", "nextNode": "final_video_cinematic" }
+      ]
     },
     "final_victoria_pírrica": {
-      "text": "La victoria es tuya, pero a un precio terrible. La mitad de la flota yace en el fondo del Atlántico. Los supervivientes te aclaman, pero tú solo ves los rostros de los caídos. España ha ganado el océano, pero a qué coste. FIN AGRIDULCE.",
+      "text": "La victoria es tuya, pero a un precio terrible. La mitad de la flota yace en el fondo del Atlántico. Los supervivientes te aclaman, pero tú solo ves los rostros de los caídos. España ha ganado el océano... pero a qué coste.",
       "image": "almirante_final_message.webp",
-      "type": "gameover",
-      "options": []
+      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "options": [
+        { "text": "Aceptar el peso de la victoria", "nextNode": "final_video_cinematic" }
+      ]
     }
   }
 }

@@ -887,19 +887,15 @@ export class GameEngine {
   }
 
   _resolveEnding(nextNodeId) {
-    // Multiple endings based on stats when reaching final_logic
     if (nextNodeId !== 'final_logic') return nextNodeId;
     const { royalFavor, armadaReadiness, inventory } = this.gameState;
     const hasPolvora = inventory.includes('Pólvora Superior');
-    // Glorious victory: high favor + high armada + gunpowder
     if (royalFavor >= 70 && armadaReadiness >= 75 && hasPolvora) {
       return 'final_victoria_total';
     }
-    // Pyrrhic victory: won but at great cost
     if (armadaReadiness < 50 || royalFavor < 40) {
       return 'final_victoria_pírrica';
     }
-    // Standard good ending
     return 'final_logic';
   }
 
