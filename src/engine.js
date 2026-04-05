@@ -464,6 +464,7 @@ export class GameEngine {
     
     this._checkCinematicMode();
     this._checkAchievements();
+    this._checkDiaryEntries();
 
     if (node.type !== 'gameover' && !node.video) {
         this.saveGame();
@@ -575,8 +576,9 @@ export class GameEngine {
 
         <div class="nav-control">
           ${ this.isMapAvailable() ? `<button id="map-toggle" class="map-btn">Plan del Palacio</button>` : ''}
-          <button id="btn-hud-music" class="map-btn" style="margin-left: ${this.isMapAvailable() ? '1rem' : '0'}; width: 50px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
-          <button id="btn-hud-tts" class="map-btn" style="margin-left: 0.5rem; width: 50px;" title="Narrador">${this.ttsEnabled ? '🗣️' : '🤫'}</button>
+          <button id="btn-hud-music" class="map-btn" style="margin-left: ${this.isMapAvailable() ? '0.5rem' : '0'}; width: 44px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
+          <button id="btn-hud-tts" class="map-btn" style="margin-left: 0.4rem; width: 44px;" title="Narrador">${this.ttsEnabled ? '🗣️' : '🤫'}</button>
+          <button id="btn-hud-diary" class="map-btn" style="margin-left: 0.4rem; width: 44px;" title="Diario del Almirante">📖</button>
         </div>
 
         <div class="header-overlay">
@@ -600,6 +602,16 @@ export class GameEngine {
         <div class="title-footer">
           <span>Palacio de Viso del Marqués · Siglo XVI</span>
           <a href="https://jcgm.dev" target="_blank" class="copyright-link">© 2026 JCGM.DEV</a>
+        </div>
+
+        <div id="diary-overlay" class="nav-overlay hidden">
+          <div class="nav-menu diary-panel">
+            <h3>📖 Diario del Almirante</h3>
+            <div class="diary-entries" id="diary-entries">
+              ${this._renderDiaryEntries()}
+            </div>
+            <button id="close-diary" class="close-btn" style="margin-top:1.5rem;">Cerrar</button>
+          </div>
         </div>
       </div>
     `;
@@ -716,6 +728,12 @@ export class GameEngine {
 
     const ttsBtn = document.getElementById('btn-hud-tts');
     if (ttsBtn) ttsBtn.addEventListener('click', () => this.toggleTts());
+
+    const diaryBtn = document.getElementById('btn-hud-diary');
+    const diaryOverlay = document.getElementById('diary-overlay');
+    const closeDiary = document.getElementById('close-diary');
+    if (diaryBtn) diaryBtn.addEventListener('click', () => { this.playSfx('scroll'); diaryOverlay.classList.remove('hidden'); });
+    if (closeDiary) closeDiary.addEventListener('click', () => { this.playSfx(); diaryOverlay.classList.add('hidden'); });
   }
 
   showOptions() {
@@ -1162,6 +1180,7 @@ export class GameEngine {
 
   _restartFullGame() {
     localStorage.removeItem('elsenormares_save');
+    localStorage.removeItem('elsenormares_diary');
     const isHard = localStorage.getItem('elsenormares_hard') === 'true';
     this.gameState = {
       royalFavor: isHard ? 30 : 45,
@@ -1177,6 +1196,59 @@ export class GameEngine {
     this.audio.src = this.tracks.act1;
     if (this.gameState.musicEnabled) this.audio.play().catch(e => {});
     this.showTitleScreen();
+  }
+
+  // ── DIARY ─────────────────────────────────────────────────────
+  _getDiary() {
+    return JSON.parse(localStorage.getItem('elsenormares_diary') || '[]');
+  }
+
+  _addDiaryEntry(icon, text) {
+    const diary = this._getDiary();
+    // Avoid duplicates
+    if (diary.some(e => e.text === text)) return;
+    diary.push({ icon, text, node: this.currentState, ts: Date.now() });
+    localStorage.setItem('elsenormares_diary', JSON.stringify(diary));
+  }
+
+  _renderDiaryEntries() {
+    const diary = this._getDiary();
+    if (diary.length === 0) {
+      return '<p style="color:rgba(0,0,0,0.4); font-style:italic; text-align:center; padding:1rem;">Aún no hay entradas. Tus decisiones quedarán registradas aquí.</p>';
+    }
+    return diary.map(e => `
+      <div class="diary-entry">
+        <span class="diary-icon">${e.icon}</span>
+        <span class="diary-text">${e.text}</span>
+      </div>
+    `).join('');
+  }
+
+  _checkDiaryEntries() {
+    const node = this.currentState;
+    const inv = this.gameState.inventory;
+    // Key story moments
+    const entries = {
+      'espia_revela':              ['🕵️', 'Un informador te advirtió de un traidor en la corte de Madrid.'],
+      'espia_interrogatorio':      ['⚔️', 'Interrogaste al agente inglés y descubriste al Conde de Villafranca.'],
+      'bodega_arcon_secreto':      ['🔑', 'La Llave Antigua abrió un arcón secreto en las bodegas del palacio.'],
+      'convento_mensaje_descifrado':['📜', 'Descifraste el mensaje del convento: "El traidor en Madrid os espera".'],
+      'registro_exito':            ['💰', 'Encontraste oro inglés en los aposentos del traidor. Prueba irrefutable.'],
+      'madrid_duelo_victoria':     ['🗡️', 'Ganaste el duelo en los pasillos del Escorial y obtuviste la lista de conspiradores.'],
+      'madrid_consejo_pruebas':    ['👑', 'Presentaste las pruebas ante el Consejo de Guerra. El Rey te escuchó.'],
+      'madrid_orden_real':         ['📋', 'Felipe II firmó la Orden Real. Tienes el mando absoluto de la Armada.'],
+      'lisboa_victoria':           ['⚓', 'Frustraste el sabotaje en los astilleros. La Armada está en plena forma.'],
+      'lisboa_alfama_traidor':     ['🕸️', 'El Padre Sousa te reveló el nombre del traidor en la tripulación.'],
+      'lisboa_almacen_secreto':    ['💣', 'La Llave Antigua abrió un almacén secreto con Pólvora Superior en Lisboa.'],
+      'lisboa_ruta_mapa':          ['🗺️', 'El Mapa de Lisboa reveló un canal secreto en el Tajo. Ventaja táctica crucial.'],
+      'azores_batalla':            ['⚔️', '¡Contacto con el enemigo en las Azores! La batalla decisiva ha comenzado.'],
+      'final_victoria_total':      ['🌟', 'Victoria absoluta. Eres el Señor de los Mares. Gloria eterna para España.'],
+      'final_victoria_pírrica':    ['⚔️', 'Victoria amarga. Ganaste el océano, pero a un precio terrible.'],
+      'final_despedida':           ['⚓', 'La jornada ha terminado. El deber cumplido. Descansa, Almirante.'],
+    };
+    if (entries[node]) {
+      this._addDiaryEntry(...entries[node]);
+    }
   }
 
   // ── ACHIEVEMENTS ──────────────────────────────────────────────

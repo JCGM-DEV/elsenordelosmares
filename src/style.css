@@ -1336,3 +1336,51 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
   color: #ef4444;
   text-shadow: 0 0 10px rgba(239,68,68,0.5);
 }
+
+/* ========================
+   DIARIO DEL ALMIRANTE
+   ======================== */
+.diary-panel {
+  max-width: 500px;
+  width: 95%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.diary-panel h3 {
+  font-family: var(--font-display);
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.diary-entries {
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dark) transparent;
+}
+.diary-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(0,0,0,0.06);
+  border-left: 3px solid var(--gold-dark);
+  border-radius: 0 4px 4px 0;
+  animation: fadeIn 0.4s ease;
+}
+.diary-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.diary-text {
+  font-family: var(--font-story);
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.4;
+}

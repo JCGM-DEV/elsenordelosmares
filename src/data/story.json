@@ -436,6 +436,7 @@
     "taberna_posadero": {
       "text": "'Almirante, han visto extraños cerca del Convento por las noches. Guardan caballos frescos para un viaje largo'.",
       "image": "taberna.webp",
+      "character": { "name": "Posadero El Galeón", "image": "mensajero.webp" },
       "options": [
         {
           "text": "Ir al Convento a investigar",
@@ -569,6 +570,7 @@
     "convento_mensaje_descifrado": {
       "text": "¡Logras descifrarlo! 'EL TRAIDOR EN MADRID OS ESPERA'. Ahora sabes a qué te enfrentas en la corte.",
       "image": "convento_pergamino.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
       "options": [
         {
           "text": "Volver a las calles con esta ventaja",
@@ -631,6 +633,7 @@
     "madrid_espera": {
       "text": "Esperas horas. Finalmente ves al Duque de Alba. Te reconoce y te facilita la entrada, pero has perdido tiempo.",
       "image": "escorial.webp",
+      "character": { "name": "Duque de Alba", "image": "don_alvaro.webp" },
       "options": [
         {
           "text": "Entrar al Escorial",
@@ -751,6 +754,7 @@
     "madrid_duelo_victoria": {
       "text": "Tras un breve duelo en los pasillos del Escorial, obtienes la lista de conspiradores. ¡Ahora estás listo para el Rey!",
       "image": "alvaro_hero.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
       "options": [
         {
           "text": "Entrar a la Audiencia",
@@ -779,6 +783,7 @@
     "madrid_felipe_ii": {
       "text": "Rey Felipe II. Austero y poderoso. Sus ojos se clavan en ti. 'Bazán, el tiempo se agota. El mundo aguarda el Rayo de la Guerra. ¿Qué pedís para garantizar el éxito?'",
       "image": "felipe.webp",
+      "character": { "name": "Felipe II, Rey de España", "image": "felipe_ii.webp" },
       "options": [
         {
           "text": "Jurar lealtad y pedir la Orden de Partida",
@@ -1108,6 +1113,7 @@
     "final_gratitud": {
       "text": "El Almirante Don Álvaro de Bazán se detiene en la popa del San Martín. Os mira directamente, con una mezcla de respeto y cansancio noble. 'Habéis sido mi brújula y mi valor en esta jornada. Sin vuestro ingenio, el Rayo de la Guerra se habría apagado. Os debo la gloria, alma estratégica'.",
       "image": "almirante_triumph.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
       "options": [
         {
           "text": "Aceptar los honores",
@@ -1320,6 +1326,7 @@
     "espia_interrogatorio": {
       "text": "Bajo presión, el agente confiesa: 'El Conde de Villafranca recibe oro de Londres. Tiene acceso al Consejo de Guerra'. Ahora tienes una ventaja decisiva en Madrid.",
       "image": "aposentos.webp",
+      "character": { "name": "Agente Inglés", "image": "espia.webp" },
       "options": [
         {
           "text": "Ir al despacho a preparar el viaje",
