@@ -159,6 +159,11 @@ export class GameEngine {
                 <button id="btn-achievements" class="btn-secondary" style="flex:1;">LOGROS</button>
                 <button id="btn-music-toggle" class="btn-icon">🔊</button>
               </div>
+              <div style="display:flex; gap:10px; width:100%; justify-content:center; margin-top:0.5rem;">
+                <button id="btn-difficulty" class="btn-difficulty ${localStorage.getItem('elsenormares_hard') === 'true' ? 'hard-active' : ''}">
+                  ${localStorage.getItem('elsenormares_hard') === 'true' ? '⚔️ MODO DIFÍCIL ACTIVO' : '📖 MODO NORMAL'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -192,6 +197,16 @@ export class GameEngine {
     document.getElementById('btn-start').addEventListener('click', () => {
       this.playSfx();
       localStorage.removeItem('elsenormares_save');
+      const isHard = localStorage.getItem('elsenormares_hard') === 'true';
+      this.gameState = {
+        royalFavor: isHard ? 30 : 45,
+        armadaReadiness: isHard ? 15 : 30,
+        daysRemaining: isHard ? 9 : 13,
+        inventory: [],
+        visitedRooms: ['patio'],
+        musicEnabled: this.gameState.musicEnabled,
+        _hardMode: isHard
+      };
       this.container.querySelector('.title-screen').classList.add('fade-out');
       setTimeout(() => this.render(), 800);
     });
@@ -224,6 +239,20 @@ export class GameEngine {
     });
     document.getElementById('close-achievements').addEventListener('click', () => {
       document.getElementById('achievements-panel').classList.add('hidden');
+    });
+
+    document.getElementById('btn-difficulty').addEventListener('click', () => {
+      const isHard = localStorage.getItem('elsenormares_hard') === 'true';
+      localStorage.setItem('elsenormares_hard', !isHard);
+      const btn = document.getElementById('btn-difficulty');
+      if (!isHard) {
+        btn.textContent = '⚔️ MODO DIFÍCIL ACTIVO';
+        btn.classList.add('hard-active');
+      } else {
+        btn.textContent = '📖 MODO NORMAL';
+        btn.classList.remove('hard-active');
+      }
+      this.playSfx('sword');
     });
 
     document.getElementById('btn-music-toggle').addEventListener('click', () => this.toggleMusic());
@@ -448,11 +477,25 @@ export class GameEngine {
     this._currentActLabel = nextTrack === 'act1' ? 'Acto I · El Viso' : nextTrack === 'act2' ? 'Acto II · Madrid' : 'Acto III · Lisboa';
     
     if (nextTrack !== this.currentTrack) {
+       const prevTrack = this.currentTrack;
        this.currentTrack = nextTrack;
        const wasPlaying = !this.audio.paused && this.gameState.musicEnabled;
-       this.audio.src = this.tracks[this.currentTrack];
-       if (wasPlaying) {
-           this.audio.play().catch(e => console.warn("Track change autoplay block:", e));
+
+       // Fade out current music, show act transition, then fade in new track
+       this._fadeAudio(this.audio, 0, 800).then(() => {
+         this.audio.src = this.tracks[this.currentTrack];
+         if (wasPlaying) this.audio.play().catch(() => {});
+         this._fadeAudio(this.audio, 0.6, 1200);
+       });
+
+       // Show act transition screen before rendering node
+       const actInfo = {
+         act2: { num: 'II', title: 'Madrid', sub: 'El Escorial · La Corte del Rey Prudente', img: 'escorial.webp' },
+         act3: { num: 'III', title: 'Lisboa y las Azores', sub: 'La Armada · El Destino del Imperio', img: 'barco.webp' }
+       };
+       if (actInfo[nextTrack]) {
+         this._showActTransition(actInfo[nextTrack], node);
+         return;
        }
     }
 
@@ -726,7 +769,11 @@ export class GameEngine {
         this.audio.pause();
         this._triggerDamage();
       }
-      optionsContainer.innerHTML = `
+
+      // Stats panel
+      optionsContainer.innerHTML = this._showEndStats();
+
+      optionsContainer.innerHTML += `
         <button class="pro-option game-over-btn" id="btn-restart-game">
           <span class="opt-text">${isHappyEnding ? '⚓ VOLVER AL INICIO' : 'REINICIAR TODO'}</span>
         </button>
@@ -738,11 +785,15 @@ export class GameEngine {
             </button>
           `;
       }
-      
+
       requestAnimationFrame(() => {
           document.getElementById('btn-restart-game').addEventListener('click', () => this._restartFullGame());
           const loadBtn = document.getElementById('btn-load-game');
           if (loadBtn) loadBtn.addEventListener('click', () => { window.location.reload(); });
+          const { royalFavor, armadaReadiness, daysRemaining, inventory } = this.gameState;
+          const score = Math.round(royalFavor * 0.4 + armadaReadiness * 0.4 + Math.max(0,daysRemaining) * 3 + inventory.length * 5 + this._getAchievements().length * 10);
+          const grade = score >= 120 ? 'S' : score >= 90 ? 'A' : score >= 60 ? 'B' : score >= 30 ? 'C' : 'D';
+          this._setupShareButton(score, grade);
       });
       return;
     }  optionsContainer.innerHTML = availableOptions.map((opt, index) => `
@@ -937,9 +988,10 @@ export class GameEngine {
       this.currentState = this._resolveEnding(puzzle.successNode);
     } else {
       if (puzzle.failImpact) {
-        if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor);
-        if (puzzle.failImpact.armadaReadiness) this.gameState.armadaReadiness = Math.max(0, this.gameState.armadaReadiness + puzzle.failImpact.armadaReadiness);
-        if (puzzle.failImpact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + puzzle.failImpact.days);
+        const mult = this.gameState._hardMode ? 2 : 1;
+        if (puzzle.failImpact.royalFavor) this.gameState.royalFavor = Math.max(0, this.gameState.royalFavor + puzzle.failImpact.royalFavor * mult);
+        if (puzzle.failImpact.armadaReadiness) this.gameState.armadaReadiness = Math.max(0, this.gameState.armadaReadiness + puzzle.failImpact.armadaReadiness * mult);
+        if (puzzle.failImpact.days) this.gameState.daysRemaining = Math.max(0, this.gameState.daysRemaining + puzzle.failImpact.days * mult);
       }
       if (this.gameState.daysRemaining <= 0) {
           this.currentState = 'gameover_tiempo';
@@ -989,6 +1041,101 @@ export class GameEngine {
     if (impact.armadaReadiness) animateBar('bar-armada', impact.armadaReadiness);
   }
 
+  _fadeAudio(audio, targetVol, duration) {
+    return new Promise(resolve => {
+      const steps = 20;
+      const interval = duration / steps;
+      const startVol = audio.volume;
+      const delta = (targetVol - startVol) / steps;
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        audio.volume = Math.min(1, Math.max(0, startVol + delta * step));
+        if (step >= steps) { clearInterval(timer); resolve(); }
+      }, interval);
+    });
+  }
+
+  _showActTransition(info, node) {
+    this.container.innerHTML = `
+      <div class="act-transition" id="act-transition">
+        <div class="act-transition-bg" style="background-image:url('./${info.img}')"></div>
+        <div class="act-transition-content">
+          <div class="act-transition-label">ACTO</div>
+          <div class="act-transition-num">${info.num}</div>
+          <div class="act-transition-title">${info.title}</div>
+          <div class="act-transition-sub">${info.sub}</div>
+          <div class="act-transition-skip">Toca para continuar</div>
+        </div>
+      </div>
+    `;
+    // Auto-advance after 3s
+    setTimeout(() => {
+      const el = document.getElementById('act-transition');
+      if (el) el.classList.add('act-transition-out');
+      setTimeout(() => this._renderNodeContent(node), 800);
+    }, 3000);
+    // Click to skip
+    document.getElementById('act-transition').addEventListener('click', () => {
+      const el = document.getElementById('act-transition');
+      if (el) el.classList.add('act-transition-out');
+      setTimeout(() => this._renderNodeContent(node), 800);
+    });
+  }
+
+  _showEndStats() {
+    const { royalFavor, armadaReadiness, daysRemaining, inventory } = this.gameState;
+    const daysUsed = (this.gameState._hardMode ? 9 : 13) - daysRemaining;
+    const achievements = this._getAchievements();
+    const isGood = ['final_despedida','final_victoria_total','final_victoria_pírrica'].includes(this.currentState);
+
+    // Score: favor + armada + days bonus + items + achievements
+    const score = Math.round(
+      royalFavor * 0.4 +
+      armadaReadiness * 0.4 +
+      Math.max(0, daysRemaining) * 3 +
+      inventory.length * 5 +
+      achievements.length * 10
+    );
+
+    const grade = score >= 120 ? 'S' : score >= 90 ? 'A' : score >= 60 ? 'B' : score >= 30 ? 'C' : 'D';
+    const gradeColor = { S:'#ffd700', A:'#4ade80', B:'#60a5fa', C:'#fb923c', D:'#f87171' }[grade];
+
+    return `
+      <div class="end-stats">
+        <div class="end-stats-title">${isGood ? '⚓ Partida Completada' : '💀 Fin de la Partida'}</div>
+        <div class="end-grade" style="color:${gradeColor}">${grade}</div>
+        <div class="end-score">${score} puntos</div>
+        <div class="end-stats-grid">
+          <div class="end-stat-item"><span class="end-stat-label">Favor Real</span><span class="end-stat-val">${royalFavor}%</span></div>
+          <div class="end-stat-item"><span class="end-stat-label">Estado Armada</span><span class="end-stat-val">${armadaReadiness}%</span></div>
+          <div class="end-stat-item"><span class="end-stat-label">Días restantes</span><span class="end-stat-val">${daysRemaining}</span></div>
+          <div class="end-stat-item"><span class="end-stat-label">Objetos</span><span class="end-stat-val">${inventory.length}/9</span></div>
+          <div class="end-stat-item"><span class="end-stat-label">Logros</span><span class="end-stat-val">${achievements.length}/10</span></div>
+          <div class="end-stat-item"><span class="end-stat-label">Modo</span><span class="end-stat-val">${this.gameState._hardMode ? '⚔️ Difícil' : '📖 Normal'}</span></div>
+        </div>
+        ${inventory.length > 0 ? `<div class="end-inventory">${inventory.map(i => `<span title="${i}">${this.getIconFor(i)}</span>`).join('')}</div>` : ''}
+        <button class="end-share-btn" id="btn-share-result">📤 Compartir resultado</button>
+      </div>
+    `;
+  }
+
+  _setupShareButton(score, grade) {
+    const btn = document.getElementById('btn-share-result');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      const text = `🎮 El Señor de los Mares\n⚓ Puntuación: ${score} (${grade})\n👑 Favor Real: ${this.gameState.royalFavor}%\n⚓ Armada: ${this.gameState.armadaReadiness}%\n🏆 Logros: ${this._getAchievements().length}/10\njcgm.dev/elsenordelosmares/`;
+      if (navigator.share) {
+        navigator.share({ title: 'El Señor de los Mares', text }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.textContent = '✓ Copiado';
+          setTimeout(() => btn.textContent = '📤 Compartir resultado', 2000);
+        });
+      }
+    });
+  }
+
   _renderAchievementsList() {
     const ALL_ACHIEVEMENTS = [
       { id: 'coleccionista',    icon: '🎒', label: 'El Coleccionista',           hint: 'Recoge 5 objetos' },
@@ -1015,13 +1162,15 @@ export class GameEngine {
 
   _restartFullGame() {
     localStorage.removeItem('elsenormares_save');
+    const isHard = localStorage.getItem('elsenormares_hard') === 'true';
     this.gameState = {
-      royalFavor: 45,
-      armadaReadiness: 30,
-      daysRemaining: 13,
+      royalFavor: isHard ? 30 : 45,
+      armadaReadiness: isHard ? 15 : 30,
+      daysRemaining: isHard ? 9 : 13,
       inventory: [],
       visitedRooms: ['patio'],
-      musicEnabled: this.gameState.musicEnabled
+      musicEnabled: this.gameState.musicEnabled,
+      _hardMode: isHard
     };
     this.currentState = this.startNode;
     this.currentTrack = 'act1';
