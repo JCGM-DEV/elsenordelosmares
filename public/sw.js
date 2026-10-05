@@ -1,4 +1,4 @@
-const CACHE_NAME = 'elsenormares-v33';
+const CACHE_NAME = 'elsenormares-v34';
 
 const CORE_ASSETS = [
   './',
@@ -6,7 +6,7 @@ const CORE_ASSETS = [
   './src/main.js',
   './src/engine.js',
   './src/style.css',
-  './src/data/story.json',
+  './data/story.json',
   './manifest.json'
 ];
 

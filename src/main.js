@@ -1,8 +1,10 @@
 import { GameEngine } from './engine.js'
-import storyData from './data/story.json'
 
-function init() {
+async function init() {
   try {
+    const response = await fetch('./data/story.json');
+    if (!response.ok) throw new Error('Failed to load story data');
+    const storyData = await response.json();
     const engine = new GameEngine(storyData, 'app');
     engine.init();
   } catch (err) {
