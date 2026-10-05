@@ -3,7 +3,7 @@
   "nodes": {
     "patio": {
       "text": "Estás en el Patio de Honor del Palacio de Viso. Un lugar de mármol y gloria. Las gentes del pueblo saben que algo grande se gesta bajo el mando del Marqués de Santa Cruz.",
-      "image": "patio.webp",
+      "image": "./images/scenes/patio.webp",
       "options": [
         {
           "text": "Subir a tu Despacho Personal",
@@ -30,7 +30,7 @@
     },
     "camini_preparacion_check": {
       "text": "Los caballos están listos. Tienes el Sello Real en tu poder, pero un viaje tan largo al corazón de Castilla requerirá raciones y agua para no desfallecer.",
-      "image": "camino.webp",
+      "image": "./images/scenes/camino.webp",
       "options": [
         {
           "text": "Iniciar la cabalgada a Madrid (Próximo Acto)",
@@ -45,7 +45,7 @@
     },
     "patio_criados": {
       "text": "Los criados susurran sobre jinetes extraños vistos en el Camino Real. 'Parecen buscar algo en la Iglesia, mi Señor'.",
-      "image": "patio.webp",
+      "image": "./images/scenes/patio.webp",
       "options": [
         {
           "text": "Subir al Despacho a por armas",
@@ -59,7 +59,7 @@
     },
     "patio_observar": {
       "text": "Te detienes ante el fresco de la Batalla de Lepanto. Recordar tus victorias pasadas te llena de determinación táctica.",
-      "image": "patio_observar.webp",
+      "image": "./images/scenes/patio_observar.webp",
       "options": [
         {
           "text": "Volver al centro del patio",
@@ -69,7 +69,7 @@
     },
     "bodegas": {
       "text": "Las bodegas huelen a salitre, madera vieja y aceite de oliva. Entre los pesados barriles de vino, encuentras un cofre pequeño de cuero, medio oculto. En el fondo, hay un arcón de hierro con cerradura.",
-      "image": "bodegas.webp",
+      "image": "./images/scenes/bodegas.webp",
       "options": [
         {
           "text": "Abrir el cofre de cuero",
@@ -98,7 +98,7 @@
     },
     "bodega_provisiones": {
       "text": "Encuentras cecina, bizcocho de mar y barriles de agua limpia. Esto será vital para el largo viaje que te espera.",
-      "image": "taberna_provisiones.webp",
+      "image": "./images/scenes/taberna_provisiones.webp",
       "options": [
         {
           "text": "Volver a las bodegas",
@@ -108,7 +108,7 @@
     },
     "bodega_polvora": {
       "text": "La pólvora parece húmeda. Debes dar órdenes para secarla si quieres que tus cañones funcionen.",
-      "image": "bodega_polvora.webp",
+      "image": "./images/scenes/bodega_polvora.webp",
       "options": [
         {
           "text": "Dar órdenes de mantenimiento",
@@ -125,7 +125,7 @@
     },
     "bodega_cofre": {
       "text": "Dentro del cofre hay un Mapa de Lisboa detallado con las corrientes del Tajo marcadas en rojo. Alguien conocía bien esas aguas. En Lisboa, este mapa te permitirá maniobrar donde otros encallarían.",
-      "image": "bodega_mapa.webp",
+      "image": "./images/scenes/bodega_mapa.webp",
       "options": [
         {
           "text": "Regresar al sol del patio",
@@ -135,7 +135,7 @@
     },
     "bodega_arcon_secreto": {
       "text": "La Llave Antigua encaja perfectamente. El arcón cruje al abrirse. Dentro encuentras una Bolsa de Oro con monedas de cuño castellano y una nota: 'Para cuando más lo necesites. — Un amigo de la corona'.",
-      "image": "bodega_mapa.webp",
+      "image": "./images/scenes/bodega_mapa.webp",
       "options": [
         {
           "text": "Tomar el oro y volver a las bodegas",
@@ -147,7 +147,7 @@
     },
     "escalera": {
       "text": "La gran escalera de mármol te lleva a la planta noble. Sientes que alguien te sigue con la mirada desde las sombras de los arcos superiores.",
-      "image": "escalera.webp",
+      "image": "./images/scenes/escalera.webp",
       "options": [
         {
           "text": "Entrar rápido al Despacho",
@@ -161,10 +161,10 @@
     },
     "confrontar_espia": {
       "text": "Es un hombre embozado, con el rostro oculto. 'Tengo información sobre una traición que se gesta en la corte de Madrid, Almirante'.",
-      "image": "escalera_espia.webp",
+      "image": "./images/scenes/escalera_espia.webp",
       "character": {
         "name": "Informador Anónimo",
-        "image": "secretario.webp"
+        "image": "./images/characters/secretario.webp"
       },
       "options": [
         {
@@ -180,7 +180,7 @@
     },
     "espia_huida": {
       "text": "El hombre desaparece con agilidad felina por la escalera de servicio. Has perdido una oportunidad valiosa... o quizás no. Aún puedes seguirle.",
-      "image": "escalera.webp",
+      "image": "./images/scenes/escalera.webp",
       "options": [
         {
           "text": "Seguirle por las calles del Viso",
@@ -194,7 +194,7 @@
     },
     "espia_revela": {
       "text": "'Cuidado en el Escorial, Marqués. Un consejero del Rey ha recibido plata inglesa'. El hombre desaparece tras susurrar esto.",
-      "image": "escalera.webp",
+      "image": "./images/scenes/escalera.webp",
       "options": [
         {
           "text": "Ir al Despacho a reflexionar",
@@ -204,10 +204,10 @@
     },
     "despacho": {
       "text": "Tu despacho personal. Huele a tinta, pergamino y cera. En la mesa hay una carta sin sellar de tu secretario de absoluta confianza.",
-      "image": "despacho.webp",
+      "image": "./images/scenes/despacho.webp",
       "character": {
         "name": "Don Álvaro de Bazán",
-        "image": "don_alvaro.webp"
+        "image": "./images/characters/don_alvaro.webp"
       },
       "options": [
         {
@@ -239,7 +239,7 @@
     },
     "despacho_notas": {
       "text": "Tus diarios de campaña de Lepanto y Terceira. Repasarlos te recuerda que la victoria reside en la disciplina.",
-      "image": "despacho_notas.webp",
+      "image": "./images/scenes/despacho_notas.webp",
       "options": [
         {
           "text": "Volver al escritorio",
@@ -249,7 +249,7 @@
     },
     "cajones_despacho": {
       "text": "Tras un panel oculto, encuentras el Sello Real. Con él, podrás emitir órdenes oficiales que ningún noble osará discutir.",
-      "image": "despacho_sello.webp",
+      "image": "./images/scenes/despacho_sello.webp",
       "options": [
         {
           "text": "Hablar con el Secretario",
@@ -259,10 +259,10 @@
     },
     "secretario_intro": {
       "text": "'Almirante, han descubierto a un traidor entre los criados del palacio. Si no tenemos pruebas, no podremos actuar'.",
-      "image": "despacho_secretario.webp",
+      "image": "./images/scenes/despacho_secretario.webp",
       "character": {
         "name": "Secretario",
-        "image": "secretario.webp"
+        "image": "./images/characters/secretario.webp"
       },
       "options": [
         {
@@ -290,7 +290,7 @@
     },
     "despacho_correo": {
       "text": "Cartas de Madrid que hablan de intrigas y de la salud del Rey. Todo parece indicar que tu presencia allí es urgente.",
-      "image": "convento_pergamino.webp",
+      "image": "./images/scenes/convento_pergamino.webp",
       "options": [
         {
           "text": "Volver al despacho",
@@ -300,7 +300,7 @@
     },
     "secretario_sospechas": {
       "text": "'Sospecho del monje que llega cada martes desde Madrid, Almirante. Siempre parece evitar la luz del día'.",
-      "image": "despacho_secretario.webp",
+      "image": "./images/scenes/despacho_secretario.webp",
       "options": [
         {
           "text": "Ir a las calles",
@@ -310,7 +310,7 @@
     },
     "registro_exito": {
       "text": "Bajo las pesadas alfombras de los aposentos del traidor, hallas una Bolsa de Oro inglés. ¡La prueba irrefutable de la conspiración!",
-      "image": "aposentos.webp",
+      "image": "./images/scenes/aposentos.webp",
       "options": [
         {
           "text": "Recoger el Oro y bajar al pueblo",
@@ -321,7 +321,7 @@
     },
     "calles_intro": {
       "text": "Las calles de Viso son un hervidero de gentes. Los jinetes van y vienen con noticias de la frontera. Algo se prepara.",
-      "image": "calles.webp",
+      "image": "./images/scenes/calles.webp",
       "options": [
         {
           "text": "Ir a la Plaza Mayor",
@@ -347,7 +347,7 @@
     },
     "calles_soldados": {
       "text": "Los soldados están ansiosos por zarpar. 'Dadle duro a los ingleses por nosotros, Almirante'. Tu liderazgo les inspira.",
-      "image": "calles_soldados.webp",
+      "image": "./images/scenes/calles_soldados.webp",
       "options": [
         {
           "text": "Seguir por las calles",
@@ -357,7 +357,7 @@
     },
     "plaza_mercado": {
       "text": "La Plaza Mayor está llena de mercaderes y griterío. Unos marineros retirados hablan en voz baja sobre barcos que se hunden en el Tajo.",
-      "image": "plaza.webp",
+      "image": "./images/scenes/plaza.webp",
       "options": [
         {
           "text": "Escuchar los rumores",
@@ -380,7 +380,7 @@
     },
     "plaza_rumores": {
       "text": "Oyes que alguien está comprando lealtades en los muelles de Lisboa. Necesitas un salvoconducto oficial para llegar con seguridad.",
-      "image": "plaza_marineros.webp",
+      "image": "./images/scenes/plaza_marineros.webp",
       "options": [
         {
           "text": "Entrar en El Galeón por más info",
@@ -394,7 +394,7 @@
     },
     "taberna_intro": {
       "text": "La Taberna El Galeón. Humo de leña y vino rancio. El posadero limpia la barra con un trapo sucio mientras te observa.",
-      "image": "taberna.webp",
+      "image": "./images/scenes/taberna.webp",
       "options": [
         {
           "text": "Interrogar al posadero sobre el Escorial",
@@ -411,7 +411,7 @@
     },
     "taberna_beber": {
       "text": "La gente se vuelve más habladora. Ves a unos marinos jugando a los dados. '¿Te atreves, Almirante? Si ganas el 4, te contaré lo que sé del Escorial'.",
-      "image": "taberna_dados.webp",
+      "image": "./images/scenes/taberna_dados.webp",
       "puzzle": {
         "type": "dice",
         "question": "Lanza para sacar un 4 o más:",
@@ -425,7 +425,7 @@
     },
     "taberna_beber_fallo": {
       "text": "La suerte no está de tu lado. 'Mejor retiraos a vuestro palacio, Marqués', ríen los marineros. El posadero, viendo tu enojo, se apiada y te llama en voz baja.",
-      "image": "taberna.webp",
+      "image": "./images/scenes/taberna.webp",
       "options": [
         {
           "text": "Intentar hablar con el posadero directamente",
@@ -435,8 +435,8 @@
     },
     "taberna_posadero": {
       "text": "'Almirante, han visto extraños cerca del Convento por las noches. Guardan caballos frescos para un viaje largo'.",
-      "image": "taberna.webp",
-      "character": { "name": "Posadero El Galeón", "image": "mensajero.webp" },
+      "image": "./images/scenes/taberna.webp",
+      "character": { "name": "Posadero El Galeón", "image": "./images/characters/mensajero.webp" },
       "options": [
         {
           "text": "Ir al Convento a investigar",
@@ -458,7 +458,7 @@
     },
     "taberna_provisiones": {
       "text": "El posadero te prepara una saca con bizcocho y carne seca. 'Os hará falta si vais al Escorial'.",
-      "image": "taberna_provisiones.webp",
+      "image": "./images/scenes/taberna_provisiones.webp",
       "options": [
         {
           "text": "Salir de la Taberna",
@@ -469,7 +469,7 @@
     },
     "taberna_puerta_azul": {
       "text": "El posadero ríe: '¡Eso es en Lisboa, Marqués! ¡Aún no habéis zarpado!' Te recuerda que tu viaje empieza en Madrid.",
-      "image": "taberna.webp",
+      "image": "./images/scenes/taberna.webp",
       "options": [
         {
           "text": "Volver al centro de la taberna",
@@ -479,7 +479,7 @@
     },
     "iglesia_intro": {
       "text": "La penumbra fresca de la iglesia te recibe. En un rincón, un cocodrilo disecado cuelga de la pared, un tesoro traído de mares lejanos.",
-      "image": "iglesia.webp",
+      "image": "./images/scenes/iglesia.webp",
       "options": [
         {
           "text": "Hablar con el Cura",
@@ -505,7 +505,7 @@
     },
     "iglesia_tumbas": {
       "text": "Encuentras la tumba de un antepasado. El honor de tu linaje te da fuerzas para lo que viene.",
-      "image": "iglesia_tumbas.webp",
+      "image": "./images/scenes/iglesia_tumbas.webp",
       "options": [
         {
           "text": "Volver a la nave central",
@@ -515,7 +515,7 @@
     },
     "iglesia_cocodrilo": {
       "text": "Al tocar una placa de bronce bajo el animal, se abre un pequeño compartimento. Encuentras una Llave Antigua labrada en plata.",
-      "image": "iglesia_cocodrilo.webp",
+      "image": "./images/scenes/iglesia_cocodrilo.webp",
       "options": [
         {
           "text": "Recoger Llave y salir",
@@ -526,10 +526,10 @@
     },
     "iglesia_cura": {
       "text": "El párroco te bendice con solemnidad: 'En Lisboa, Almirante, buscad la casa de la puerta azul en la Alfama. No confiéis en los mercaderes del Tajo'.",
-      "image": "iglesia.webp",
+      "image": "./images/scenes/iglesia.webp",
       "character": {
         "name": "Párroco de Viso",
-        "image": "mensajero.webp"
+        "image": "./images/characters/mensajero.webp"
       },
       "options": [
         {
@@ -540,7 +540,7 @@
     },
     "convento_intro": {
       "text": "El silencio del convento solo se rompe por el canto de las monjas. Un mensajero te entrega un pergamino sellado con cera roja.",
-      "image": "convento_pergamino.webp",
+      "image": "./images/scenes/convento_pergamino.webp",
       "options": [
         {
           "text": "Abrir el pergamino",
@@ -555,7 +555,7 @@
     },
     "convento_mensaje": {
       "text": "La carta está cifrada. 'EL XUDLGRU HQ PDGULG...'. Usas la Cifra de César (A=C, B=D). ¿Cuál es la palabra que define el peligro?",
-      "image": "convento_pergamino.webp",
+      "image": "./images/scenes/convento_pergamino.webp",
       "puzzle": {
         "type": "cipher",
         "question": "Traduce la primera palabra (en mayúsculas): EL XUDLGRU...",
@@ -569,8 +569,8 @@
     },
     "convento_mensaje_descifrado": {
       "text": "¡Logras descifrarlo! 'EL TRAIDOR EN MADRID OS ESPERA'. Ahora sabes a qué te enfrentas en la corte.",
-      "image": "convento_pergamino.webp",
-      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "image": "./images/scenes/convento_pergamino.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "./images/characters/don_alvaro.webp" },
       "options": [
         {
           "text": "Volver a las calles con esta ventaja",
@@ -580,7 +580,7 @@
     },
     "convento_mensaje_fallido": {
       "text": "No logras romper el código. Pierdes un tiempo precioso y los nervios te traicionan.",
-      "image": "convento.webp",
+      "image": "./images/scenes/convento.webp",
       "options": [
         {
           "text": "Regresar a las calles frustrado",
@@ -590,7 +590,7 @@
     },
     "camino_preparacion": {
       "text": "Con provisiones y determinación, el Camino Real a Madrid se abre ante ti. Las tierras de la Mancha son vastas y peligrosas.",
-      "image": "camino.webp",
+      "image": "./images/scenes/camino.webp",
       "options": [
         {
           "text": "Cabalgar hacia el Escorial",
@@ -605,7 +605,7 @@
     },
     "madrid_llegada": {
       "text": "Tras días de galope, el Monasterio del Escorial emerge como un gigante de piedra. El centro del poder mundial de Felipe II.",
-      "image": "escorial.webp",
+      "image": "./images/scenes/escorial.webp",
       "options": [
         {
           "text": "Presentar el Sello Real ante la guardia",
@@ -632,8 +632,8 @@
     },
     "madrid_espera": {
       "text": "Esperas horas. Finalmente ves al Duque de Alba. Te reconoce y te facilita la entrada, pero has perdido tiempo.",
-      "image": "escorial.webp",
-      "character": { "name": "Duque de Alba", "image": "don_alvaro.webp" },
+      "image": "./images/scenes/escorial.webp",
+      "character": { "name": "Duque de Alba", "image": "./images/characters/don_alvaro.webp" },
       "options": [
         {
           "text": "Entrar al Escorial",
@@ -643,7 +643,7 @@
     },
     "madrid_incognito": {
       "text": "Te infiltras entre los canteros. Escuchas a unos obreros quejarse de un 'conglomerado' de nobles que no quieren la guerra.",
-      "image": "madrid_obras.webp",
+      "image": "./images/scenes/madrid_obras.webp",
       "options": [
         {
           "text": "Llegar al Consejo de Guerra",
@@ -654,12 +654,12 @@
     "muerte_camino": {
       "type": "gameover",
       "text": "Sin la autoridad del Sello Real, la guardia te toma por un impostor o un agitador. Eres detenido y enviado a las mazmorras de Toledo. GAME OVER.",
-      "image": "mazmorras.webp",
+      "image": "./images/scenes/mazmorras.webp",
       "options": []
     },
     "madrid_consejo": {
       "text": "El Consejo de Guerra. Diez hombres poderosos te juzgan. El Marqués de Denia te pone a prueba: 'Bazán, recordadnos vuestra mayor gloria. ¿Dónde destrozasteis a la flota otomana en 1571?'",
-      "image": "consejo.webp",
+      "image": "./images/scenes/consejo.webp",
       "puzzle": {
         "type": "quiz",
         "question": "Selecciona la batalla correcta:",
@@ -679,7 +679,7 @@
     },
     "madrid_consejo_pruebas": {
       "text": "Arrojas la bolsa de oro inglés sobre la mesa. El impacto es total. El Rey, oculto tras una celosía, decide escucharte.",
-      "image": "consejo_oro.webp",
+      "image": "./images/scenes/consejo_oro.webp",
       "impact": {
         "royalFavor": 30
       },
@@ -703,10 +703,10 @@
     },
     "madrid_consejo_diplomacia": {
       "text": "Tus palabras convencen a medias. El Consejo duda. El Secretario de Guerra te lleva aparte: 'Necesitáis un plan estratégico brillante para callar a los burócratas, Almirante'.",
-      "image": "consejo.webp",
+      "image": "./images/scenes/consejo.webp",
       "character": {
         "name": "Secretario de Guerra",
-        "image": "secretario.webp"
+        "image": "./images/characters/secretario.webp"
       },
       "options": [
         {
@@ -728,7 +728,7 @@
     },
     "madrid_espia_corte": {
       "text": "Sigues al oficial hasta un callejón sombrío tras el Monasterio. Es una trampa. ¡Desenvaina y defiéndete de sus paradas!",
-      "image": "espia.webp",
+      "image": "./images/characters/espia.webp",
       "puzzle": {
         "type": "sequence",
         "question": "¡Sigue el ritmo del duelo!",
@@ -753,8 +753,8 @@
     },
     "madrid_duelo_victoria": {
       "text": "Tras un breve duelo en los pasillos del Escorial, obtienes la lista de conspiradores. ¡Ahora estás listo para el Rey!",
-      "image": "alvaro_hero.webp",
-      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "image": "./images/characters/alvaro_hero.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "./images/characters/don_alvaro.webp" },
       "options": [
         {
           "text": "Entrar a la Audiencia",
@@ -765,7 +765,7 @@
     },
     "madrid_mapas": {
       "text": "En la Sala de Mapas descubres un error en la ruta de las Azores. Si no lo corriges, la flota será masacrada.",
-      "image": "mapas.webp",
+      "image": "./images/scenes/mapas.webp",
       "options": [
         {
           "text": "Corregir los mapas con tu experiencia",
@@ -782,8 +782,8 @@
     },
     "madrid_felipe_ii": {
       "text": "Rey Felipe II. Austero y poderoso. Sus ojos se clavan en ti. 'Bazán, el tiempo se agota. El mundo aguarda el Rayo de la Guerra. ¿Qué pedís para garantizar el éxito?'",
-      "image": "felipe.webp",
-      "character": { "name": "Felipe II, Rey de España", "image": "felipe_ii.webp" },
+      "image": "./images/characters/felipe.webp",
+      "character": { "name": "Felipe II, Rey de España", "image": "./images/characters/felipe_ii.webp" },
       "options": [
         {
           "text": "Jurar lealtad y pedir la Orden de Partida",
@@ -815,7 +815,7 @@
     },
     "madrid_orden_real": {
       "text": "El Rey firma el pergamino. Tienes el mando absoluto. 'Partid hacia Lisboa. Que Dios os guíe'.",
-      "image": "pergamino_real.webp",
+      "image": "./images/scenes/pergamino_real.webp",
       "options": [
         {
           "text": "Iniciar el Acto III: Lisboa",
@@ -827,12 +827,12 @@
     "madrid_rechazo": {
       "type": "gameover",
       "text": "Nadie rechaza al Rey Prudente. Eres despojado de tus títulos y enviado al exilio. De Bazán solo quedará el olvido. GAME OVER.",
-      "image": "escorial_noche.webp",
+      "image": "./images/scenes/escorial_noche.webp",
       "options": []
     },
     "lisboa_llegada": {
       "text": "La Torre de Belem. Estás en Lisboa. La tensión es palpable. Tienes que organizar pertrechos y asegurar la flota antes de zarpar.",
-      "image": "lisboa.webp",
+      "image": "./images/scenes/lisboa.webp",
       "options": [
         {
           "text": "Ir a los Astilleros del Tajo (-1 Día)",
@@ -881,7 +881,7 @@
     },
     "lisboa_mercaderes": {
       "text": "Los mercaderes están preocupados. 'Si la flota no zarpa pronto, el comercio colapsará'. Te ofrecen suministros a cambio de protección futura.",
-      "image": "lisboa_mercaderes.webp",
+      "image": "./images/scenes/lisboa_mercaderes.webp",
       "options": [
         {
           "text": "Sobornar para obtener pólvora extra",
@@ -903,7 +903,7 @@
     },
     "lisboa_puerta_azul": {
       "text": "Llamas a la puerta azul. Una voz susurra desde el interior: 'El mar es mi...' Completa la contraseña para entrar.",
-      "image": "lisboa.webp",
+      "image": "./images/scenes/lisboa.webp",
       "puzzle": {
         "type": "cipher",
         "question": "Contraseña secreta (una palabra):",
@@ -917,7 +917,7 @@
     },
     "lisboa_puerta_azul_exito": {
       "text": "La puerta se abre. Te entregan Pólvora Superior. 'Para los cañones del San Martín. ¡Gloria a España!'",
-      "image": "lisboa.webp",
+      "image": "./images/scenes/lisboa.webp",
       "options": [
         {
           "text": "Regresar a Lisboa Central con el alijo",
@@ -928,10 +928,10 @@
     },
     "lisboa_astilleros": {
       "text": "Los Astilleros. El San Martín, tu nave capitana, está casi lista, pero detectas un intento de sabotaje en los almacenes de estopa. En un rincón hay una puerta con cerradura antigua que nadie ha abierto en años.",
-      "image": "astilleros.webp",
+      "image": "./images/scenes/astilleros.webp",
       "character": {
         "name": "Capataz de Ribera",
-        "image": "mensajero.webp"
+        "image": "./images/characters/mensajero.webp"
       },
       "options": [
         {
@@ -959,7 +959,7 @@
     },
     "lisboa_sabotaje_puzzle": {
       "text": "Encuentras a los saboteadores entre las barricas de brea. Te ven y sacan sus dagas. ¡Debes repeler el ataque con precisión!",
-      "image": "astilleros_noche.webp",
+      "image": "./images/scenes/astilleros_noche.webp",
       "puzzle": {
         "type": "sequence",
         "question": "¡Sigue el ritmo del combate!",
@@ -979,7 +979,7 @@
     },
     "lisboa_victoria_parcial": {
       "text": "Logras expulsar a los saboteadores, pero han logrado quemar algo de estopa. La flota está segura pero el retraso es leve.",
-      "image": "astilleros.webp",
+      "image": "./images/scenes/astilleros.webp",
       "impact": {
         "armadaReadiness": 15
       },
@@ -992,7 +992,7 @@
     },
     "lisboa_incendio": {
       "text": "¡Fuego! No lograste detener a los saboteadores a tiempo. Varios suministros se pierden entre las llamas. El desastre es total para la moral de los carpinteros.",
-      "image": "lisboa_incendio.webp",
+      "image": "./images/scenes/lisboa_incendio.webp",
       "impact": {
         "armadaReadiness": -25
       },
@@ -1005,7 +1005,7 @@
     },
     "lisboa_victoria": {
       "text": "El sabotaje es frustrado por completo gracias a tu información. La Armada está en su máxima capacidad operativa. '¡Gloria a la Armada!', gritan los marineros.",
-      "image": "alvaro_hero.webp",
+      "image": "./images/characters/alvaro_hero.webp",
       "impact": {
         "armadaReadiness": 35
       },
@@ -1018,7 +1018,7 @@
     },
     "san_martin_camarote": {
       "text": "El camarote del Almirante. Desde la ventana ves tu imponente flota. Debes trazar la ruta final para interceptar al enemigo.",
-      "image": "barco_amanecer.webp",
+      "image": "./images/scenes/barco_amanecer.webp",
       "puzzle": {
         "type": "quiz",
         "question": "Si el viento sopla de Poniente, ¿hacia dónde vira la flota para ganar el barlovento?",
@@ -1039,12 +1039,12 @@
     "muerte_naval": {
       "type": "gameover",
       "text": "Tu indecisión permitió que los barcos ingleses bloquearan el Tajo. Eres ridiculizado y mueres de tristeza en Lisboa. GAME OVER.",
-      "image": "barco_tormenta.webp",
+      "image": "./images/scenes/barco_tormenta.webp",
       "options": []
     },
     "azores_batalla": {
       "text": "¡Contacto! La flota enemiga aparece por estribor cerca de las Islas Azores. El mar está en calma chicha. El momento del Rayo de la Guerra ha llegado.",
-      "image": "azores_batalla.webp",
+      "image": "./images/scenes/azores_batalla.webp",
       "options": [
         {
           "text": "Descarga de artillería pesada",
@@ -1074,7 +1074,7 @@
     },
     "final_logic": {
       "text": "¡VICTORIA! Tus tácticas y preparación han sido perfectas. El Almirante enemigo huye y España asegura el océano. Eres el Señor de los Mares.",
-      "image": "azores_batalla.webp",
+      "image": "./images/scenes/azores_batalla.webp",
       "options": [
         {
           "text": "VOLVER AL PALACIO COMO HÉROE",
@@ -1102,7 +1102,7 @@
     },
     "victoria_botin": {
       "text": "Has capturado tres galeones ingleses repletos de especias y seda. Tu riqueza y poder son ahora legendarios.",
-      "image": "victoria_botin.webp",
+      "image": "./images/scenes/victoria_botin.webp",
       "options": [
         {
           "text": "Regresar triunfante al Palacio",
@@ -1112,8 +1112,8 @@
     },
     "final_gratitud": {
       "text": "El Almirante Don Álvaro de Bazán se detiene en la popa del San Martín. Os mira directamente, con una mezcla de respeto y cansancio noble. 'Habéis sido mi brújula y mi valor en esta jornada. Sin vuestro ingenio, el Rayo de la Guerra se habría apagado. Os debo la gloria, alma estratégica'.",
-      "image": "almirante_triumph.webp",
-      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "image": "./images/scenes/almirante_triumph.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "./images/characters/don_alvaro.webp" },
       "options": [
         {
           "text": "Aceptar los honores",
@@ -1127,7 +1127,7 @@
     },
     "final_homenaje_viso": {
       "text": "Sopla un viento cálido que huele a las tierras de Castilla. 'Mis pensamientos vuelan ahora hacia mi amado Viso del Marqués. Allí, entre los muros de mi palacio y la paz de mi tierra, descansarán mis picas. Gracias, tierra bendita, por darme la cuna y el refugio. Mi espada siempre será de España, pero mi corazón es de Viso'.",
-      "image": "palacio_viso_epic.webp",
+      "image": "./images/scenes/palacio_viso_epic.webp",
       "options": [
         {
           "text": "Contemplar el horizonte",
@@ -1137,19 +1137,19 @@
     },
     "final_despedida": {
       "text": "La historia guardará vuestro nombre entre susurros de pólvora y sal. La jornada ha terminado. Don Álvaro de Bazán, Marqués de Santa Cruz, descansa finalmente con el deber cumplido. FIN.",
-      "image": "almirante_final_message.webp",
+      "image": "./images/scenes/almirante_final_message.webp",
       "type": "gameover",
       "options": []
     },
     "gameover_tiempo": {
       "type": "gameover",
       "text": "El tiempo se agotó. La flota inglesa de Francis Drake atacó la bahía de Cádiz y Lisboa antes de que la Armada estuviera lista. El sueño español arde en llamas. GAME OVER.",
-      "image": "lisboa_incendio.webp",
+      "image": "./images/scenes/lisboa_incendio.webp",
       "options": []
     },
     "madrid_taberna_hub": {
       "text": "La Taberna del Oso. Lugar de humo, vino amargo y espías. El tiempo corre, no pierdas la tarde.",
-      "image": "taberna_madrid.webp",
+      "image": "./images/scenes/taberna_madrid.webp",
       "options": [
         {
           "text": "Comprar una ronda general (-1 Día)",
@@ -1172,7 +1172,7 @@
     },
     "madrid_taberna_rumor": {
       "text": "Los marineros hablan: 'Cuidado en Lisboa, los carpinteros retrasan los barcos a propósito'. Tomas nota.",
-      "image": "taberna_posadero.webp",
+      "image": "./images/scenes/taberna_posadero.webp",
       "impact": {
         "armadaReadiness": 10
       },
@@ -1185,7 +1185,7 @@
     },
     "madrid_taberna_cripto": {
       "text": "El tabernero te desliza un papel quemado: 'Para saber cómo ganar, debes conocer el TRATADO... al revés'.",
-      "image": "carta_cifrada.webp",
+      "image": "./images/scenes/carta_cifrada.webp",
       "puzzle": {
         "type": "cipher",
         "question": "Palabra secreta:",
@@ -1200,7 +1200,7 @@
     },
     "madrid_taberna_cripto_exito": {
       "text": "¡Descifraste la clave secreta de los piratas! Obtienes mapas detallados de Inglaterra y las Azores.",
-      "image": "mapas.webp",
+      "image": "./images/scenes/mapas.webp",
       "impact": {
         "armadaReadiness": 18
       },
@@ -1214,7 +1214,7 @@
     },
     "lisboa_almacen_secreto": {
       "text": "La puerta cede con un chirrido. Dentro, perfectamente conservados bajo lonas enceradas, hay barriles de pólvora seca de la mejor calidad y un juego de cartas náuticas de las Azores. Alguien los dejó aquí para ti.",
-      "image": "bodega_polvora.webp",
+      "image": "./images/scenes/bodega_polvora.webp",
       "options": [
         {
           "text": "Cargar la pólvora en el San Martín",
@@ -1226,8 +1226,8 @@
     },
 
     "lisboa_ruta_mapa": {      "text": "Extiendes el Mapa de Lisboa sobre la mesa del camarote. Las corrientes del Tajo marcadas en rojo revelan un canal secundario que evita los bajíos donde la flota inglesa suele tender emboscadas. Tus pilotos nunca habrían encontrado esto solos.",
-      "image": "bodega_mapa.webp",
-      "character": { "name": "Don Álvaro de Bazán", "image": "don_alvaro.webp" },
+      "image": "./images/scenes/bodega_mapa.webp",
+      "character": { "name": "Don Álvaro de Bazán", "image": "./images/characters/don_alvaro.webp" },
       "options": [
         {
           "text": "Incorporar la ruta a los planes de navegación",
@@ -1238,7 +1238,7 @@
     },
 
     "lisboa_vista_astillero": {      "text": "¡El saboteador inglés cae abatido! El San Martín está libre de peligro. Desde lo alto del astillero ves tu flota completa por primera vez. Es un espectáculo que llena el alma.",
-      "image": "astilleros.webp",
+      "image": "./images/scenes/astilleros.webp",
       "options": [
         {
           "text": "Bajar al mando central (-1 Día)",
@@ -1256,7 +1256,7 @@
     },
     "azores_lanzamiento": {
       "text": "Los cañones retumban. ¿Están todos los galeones listos para surcar el Océano Atlántico y aplastar a Inglaterra?",
-      "image": "barco_noche.webp",
+      "image": "./images/scenes/barco_noche.webp",
       "options": [
         {
           "text": "¡Zarpar con fuerza letal! (Requiere Armada >= 80 y Pólvora Superior)",
@@ -1282,7 +1282,7 @@
     },
     "espia_seguimiento": {
       "text": "Sigues al hombre embozado por los callejones del Viso. Entra en una posada de mala muerte. A través de la ventana ves que entrega un pliego a un jinete con divisas inglesas.",
-      "image": "calles.webp",
+      "image": "./images/scenes/calles.webp",
       "options": [
         {
           "text": "Irrumpir y capturar al jinete",
@@ -1303,10 +1303,10 @@
     },
     "espia_captura": {
       "text": "El jinete inglés cae preso. Entre sus ropas encuentras un mapa con las posiciones de la flota española en Lisboa. ¡Información vital para el enemigo!",
-      "image": "aposentos.webp",
+      "image": "./images/scenes/aposentos.webp",
       "character": {
         "name": "Agente Inglés",
-        "image": "espia.webp"
+        "image": "./images/characters/espia.webp"
       },
       "options": [
         {
@@ -1325,8 +1325,8 @@
     },
     "espia_interrogatorio": {
       "text": "Bajo presión, el agente confiesa: 'El Conde de Villafranca recibe oro de Londres. Tiene acceso al Consejo de Guerra'. Ahora tienes una ventaja decisiva en Madrid.",
-      "image": "aposentos.webp",
-      "character": { "name": "Agente Inglés", "image": "espia.webp" },
+      "image": "./images/scenes/aposentos.webp",
+      "character": { "name": "Agente Inglés", "image": "./images/characters/espia.webp" },
       "options": [
         {
           "text": "Ir al despacho a preparar el viaje",
@@ -1339,7 +1339,7 @@
     },
     "espia_seguimiento_2": {
       "text": "El jinete cabalga hacia el norte. Lo pierdes en la oscuridad, pero has visto suficiente. La red de espionaje inglesa llega hasta el corazón de Castilla.",
-      "image": "camino.webp",
+      "image": "./images/scenes/camino.webp",
       "options": [
         {
           "text": "Regresar al palacio",
@@ -1349,10 +1349,10 @@
     },
     "patio_amanecer": {
       "text": "El alba tiñe de oro el patio de honor. Un correo real llega al galope. 'Almirante, el Rey os convoca con urgencia. La flota inglesa ha avistado las costas de Galicia'.",
-      "image": "patio.webp",
+      "image": "./images/scenes/patio.webp",
       "character": {
         "name": "Correo Real",
-        "image": "mensajero.webp"
+        "image": "./images/characters/mensajero.webp"
       },
       "options": [
         {
@@ -1374,10 +1374,10 @@
     },
     "madrid_duque_alba": {
       "text": "El Duque de Alba te recibe en sus aposentos del Escorial. Viejo y cansado, pero su palabra aún pesa en la corte. 'Bazán, os ayudaré ante el Rey, pero necesito algo a cambio'.",
-      "image": "consejo.webp",
+      "image": "./images/scenes/consejo.webp",
       "character": {
         "name": "Duque de Alba",
-        "image": "don_alvaro.webp"
+        "image": "./images/characters/don_alvaro.webp"
       },
       "options": [
         {
@@ -1406,7 +1406,7 @@
     },
     "lisboa_alfama": {
       "text": "El barrio de la Alfama huele a bacalao y salitre. Entre sus callejuelas empinadas, los informadores de la corona guardan secretos que valen más que el oro.",
-      "image": "calles_lisboa.webp",
+      "image": "./images/scenes/calles_lisboa.webp",
       "options": [
         {
           "text": "Buscar al contacto del Padre Sousa",
@@ -1427,10 +1427,10 @@
     },
     "lisboa_alfama_sousa": {
       "text": "El Padre Sousa, un fraile con ojos de halcón, te susurra: 'Tres galeones ingleses esperan en las Azores. Conocen vuestra ruta. Alguien de vuestra tripulación les informa'.",
-      "image": "convento.webp",
+      "image": "./images/scenes/convento.webp",
       "character": {
         "name": "Padre Sousa",
-        "image": "mensajero.webp"
+        "image": "./images/characters/mensajero.webp"
       },
       "options": [
         {
@@ -1450,7 +1450,7 @@
     },
     "lisboa_alfama_traidor": {
       "text": "A cambio del oro, el fraile te entrega un nombre: 'El piloto Rodrigo de Haro. Lleva semanas enviando mensajes cifrados a Plymouth'. Ahora puedes actuar.",
-      "image": "convento_pergamino.webp",
+      "image": "./images/scenes/convento_pergamino.webp",
       "options": [
         {
           "text": "Arrestar al piloto antes de zarpar",
@@ -1465,7 +1465,7 @@
     },
     "lisboa_alfama_puerto": {
       "text": "Desde las alturas de la Alfama observas el Tajo. Cuentas los barcos enemigos que rondan la desembocadura. Son más de los que esperabas.",
-      "image": "barco.webp",
+      "image": "./images/scenes/barco.webp",
       "options": [
         {
           "text": "Reforzar la guardia del puerto (-1 Día)",
@@ -1483,10 +1483,10 @@
     },
     "lisboa_san_martin_visita": {
       "text": "A bordo del San Martín, tu nave capitana. Los marineros te saludan con respeto. El maestre de campo te muestra el estado real de la flota: cañones, víveres, moral.",
-      "image": "barco.webp",
+      "image": "./images/scenes/barco.webp",
       "character": {
         "name": "Maestre de Campo",
-        "image": "mensajero.webp"
+        "image": "./images/characters/mensajero.webp"
       },
       "options": [
         {
@@ -1511,7 +1511,7 @@
     },
     "lisboa_san_martin_canones": {
       "text": "Encuentras que tres cañones de babor tienen las cuñas podridas. Si no se reparan, fallarán en el primer intercambio de fuego. Ordenas la reparación inmediata.",
-      "image": "astilleros.webp",
+      "image": "./images/scenes/astilleros.webp",
       "options": [
         {
           "text": "Supervisar la reparación tú mismo (-1 Día)",
@@ -1532,7 +1532,7 @@
     },
     "lisboa_san_martin_arenga": {
       "text": "Tu discurso recorre la cubierta como el viento de poniente. Los hombres golpean sus escudos y gritan '¡Santiago y cierra España!'. La moral está por las nubes.",
-      "image": "barco.webp",
+      "image": "./images/scenes/barco.webp",
       "options": [
         {
           "text": "Volver al mando en tierra",
@@ -1545,7 +1545,7 @@
     },
     "azores_batalla_dura": {
       "text": "La batalla es encarnizada. El viento cambia de repente y los ingleses aprovechan para flanquear tu línea. Necesitas una decisión táctica brillante ahora mismo.",
-      "image": "azores_batalla.webp",
+      "image": "./images/scenes/azores_batalla.webp",
       "puzzle": {
         "type": "quiz",
         "question": "El enemigo flanquea por estribor con viento favorable. ¿Cuál es la maniobra correcta?",
@@ -1565,7 +1565,7 @@
     },
     "azores_retirada": {
       "text": "La maniobra falla. Varios galeones quedan expuestos. Ordenas la retirada táctica para reagrupar. La victoria se complica pero no está perdida.",
-      "image": "barco.webp",
+      "image": "./images/scenes/barco.webp",
       "options": [
         {
           "text": "Reagrupar y atacar de nuevo",
@@ -1583,19 +1583,19 @@
     },
     "final_derrota_honrosa": {
       "text": "Retiras la flota con orden y disciplina. No es la victoria que España esperaba, pero has salvado la Armada para luchar otro día. Felipe II te recibe en silencio. 'Volveréis a intentarlo, Bazán'. FIN ALTERNATIVO.",
-      "image": "escorial.webp",
+      "image": "./images/scenes/escorial.webp",
       "type": "gameover",
       "options": []
     },
     "final_victoria_total": {
       "text": "¡VICTORIA ABSOLUTA! Con la Armada en plena forma, la Pólvora Superior y el favor del Rey, has aplastado a la flota inglesa sin perder un solo galeón. Drake huye herido. Felipe II te nombra Gran Almirante de los Océanos. Tu nombre vivirá eternamente. FIN GLORIOSO.",
-      "image": "almirante_triumph.webp",
+      "image": "./images/scenes/almirante_triumph.webp",
       "type": "gameover",
       "options": []
     },
     "final_victoria_pírrica": {
       "text": "La victoria es tuya, pero a un precio terrible. La mitad de la flota yace en el fondo del Atlántico. Los supervivientes te aclaman, pero tú solo ves los rostros de los caídos. España ha ganado el océano, pero a qué coste. FIN AGRIDULCE.",
-      "image": "almirante_final_message.webp",
+      "image": "./images/scenes/almirante_final_message.webp",
       "type": "gameover",
       "options": []
     }

@@ -70,7 +70,7 @@ export class GameEngine {
       <div class="loading-screen" id="loading-screen">
         <div class="loading-bg"></div>
         <div class="loading-content">
-          <img src="./escudo.svg" alt="Escudo" class="loading-crest">
+          <img src="./images/interface/escudo.svg" alt="Escudo" class="loading-crest">
           <h1 class="loading-title">EL SEÑOR<br>DE LOS MARES</h1>
           <div class="loading-bar-wrap">
             <div class="loading-bar" id="loading-bar"></div>
@@ -81,9 +81,9 @@ export class GameEngine {
     `;
 
     const criticalImages = [
-      'alvaro_hero.webp', 'patio.webp', 'clean_parchment.webp',
-      'despacho.webp', 'escalera.webp', 'bodegas.webp', 'calles.webp',
-      'palacio_viso_epic.webp', 'don_alvaro.webp'
+      './images/characters/alvaro_hero.webp', './images/scenes/patio.webp', './images/interface/clean_parchment.webp',
+      './images/scenes/despacho.webp', './images/scenes/escalera.webp', './images/scenes/bodegas.webp', './images/scenes/calles.webp',
+      './images/scenes/palacio_viso_epic.webp', './images/characters/don_alvaro.webp'
     ];
 
     const bar = document.getElementById('loading-bar');
@@ -121,7 +121,7 @@ export class GameEngine {
         advance();
         if (pending <= 0) clearTimeout(safetyTimer);
       };
-      img.src = './' + src;
+      img.src = src;
     });
   }
   showTitleScreen() {
@@ -134,12 +134,12 @@ export class GameEngine {
 
         <div class="title-content">
           <div class="hero-portrait animate-rise">
-            <img src="./alvaro_hero.webp" alt="Don Álvaro de Bazán">
+            <img src="./images/characters/alvaro_hero.webp" alt="Don Álvaro de Bazán">
           </div>
           
           <div class="title-text-block">
             <div class="crest-container animate-fade-down">
-                <img src="./escudo.svg" alt="Escudo Viso del Marqués" class="hero-crest" style="width: 85px; filter: drop-shadow(0 0 12px rgba(197,160,33,0.5));">
+                <img src="./images/interface/escudo.svg" alt="Escudo Viso del Marqués" class="hero-crest" style="width: 85px; filter: drop-shadow(0 0 12px rgba(197,160,33,0.5));">
             </div>
             <div class="title-pretitle animate-fade-down delay-1">Memoria de una Epopeya</div>
             <h1 class="title-main animate-fade-down delay-2">EL SEÑOR<br>DE LOS MARES</h1>
@@ -491,8 +491,8 @@ export class GameEngine {
 
        // Show act transition screen before rendering node
        const actInfo = {
-         act2: { num: 'II', title: 'Madrid', sub: 'El Escorial · La Corte del Rey Prudente', img: 'escorial.webp' },
-         act3: { num: 'III', title: 'Lisboa y las Azores', sub: 'La Armada · El Destino del Imperio', img: 'barco.webp' }
+         act2: { num: 'II', title: 'Madrid', sub: 'El Escorial · La Corte del Rey Prudente', img: './images/scenes/escorial.webp' },
+         act3: { num: 'III', title: 'Lisboa y las Azores', sub: 'La Armada · El Destino del Imperio', img: './images/scenes/barco.webp' }
        };
        if (actInfo[nextTrack]) {
          this._showActTransition(actInfo[nextTrack], node);
@@ -1077,7 +1077,7 @@ export class GameEngine {
   _showActTransition(info, node) {
     this.container.innerHTML = `
       <div class="act-transition" id="act-transition">
-        <div class="act-transition-bg" style="background-image:url('./${info.img}')"></div>
+        <div class="act-transition-bg" style="background-image:url('${info.img}')"></div>
         <div class="act-transition-content">
           <div class="act-transition-label">ACTO</div>
           <div class="act-transition-num">${info.num}</div>
