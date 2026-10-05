@@ -815,6 +815,18 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
 @media (max-width: 768px) {
   body { overflow: hidden; height: 100vh; height: 100dvh; background: #000; }
 
+  .title-screen {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    align-items: stretch;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
   /* ── GAME CONTAINER: full screen fixed ── */
   .pro-container {
     height: 100vh; height: 100dvh;
@@ -943,7 +955,7 @@ body.cinematic-mode.active-bars::after { transform: translateY(0); }
   .pro-option:hover { transform: none; } /* disable slide on touch */
 
   /* ── TITLE SCREEN MOBILE ── */
-  .title-content { flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; padding-bottom: 4rem; }
+  .title-content { flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; padding-bottom: 1rem; }
   .hero-portrait { position: relative; height: 28vh; width: 100%; margin-bottom: -1rem; z-index: 5; }
   .hero-portrait img { height: 100%; width: 100%; object-fit: contain; }
   .title-text-block {
