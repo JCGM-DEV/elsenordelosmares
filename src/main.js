@@ -1,4 +1,3 @@
-import './style.css';
 import { GameEngine } from './engine.js';
 
 async function init() {
