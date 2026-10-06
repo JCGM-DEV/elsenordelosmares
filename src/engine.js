@@ -575,10 +575,10 @@ export class GameEngine {
         </div>
 
         <div class="nav-control">
-          ${ this.isMapAvailable() ? `<button id="map-toggle" class="map-btn">Plan del Palacio</button>` : ''}
-          <button id="btn-hud-music" class="map-btn" style="margin-left: ${this.isMapAvailable() ? '0.5rem' : '0'}; width: 44px;">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
-          <button id="btn-hud-tts" class="map-btn" style="margin-left: 0.4rem; width: 44px;" title="Narrador">${this.ttsEnabled ? '🗣️' : '🤫'}</button>
-          <button id="btn-hud-diary" class="map-btn" style="margin-left: 0.4rem; width: 44px;" title="Diario del Almirante">📖</button>
+          ${ this.isMapAvailable() ? `<button id="map-toggle" class="map-btn" title="Plan del Palacio">🗺️ <span class="map-text">Plan del Palacio</span></button>` : ''}
+          <button id="btn-hud-music" class="map-btn map-btn-icon" title="Música">${this.gameState.musicEnabled ? '🔊' : '🔇'}</button>
+          <button id="btn-hud-tts" class="map-btn map-btn-icon" title="Narrador">${this.ttsEnabled ? '🗣️' : '🤫'}</button>
+          <button id="btn-hud-diary" class="map-btn map-btn-icon" title="Diario del Almirante">📖</button>
         </div>
 
         <div class="header-overlay">
